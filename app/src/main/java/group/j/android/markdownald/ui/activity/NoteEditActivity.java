@@ -1,8 +1,8 @@
 package group.j.android.markdownald.ui.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -21,6 +21,8 @@ public class NoteEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_edit);
         noteEditText = findViewById(R.id.note_edit_text);
+        Zidongbuquan z = new Zidongbuquan(noteEditText);
+        z.run();
         //Implementation for auto-completion here
     }
 
