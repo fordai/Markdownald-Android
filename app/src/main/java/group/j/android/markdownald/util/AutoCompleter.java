@@ -1,4 +1,4 @@
-package group.j.android.markdownald.ui.activity;
+package group.j.android.markdownald.util;
 
 import android.content.Context;
 import android.text.Editable;
@@ -8,27 +8,31 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class Zidongbuquan {
+/**
+ * Complete the markdown syntax automatically
+ */
+public class AutoCompleter {
 
     private ArrayList<String> al = new ArrayList<>();
     private ArrayAdapter<String> adapter;
     private EditText et;
-    private TextView tv;
     private Context c;
     private Spinner sp;
     private int preLength = 0;
 
-    public Zidongbuquan(EditText et){
+    public ArrayAdapter<String> getAdapter() {
+        return adapter;
+    }
+
+    public AutoCompleter(EditText et){
         this.et = et;
     }
 
-    public Zidongbuquan(EditText et, TextView tv, Spinner sp, Context c){
+    public AutoCompleter(EditText et, Spinner sp, Context c){
         this.et = et;
-        this.tv = tv;
         this.sp = sp;
         this.c = c;
     }
@@ -39,8 +43,8 @@ public class Zidongbuquan {
     }
 
     private void addSpinner(){
-        adapter = new ArrayAdapter(c,android.R.layout.simple_spinner_dropdown_item,al);  //创建一个数组适配器
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);     //设置下拉列表框的下拉选项样式
+        adapter = new ArrayAdapter(c,android.R.layout.simple_spinner_dropdown_item,al);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp.setAdapter(adapter);
         sp.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
             public void onItemSelected(AdapterView<?> parent, View view,
@@ -50,10 +54,8 @@ public class Zidongbuquan {
 
             public void onNothingSelected(AdapterView<?> arg0) {
             }
-
         });
     }
-
 
     private void deletTextListener(){
         et.addTextChangedListener(new TextWatcher() {

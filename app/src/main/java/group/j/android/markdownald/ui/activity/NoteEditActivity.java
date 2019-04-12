@@ -7,7 +7,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
+
 import group.j.android.markdownald.R;
+import group.j.android.markdownald.util.AutoCompleter;
+
 
 /**
  * The note edit interface for editing the content of a note.
@@ -21,9 +24,10 @@ public class NoteEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_edit);
         noteEditText = findViewById(R.id.note_edit_text);
-        Zidongbuquan z = new Zidongbuquan(noteEditText);
-        z.run();
+
         //Implementation for auto-completion here
+        AutoCompleter z = new AutoCompleter(noteEditText);
+        z.run();
     }
 
     @Override
