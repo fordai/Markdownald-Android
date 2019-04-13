@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import group.j.android.markdownald.R;
+import group.j.android.markdownald.util.MarkdownRenderer;
 
 /**
  * The note preview interface for displaying markdown rendering effect.
@@ -21,8 +22,10 @@ public class NotePreviewActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String content = intent.getStringExtra("note_content");
         TextView textView = findViewById(R.id.preview_view);
+
         // Implementation for markdown rendering here
-        textView.setText(content);
+        MarkdownRenderer markdownRenderer = new MarkdownRenderer(this);
+        markdownRenderer.setMarkdown(textView, content);
     }
 
     @Override
