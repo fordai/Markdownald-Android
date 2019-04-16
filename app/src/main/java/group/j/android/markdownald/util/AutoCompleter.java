@@ -95,11 +95,9 @@ public class AutoCompleter {
                     ss = et.getText().toString();
                     if(al.contains(ss)){
                         run = true;
-                    }else if(ss.startsWith("***")&&ss.charAt(3)!='*'&&!ss.endsWith("***")) {
+                    }else if(ss.startsWith("**")&&ss.charAt(1)!='*'&&!ss.endsWith("**")){
                         run = true;
-                    }else if(ss.startsWith("**")&&ss.charAt(2)!='*'&&!ss.endsWith("**")){
-                        run = true;
-                    }else if(ss.startsWith("*")&&ss.charAt(1)!='*'&&!ss.endsWith("*")){
+                    }else if(ss.startsWith("*")&&ss.charAt(0)!='*'&&!ss.endsWith("*")){
                         run = true;
                     }
                     length = et.getText().length();
