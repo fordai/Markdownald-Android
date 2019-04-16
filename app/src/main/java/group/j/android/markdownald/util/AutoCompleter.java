@@ -126,7 +126,6 @@ public class AutoCompleter {
     }
 
     private void initial(){
-        al.add("*****");
         al.add("***");
         al.add("*");
     }
