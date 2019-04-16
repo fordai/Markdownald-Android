@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import group.j.android.markdownald.R;
 import group.j.android.markdownald.util.AutoCompleter;
+import group.j.android.markdownald.util.MarkdownSyntaxHighlighter;
 
 
 /**
@@ -28,6 +29,10 @@ public class NoteEditActivity extends AppCompatActivity {
         //Implementation for auto-completion here
         AutoCompleter z = new AutoCompleter(noteEditText);
         z.run();
+
+        //Implementation for syntax highlight
+        MarkdownSyntaxHighlighter highlighter = new MarkdownSyntaxHighlighter();
+        highlighter.highlight(noteEditText);
     }
 
     @Override
