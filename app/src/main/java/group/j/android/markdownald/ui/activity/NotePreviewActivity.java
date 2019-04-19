@@ -11,7 +11,8 @@ import group.j.android.markdownald.R;
 import group.j.android.markdownald.util.MarkdownRenderer;
 
 /**
- * The note preview interface for displaying markdown rendering effect.
+ * Implements the interface for displaying Markdown rendering effect.
+ * User can share his note in this interface.
  */
 public class NotePreviewActivity extends AppCompatActivity {
 
@@ -20,26 +21,25 @@ public class NotePreviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_preview);
         Intent intent = getIntent();
-        String title = intent.getStringExtra("note_name");
-        this.setTitle(title);
+        this.setTitle(intent.getStringExtra("note_title"));
         String content = intent.getStringExtra("note_content");
-        TextView textView = findViewById(R.id.preview_view);
+        TextView text_preview = findViewById(R.id.text_preview);
 
         // Implementation for markdown rendering here
         MarkdownRenderer markdownRenderer = new MarkdownRenderer(this);
-        markdownRenderer.setMarkdown(textView, content);
+        markdownRenderer.setMarkdown(text_preview, content);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.note_preview, menu);
+        getMenuInflater().inflate(R.menu.activity_preview, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.close_item:
+            case R.id.menu_close:
                 this.finish();
             default:
         }

@@ -14,44 +14,43 @@ import group.j.android.markdownald.util.MarkdownSyntaxHighlighter;
 
 
 /**
- * The note edit interface for editing the content of a note.
- * Syntax highlight and auto-completion should be offered here.
+ * Implements the interface for editing the note. Syntax highlight and auto-completion should be offered here.
+ * By clicking the button, user can preview the effect of Markdown.
  */
 public class NoteEditActivity extends AppCompatActivity {
-    EditText noteEditText;
+    EditText edit_note;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_edit);
         Intent intent = getIntent();
-        String title = intent.getStringExtra("note_name");
-        this.setTitle(title);
-        noteEditText = findViewById(R.id.note_edit_text);
+        this.setTitle(intent.getStringExtra("note_title"));
+        edit_note = findViewById(R.id.edit_note);
 
         //Implementation for auto-completion here
-        AutoCompleter z = new AutoCompleter(noteEditText);
+        AutoCompleter z = new AutoCompleter(edit_note);
         z.run();
 
         //Implementation for syntax highlight
         MarkdownSyntaxHighlighter highlighter = new MarkdownSyntaxHighlighter();
-        highlighter.highlight(noteEditText);
+        highlighter.highlight(edit_note);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.note_edit, menu);
+        getMenuInflater().inflate(R.menu.activity_note_edit, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.preview_note:
-                String content = noteEditText.getText().toString();
+            case R.id.menu_preview:
+                String content = edit_note.getText().toString();
                 Intent intent = new Intent(this, NotePreviewActivity.class);
                 intent.putExtra("note_content", content);
-                intent.putExtra("note_name", getTitle());
+                intent.putExtra("note_title", getTitle());
                 startActivity(intent);
             default:
         }

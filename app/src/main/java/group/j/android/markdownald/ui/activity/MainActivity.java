@@ -9,7 +9,8 @@ import android.view.MenuItem;
 import group.j.android.markdownald.R;
 
 /**
- * The home page of this app.
+ * Implements the home page.
+ * By clicking the button, user can create the new note or directory.
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -21,19 +22,19 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.activity_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.create_note:
+            case R.id.menu_create:
                 Intent intent = new Intent(this, NoteCreateActivity.class);
                 startActivity(intent);
             default:
         }
+
         return true;
     }
-
 }

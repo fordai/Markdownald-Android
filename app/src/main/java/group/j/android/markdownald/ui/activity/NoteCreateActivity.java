@@ -10,24 +10,25 @@ import android.widget.EditText;
 import group.j.android.markdownald.R;
 
 /**
- * The interface for naming the new note.
+ * Implements the interface for naming the new note.
+ * After creating a new note, the user can edit it.
  */
 public class NoteCreateActivity extends AppCompatActivity {
-    private EditText nameEdit;
-    private Button create;
+    private EditText edit_title;
+    private Button btn_create;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_note);
-        nameEdit = findViewById(R.id.name);
-        create = findViewById(R.id.create_button);
-        create.setOnClickListener(new View.OnClickListener() {
+        edit_title = findViewById(R.id.edit_title);
+        btn_create = findViewById(R.id.btn_create);
+        btn_create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = nameEdit.getText().toString();
+                String name = edit_title.getText().toString();
                 Intent intent = new Intent(NoteCreateActivity.this, NoteEditActivity.class);
-                intent.putExtra("note_name", name);
+                intent.putExtra("note_title", name);
                 startActivity(intent);
             }
         });
