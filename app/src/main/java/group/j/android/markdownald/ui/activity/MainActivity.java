@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.create_note:
-                Intent intent = new Intent(this, NoteEditActivity.class);
+                Intent intent = new Intent(this, NoteCreateActivity.class);
                 startActivity(intent);
             default:
         }

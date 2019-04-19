@@ -20,6 +20,8 @@ public class NotePreviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_preview);
         Intent intent = getIntent();
+        String title = intent.getStringExtra("note_name");
+        this.setTitle(title);
         String content = intent.getStringExtra("note_content");
         TextView textView = findViewById(R.id.preview_view);
 

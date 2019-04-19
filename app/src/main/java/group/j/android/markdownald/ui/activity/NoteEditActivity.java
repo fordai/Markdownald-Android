@@ -24,6 +24,9 @@ public class NoteEditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_edit);
+        Intent intent = getIntent();
+        String title = intent.getStringExtra("note_name");
+        this.setTitle(title);
         noteEditText = findViewById(R.id.note_edit_text);
 
         //Implementation for auto-completion here
@@ -48,6 +51,7 @@ public class NoteEditActivity extends AppCompatActivity {
                 String content = noteEditText.getText().toString();
                 Intent intent = new Intent(this, NotePreviewActivity.class);
                 intent.putExtra("note_content", content);
+                intent.putExtra("note_name", getTitle());
                 startActivity(intent);
             default:
         }
