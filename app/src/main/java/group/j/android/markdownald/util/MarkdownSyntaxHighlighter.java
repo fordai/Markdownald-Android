@@ -28,6 +28,16 @@ public class MarkdownSyntaxHighlighter {
     final Prism4jTheme prism4jTheme = Prism4jThemeDefault.create();
     final SyntaxHighlight highlight = Prism4jSyntaxHighlight.create(prism4j, prism4jTheme);
 
+    public CharSequence highlight(String content) {
+        CharSequence charSequence = "";
+
+        if (!content.isEmpty()) {
+            charSequence = highlight.highlight("markdown", content);
+        }
+
+        return charSequence;
+    }
+
     public void highlight(final EditText editText) {
         editText.addTextChangedListener(new TextWatcher() {
             int start;
