@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "group.j.android.markdownald"
-        minSdkVersion 16
+        minSdkVersion 27
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -35,4 +35,5 @@ dependencies {
     final def latest_version = "1.1.0"
     implementation "ru.noties:prism4j:$latest_version"
     annotationProcessor "ru.noties:prism4j-bundler:$latest_version"
+    implementation files('lib/zxing-3.3.3.jar')
 }

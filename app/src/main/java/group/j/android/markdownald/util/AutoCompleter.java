@@ -17,42 +17,44 @@ import java.util.ArrayList;
 public class AutoCompleter {
 
     private ArrayList<String> al = new ArrayList<>();
-    private ArrayAdapter<String> adapter;
     private EditText et;
-    private Context c;
-    private Spinner sp;
-    private int preLength = 0;
 
-    public ArrayAdapter<String> getAdapter() {
-        return adapter;
-    }
 
     public AutoCompleter(EditText et){
         this.et = et;
     }
 
-    public AutoCompleter(EditText et, Spinner sp, Context c){
-        this.et = et;
-        this.sp = sp;
-        this.c = c;
-    }
-
     public void run(){
         initial();
-        addMyTextListener();
+        addMyTextListener2();
     }
 
-    private void addSpinner(){
-        adapter = new ArrayAdapter(c,android.R.layout.simple_spinner_dropdown_item,al);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sp.setAdapter(adapter);
-        sp.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int position, long id) {
-//                addChar(et, parent.getSelectedItem().toString());
+    private void addMyTextListener2(){
+        et.addTextChangedListener(new TextWatcher() {
+            String preContent = "";
+            String curContent = "";
+            boolean add = false;
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                curContent = et.getText().toString();
+                if(curContent.charAt(curContent.length()-1)=='*'){
+                    add = true;
+                }
             }
 
-            public void onNothingSelected(AdapterView<?> arg0) {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                preContent = et.getText().toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (add) {
+                    et.removeTextChangedListener(this);
+                    et.append("*");
+                    et.setSelection(curContent.length() / 2 + 1);
+                    addMyTextListener();
+                }
             }
         });
     }
@@ -130,8 +132,5 @@ public class AutoCompleter {
         al.add("*");
     }
 
-    public ArrayList<String> getAl(){
-        return al;
-    }
 
 }
