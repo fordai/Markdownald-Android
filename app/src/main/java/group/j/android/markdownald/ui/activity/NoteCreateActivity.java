@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import group.j.android.markdownald.R;
+import group.j.android.markdownald.util.FileUtils;
 
 /**
  * Implements the interface for naming the new note.
  * After creating a new note, the user can edit it.
+ * If the name is the same as the previous one, a hint should be offered.
  */
 public class NoteCreateActivity extends AppCompatActivity {
     private EditText edit_title;
@@ -27,9 +30,14 @@ public class NoteCreateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String name = edit_title.getText().toString();
-                Intent intent = new Intent(NoteCreateActivity.this, NoteEditActivity.class);
-                intent.putExtra("note_title", name);
-                startActivity(intent);
+                if (!FileUtils.exists(NoteCreateActivity.this, name)) {
+                    FileUtils.save(NoteCreateActivity.this, name);
+                    Intent intent = new Intent(NoteCreateActivity.this, MainActivity.class);
+                    intent.putExtra("note_title", name);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(NoteCreateActivity.this, "This note has been created", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
