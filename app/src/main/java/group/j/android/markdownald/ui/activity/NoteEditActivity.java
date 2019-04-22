@@ -52,13 +52,6 @@ public class NoteEditActivity extends AppCompatActivity {
                 intent.putExtra("note_content", content);
                 intent.putExtra("note_title", getTitle());
                 startActivity(intent);
-                break;
-            case R.id.menu_share:
-                String contentQR = edit_note.getText().toString();
-                Intent intentQR = new Intent(this, NoteQRActivity.class);
-                intentQR.putExtra("note_QR", contentQR);
-                startActivity(intentQR);
-                break;
             default:
         }
         return true;
