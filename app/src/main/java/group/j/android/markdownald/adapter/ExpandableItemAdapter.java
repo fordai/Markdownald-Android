@@ -7,6 +7,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout;
 
 import java.util.List;
 
@@ -32,6 +33,15 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
         this.setDefaultViewTypeLayout(layoutResId);
         addItemType(TYPE_LEVEL_ZERO, R.layout.activity_main_recycler);
         addItemType(TYPE_LEVEL_ONE, R.layout.activity_main_recycler);
+    }
+
+    @Override
+    public void onBindViewHolder(BaseViewHolder holder, int position) {
+        super.onBindViewHolder(holder, position);
+        if (position == 0) {
+            EasySwipeMenuLayout easySwipeMenuLayout = holder.getView(R.id.layout_swipe_menu);
+            easySwipeMenuLayout.setCanLeftSwipe(false);
+        }
     }
 
     @Override
@@ -85,4 +95,5 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
             }
         });
     }
+
 }
