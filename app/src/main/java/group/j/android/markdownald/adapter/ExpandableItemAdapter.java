@@ -87,7 +87,10 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
             public void onClick(View v) {
                 int pos = holder.getAdapterPosition();
                 if (getData().get(pos) instanceof Note) {
-                    FileUtils.delete(context, ((Note) getData().get(pos)).getTitle());
+                    FileUtils.deleteDefault(context, ((Note) getData().get(pos)).getTitle());
+                }
+                if (getData().get(pos) instanceof Notebook) {
+                    FileUtils.deleteNotebook(context, ((Notebook) getData().get(pos)).getTitle());
                 }
                 remove(pos);
 

@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.EditText;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
@@ -26,37 +27,104 @@ import group.j.android.markdownald.model.Notebook;
  * Implements file operations.
  */
 public class FileUtils {
-    public static boolean exists(Context context, String name) {
-        File file = context.getFileStreamPath(name);
-        return file.exists();
+    private static final String TAG = "FileUtils";
+
+    private static String getDataDir(Context context) {
+        String dataDir = context.getFilesDir().getAbsolutePath() + File.separator + "Data";
+
+        File file = new File(dataDir);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+
+        return dataDir;
     }
 
-    public static void save(Context context, String title) {
-        save(context, title, "");
+    private static String getNotebookDir(Context context, String notebook) {
+        String notebookDir = getDataDir(context) + File.separator + notebook;
+
+        File file = new File(notebookDir);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+
+        return notebookDir;
     }
 
-    public static void save(Context context, String title, String content) {
-        FileOutputStream out = null;
-        BufferedWriter writer = null;
+    private static File getNoteFile(Context context, String notebook, String note) {
+        String notePath = getNotebookDir(context, notebook) + File.separator + note;
 
-        try {
-            out = context.openFileOutput(title, Context.MODE_PRIVATE);
-            writer = new BufferedWriter(new OutputStreamWriter(out));
-            writer.write(content);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
+        File noteFile = new File(notePath);
+        if (!noteFile.exists()) {
             try {
-                if (writer != null) {
-                    writer.close();
-                }
+                noteFile.createNewFile();
+
+                Log.d(TAG, "Created note successfully: " + notePath);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+
+        return noteFile;
     }
 
-    public static void save(final Context context, final String title, final EditText editText) {
+    public static boolean exists(Context context, String name) {
+        return new File(getNotebookDir(context, "Default"), name).exists();
+    }
+
+    public static ArrayList<MultiItemEntity> load(Context context) {
+        ArrayList<MultiItemEntity> data = new ArrayList<>();
+
+        File dataDir = new File(getDataDir(context));
+        for (File notebookFile : dataDir.listFiles()) {
+            Notebook notebook = new Notebook(notebookFile.getName());
+            for (File noteFile : notebookFile.listFiles()) {
+                String title = noteFile.getName();
+                Note note = new Note(title, load(context, notebook.getTitle(), title));
+                notebook.addSubItem(note);
+            }
+            data.add(notebook);
+        }
+
+        if (data.isEmpty()) {
+            data.add(new Notebook("Default"));
+        }
+
+        return data;
+    }
+
+    public static String load(Context context, String notebook, String note) {
+        StringBuilder content = new StringBuilder();
+        FileInputStream in = null;
+        BufferedReader reader = null;
+
+        try {
+            File file = getNoteFile(context, notebook, note);
+            in = new FileInputStream(file);
+            reader = new BufferedReader(new InputStreamReader(in));
+            String line = "";
+            while ((line = reader.readLine()) != null) {
+                content.append(line);
+                content.append("\n");
+            }
+
+            Log.d(TAG, "Loaded note successfully: " + file.getAbsolutePath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return content.toString();
+    }
+
+    public static void save(final Context context, final String notebook, final String note, final EditText editText) {
         editText.addTextChangedListener(new TextWatcher() {
             Handler handler = new Handler(Looper.myLooper());
             Runnable runnable;
@@ -75,7 +143,7 @@ public class FileUtils {
                 runnable = new Runnable() {
                     @Override
                     public void run() {
-                        FileUtils.save(context, title, editText.getText().toString());
+                        saveToSpecific(context, notebook, note, editText.getText().toString());
                     }
                 };
                 handler.postDelayed(runnable, 500);
@@ -83,55 +151,66 @@ public class FileUtils {
         });
     }
 
-    public static ArrayList<MultiItemEntity> load(Context context) {
-        ArrayList<MultiItemEntity> res = new ArrayList<>();
-        String noteTitle;
-        Notebook notebook = new Notebook("Default");
-        File directory = context.getFilesDir();
-        File[] files = directory.listFiles();
+    public static boolean saveToDir(Context context, String notebook) {
+        boolean success = false;
+        String notebookDir = getDataDir(context) + File.separator + notebook;
 
-        for (File file : files) {
-            if (!file.isDirectory()) {
-                noteTitle = file.getName();
-                Note note = new Note(noteTitle, load(context, noteTitle));
-                notebook.addSubItem(note);
-            }
+        File file = new File(notebookDir);
+        if (!file.exists()) {
+            file.mkdirs();
+            success = true;
+            Log.d(TAG, "Saved notebook successfully: " + notebookDir);
         }
-        res.add(notebook);
 
-        return res;
+        return success;
     }
 
-    public static String load(Context context, String fileName) {
-        FileInputStream in = null;
-        BufferedReader reader = null;
-        StringBuilder content = new StringBuilder();
+    public static void saveToDefault(Context context, String note) {
+        saveToSpecific(context, "Default", note, "");
+    }
+
+    public static void saveToSpecific(Context context, String notebook, String note, String content) {
+        FileOutputStream out = null;
+        BufferedWriter writer = null;
 
         try {
-            in = context.openFileInput(fileName);
-            reader = new BufferedReader(new InputStreamReader(in));
-            String line = "";
-            while ((line = reader.readLine()) != null) {
-                content.append(line);
-                content.append("\n");
-            }
+            File file = getNoteFile(context, notebook, note);
+            out = new FileOutputStream(file);
+            writer = new BufferedWriter(new OutputStreamWriter(out));
+            writer.write(content);
+
+            Log.d(TAG, "Saved note successfully: " + file.getAbsolutePath());
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+            try {
+                if (writer != null) {
+                    writer.close();
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
-
-        return content.toString();
     }
 
-    public static void delete(Context context, String title) {
-        context.deleteFile(title);
+    public static void deleteDefault(Context context, String note) {
+        deleteNote(context, "Default", note);
+    }
+
+    public static void deleteNotebook(Context context, String notebook) {
+        File file = new File(getNotebookDir(context, notebook));
+
+        if (file.delete()) {
+            Log.d(TAG, "Deleted notebook successfully: " + file.getAbsolutePath());
+        }
+    }
+
+    public static void deleteNote(Context context, String notebook, String note) {
+        File file = getNoteFile(context, notebook, note);
+
+        if (file.delete()) {
+            Log.d(TAG, "Deleted note successfully: " + file.getAbsolutePath());
+        }
     }
 
 }

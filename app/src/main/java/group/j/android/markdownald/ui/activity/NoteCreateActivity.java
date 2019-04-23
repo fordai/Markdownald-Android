@@ -31,9 +31,8 @@ public class NoteCreateActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String name = edit_title.getText().toString();
                 if (!FileUtils.exists(NoteCreateActivity.this, name)) {
-                    FileUtils.save(NoteCreateActivity.this, name);
+                    FileUtils.saveToDefault(NoteCreateActivity.this, name);
                     Intent intent = new Intent(NoteCreateActivity.this, MainActivity.class);
-                    intent.putExtra("note_title", name);
                     startActivity(intent);
                 } else {
                     Toast.makeText(NoteCreateActivity.this, "This note has been created", Toast.LENGTH_SHORT).show();

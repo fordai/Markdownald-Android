@@ -39,7 +39,7 @@ public class NoteEditActivity extends AppCompatActivity {
         edit_note.setSelection(edit_note.getText().length());
 
         // Implementation for auto-save
-        FileUtils.save(this, this.getTitle().toString(), edit_note);
+        FileUtils.save(this, "Default", this.getTitle().toString(), edit_note);
     }
 
     @Override
