@@ -54,10 +54,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_create:
-                Intent intent = new Intent(this, NoteCreateActivity.class);
-                startActivity(intent);
+            case R.id.menu_create_note:
+                Intent noteIntent = new Intent(this, NoteCreateActivity.class);
+                startActivity(noteIntent);
+                break;
+            case R.id.menu_create_directory:
+                Intent directoryIntent = new Intent(this, DirectoryCreateActivity.class);
+                startActivity(directoryIntent);
+                break;
             default:
+                break;
         }
 
         return true;
