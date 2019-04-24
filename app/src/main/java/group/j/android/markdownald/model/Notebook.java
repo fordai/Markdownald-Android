@@ -30,7 +30,7 @@ public class Notebook extends AbstractExpandableItem<Note> implements MultiItemE
 
     @Override
     public int getLevel() {
-        return -1;
+        return 1;
     }
 
     @Override

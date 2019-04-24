@@ -200,6 +200,10 @@ public class FileUtils {
     public static void deleteNotebook(Context context, String notebook) {
         File file = new File(getNotebookDir(context, notebook));
 
+        File[] subFiles = file.listFiles();
+        for (int i = 0; i < subFiles.length; i++) {
+            deleteNote(context, notebook, subFiles[i].getName());
+        }
         if (file.delete()) {
             Log.d(TAG, "Deleted notebook successfully: " + file.getAbsolutePath());
         }
@@ -211,6 +215,12 @@ public class FileUtils {
         if (file.delete()) {
             Log.d(TAG, "Deleted note successfully: " + file.getAbsolutePath());
         }
+    }
+
+    public static void move(Context context, String source, String destination, String title) {
+        String content = load(context, source, title);
+        deleteNote(context, source, title);
+        saveToSpecific(context, destination, title, content);
     }
 
 }

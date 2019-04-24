@@ -1,6 +1,7 @@
 package group.j.android.markdownald.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -10,6 +11,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
 import group.j.android.markdownald.R;
+import group.j.android.markdownald.ui.activity.NoteMoveActivity;
 
 /**
  * Implements <code>PopupWindow</code> for more operations, such as renaming and move.
@@ -19,6 +21,8 @@ public class MorePopupWindow extends PopupWindow {
     private View view;
     private Button btn_move;
     private Button btn_rename;
+    private String note;
+    private String notebook = "";
 
     public MorePopupWindow(Context context) {
         this.context = context;
@@ -55,11 +59,23 @@ public class MorePopupWindow extends PopupWindow {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.btn_move:
+                    dismiss();
+                    Intent intent = new Intent(context, NoteMoveActivity.class);
+                    intent.putExtra("note_title", note);
+                    intent.putExtra("notebook_title", notebook);
+                    context.startActivity(intent);
                     break;
                 case R.id.btn_rename:
+                    dismiss();
                     break;
             }
         }
     };
+
+    public void showAtLocation(View parent, int gravity, int x, int y, String notebook, String note) {
+        super.showAtLocation(parent, gravity, x, y);
+        this.notebook = notebook;
+        this.note = note;
+    }
 
 }

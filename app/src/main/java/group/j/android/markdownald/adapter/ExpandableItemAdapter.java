@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.PopupWindow;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -30,7 +29,7 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
     private static final int TYPE_LEVEL_ONE = 1;
 
     private Context context;
-    private PopupWindow popupWindow;
+    private MorePopupWindow popupWindow;
 
     public ExpandableItemAdapter(List<MultiItemEntity> data, Context context, int layoutResId) {
         super(data);
@@ -44,7 +43,8 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
-        if (position == 0) {
+        MultiItemEntity tmp = getData().get(position);
+        if (tmp instanceof Notebook && ((Notebook) tmp).getTitle().equals("Default")) {
             EasySwipeMenuLayout easySwipeMenuLayout = holder.getView(R.id.layout_swipe_menu);
             easySwipeMenuLayout.setCanLeftSwipe(false);
         }
@@ -109,7 +109,12 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
             public void onClick(View v) {
                 EasySwipeMenuLayout easySwipeMenuLayout = holder.getView(R.id.layout_swipe_menu);
                 easySwipeMenuLayout.resetStatus();
-                popupWindow.showAtLocation(LayoutInflater.from(context).inflate(R.layout.activity_main_window, null), Gravity.BOTTOM, 0, 0);
+                int pos = holder.getAdapterPosition();
+                if (getData().get(pos) instanceof Note) {
+                    String name = ((Note) getData().get(pos)).getTitle();
+                    String notebook = ((Notebook) (getData().get(getParentPosition(getData().get(pos))))).getTitle();
+                    popupWindow.showAtLocation(LayoutInflater.from(context).inflate(R.layout.activity_main_window, null), Gravity.BOTTOM, 0, 0, notebook, name);
+                }
             }
         });
     }
