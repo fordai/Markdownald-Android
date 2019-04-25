@@ -30,6 +30,7 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
 
     private Context context;
     private MorePopupWindow popupWindow;
+    private EasySwipeMenuLayout easySwipeMenuLayout;
 
     public ExpandableItemAdapter(List<MultiItemEntity> data, Context context, int layoutResId) {
         super(data);
@@ -45,7 +46,9 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
         super.onBindViewHolder(holder, position);
         MultiItemEntity tmp = getData().get(position);
         if (tmp instanceof Notebook && ((Notebook) tmp).getTitle().equals("Default")) {
-            EasySwipeMenuLayout easySwipeMenuLayout = holder.getView(R.id.layout_swipe_menu);
+            if (easySwipeMenuLayout == null) {
+                this.easySwipeMenuLayout = holder.getView(R.id.layout_swipe_menu);
+            }
             easySwipeMenuLayout.setCanLeftSwipe(false);
         }
     }
