@@ -37,4 +37,12 @@ public class Notebook extends AbstractExpandableItem<Note> implements MultiItemE
     public int getItemType() {
         return 0;
     }
+
+    @Override
+    public String toString() {
+        return "Notebook{" +
+                "title='" + title + '\'' +
+                ", mSubItems=" + mSubItems +
+                '}';
+    }
 }
