@@ -18,8 +18,7 @@ import group.j.android.markdownald.util.MarkdownSyntaxHighlighter;
  */
 public class NoteEditActivity extends AppCompatActivity {
     private static final String TAG = "NoteEditActivity";
-
-    EditText edit_note;
+    private EditText edit_note;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +58,7 @@ public class NoteEditActivity extends AppCompatActivity {
                 intent.putExtra("note_content", content);
                 intent.putExtra("note_title", getTitle());
                 startActivity(intent);
+                break;
             default:
         }
 

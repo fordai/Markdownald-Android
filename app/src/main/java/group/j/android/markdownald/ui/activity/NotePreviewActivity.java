@@ -16,6 +16,7 @@ import group.j.android.markdownald.util.MarkdownRenderer;
  */
 public class NotePreviewActivity extends AppCompatActivity {
     private static final String TAG = "NotePreviewActivity";
+    private TextView text_preview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +25,7 @@ public class NotePreviewActivity extends AppCompatActivity {
         Intent intent = getIntent();
         this.setTitle(intent.getStringExtra("note_title"));
         String content = intent.getStringExtra("note_content");
-        TextView text_preview = findViewById(R.id.text_preview);
+        text_preview = findViewById(R.id.text_preview);
 
         // Implementation for markdown rendering here
         MarkdownRenderer markdownRenderer = new MarkdownRenderer(this);
@@ -42,6 +43,13 @@ public class NotePreviewActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_close:
                 this.finish();
+                break;
+            case R.id.menu_share:
+                String contentQR = text_preview.getText().toString();
+                Intent intentQR = new Intent(this, NoteShareActivity.class);
+                intentQR.putExtra("note_QR", contentQR);
+                startActivity(intentQR);
+                break;
             default:
         }
 

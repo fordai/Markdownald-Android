@@ -15,4 +15,5 @@
     <string name="move_destination">Destination</string>
     <string name="move_move">Move</string>
     <string name="move_hint">Please type notebook name here</string>
+    <string name="title_activity_note_share">NoteShareActivity</string>
 </resources>
