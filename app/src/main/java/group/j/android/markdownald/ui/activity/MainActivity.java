@@ -18,31 +18,43 @@ import group.j.android.markdownald.adapter.ExpandableItemAdapter;
 import group.j.android.markdownald.util.FileUtils;
 
 /**
- * Implements the home page.
- * By clicking the button, user can create the new note or directory.
+ * Implements the homepage.
+ * The notebooks are displayed and there is a default notebook on the top that cannot be moved/swiped and deleted.
+ * <p>
+ * Its functionality includes:
+ * <ul>
+ * <li>By clicking the button on the top right corner, create a new note or notebook;</li>
+ * <li>By clicking one notebook, display/hide its notes;</li>
+ * <li>By clicking one note, display and edit its content;</li>
+ * <li>By swiping to left, delete a note or notebook;</li>
+ * <li>By swiping to left, do more operations including moving and renaming;</li>
+ * </ul>
  */
 public class MainActivity extends AppCompatActivity {
-    private ArrayList<MultiItemEntity> notes;
-    private ExpandableItemAdapter adapter;
+    private static final String TAG = "MainActivity";
+
+    private ArrayList<MultiItemEntity> mNotes;
+    private ExpandableItemAdapter mAdapter;
+    private RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        RecyclerView recyclerView = findViewById(R.id.recycler_note_list);
-        notes = FileUtils.load(this);
-        adapter = new ExpandableItemAdapter(notes, MainActivity.this, R.layout.activity_main_recycler);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        mRecyclerView = findViewById(R.id.recycler_note_list);
+        mNotes = FileUtils.load(this);
+        mAdapter = new ExpandableItemAdapter(mNotes, MainActivity.this, R.layout.activity_main_adapter);
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        notes.clear();
-        notes.addAll(FileUtils.load(this));
-        adapter.notifyDataSetChanged();
+        mNotes.clear();
+        mNotes.addAll(FileUtils.load(this));
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

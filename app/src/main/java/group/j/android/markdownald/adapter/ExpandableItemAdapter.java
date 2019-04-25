@@ -36,8 +36,8 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
         this.context = context;
         this.popupWindow = new MorePopupWindow(context);
         this.setDefaultViewTypeLayout(layoutResId);
-        addItemType(TYPE_LEVEL_ZERO, R.layout.activity_main_recycler);
-        addItemType(TYPE_LEVEL_ONE, R.layout.activity_main_recycler);
+        addItemType(TYPE_LEVEL_ZERO, R.layout.activity_main_adapter);
+        addItemType(TYPE_LEVEL_ONE, R.layout.activity_main_adapter);
     }
 
     @Override

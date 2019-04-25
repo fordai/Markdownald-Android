@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_create_note"
-        android:title="Create New Note" />
+        android:title="@string/main_create_note" />
     <item
         android:id="@+id/menu_create_directory"
-        android:title="Create New Directory" />
+        android:title="@string/main_create_notebook" />
 </menu>
