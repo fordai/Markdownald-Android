@@ -1,14 +1,18 @@
 package group.j.android.markdownald.ui.activity;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
+import java.util.ArrayList;
 
 import group.j.android.markdownald.R;
+import group.j.android.markdownald.adapter.NotebookAdapter;
 import group.j.android.markdownald.util.FileUtils;
 
 /**
@@ -16,31 +20,23 @@ import group.j.android.markdownald.util.FileUtils;
  */
 public class NoteMoveActivity extends AppCompatActivity {
     private static final String TAG = "NoteMoveActivity";
-    private static final String DUPLICATION_REMINDER = "The destination has the same note";
 
-    private EditText edit_destination_title;
-    private Button btn_move_note;
+    private ArrayList<MultiItemEntity> mNotes;
+    private NotebookAdapter mAdapter;
+    private RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_move);
-        edit_destination_title = findViewById(R.id.edit_destination_title);
-        btn_move_note = findViewById(R.id.btn_move_note);
-        btn_move_note.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String source = getIntent().getStringExtra("notebook_title");
-                String title = getIntent().getStringExtra("note_title");
-                String destination = edit_destination_title.getText().toString();
-                if (!FileUtils.exists(NoteMoveActivity.this, destination, title)) {
-                    FileUtils.move(NoteMoveActivity.this, source, destination, title);
-                    Intent intent = new Intent(NoteMoveActivity.this, MainActivity.class);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(NoteMoveActivity.this, DUPLICATION_REMINDER, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        mRecyclerView = findViewById(R.id.recycler_notebook_list);
+        mNotes = FileUtils.load(this);
+        mAdapter = new NotebookAdapter(this, mNotes);
+        mAdapter.setNotebook(getIntent().getStringExtra("notebook_title"));
+        mAdapter.setNote(getIntent().getStringExtra("note_title"));
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        Log.d(TAG, "onCreate: ");
     }
 }
