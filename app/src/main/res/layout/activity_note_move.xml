@@ -13,20 +13,22 @@
             android:layout_width="90sp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="Destination"
+            android:text="@string/move_destination"
             android:textSize="16sp" />
 
         <EditText
+            android:hint="@string/move_hint"
             android:id="@+id/edit_destination_title"
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:inputType="none" />
     </LinearLayout>
 
     <Button
         android:id="@+id/btn_move_note"
         android:layout_width="match_parent"
         android:layout_height="60sp"
-        android:text="Move" />
+        android:text="@string/move_move" />
 </LinearLayout>

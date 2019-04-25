@@ -11,7 +11,13 @@ import android.widget.Toast;
 import group.j.android.markdownald.R;
 import group.j.android.markdownald.util.FileUtils;
 
+/**
+ * Implements the interface for moving a note from its source to the destination.
+ */
 public class NoteMoveActivity extends AppCompatActivity {
+    private static final String TAG = "NoteMoveActivity";
+    private static final String DUPLICATION_REMINDER = "The destination has the same note";
+
     private EditText edit_destination_title;
     private Button btn_move_note;
 
@@ -32,7 +38,7 @@ public class NoteMoveActivity extends AppCompatActivity {
                     Intent intent = new Intent(NoteMoveActivity.this, MainActivity.class);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(NoteMoveActivity.this, "The destination has the same note", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NoteMoveActivity.this, DUPLICATION_REMINDER, Toast.LENGTH_SHORT).show();
                 }
             }
         });
