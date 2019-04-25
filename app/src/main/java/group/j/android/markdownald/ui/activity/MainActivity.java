@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(noteIntent);
                 break;
             case R.id.menu_create_directory:
-                Intent directoryIntent = new Intent(this, DirectoryCreateActivity.class);
+                Intent directoryIntent = new Intent(this, NotebookCreateActivity.class);
                 startActivity(directoryIntent);
                 break;
             default:
