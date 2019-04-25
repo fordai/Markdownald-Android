@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/holo_blue_light"
             android:padding="20dp"
-            android:text="More" />
+            android:text="@string/main_more" />
 
         <TextView
             android:id="@+id/text_delete"
@@ -42,6 +42,6 @@
             android:layout_height="wrap_content"
             android:background="@android:color/holo_red_light"
             android:padding="20dp"
-            android:text="Delete" />
+            android:text="@string/main_delete" />
     </LinearLayout>
 </com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout>

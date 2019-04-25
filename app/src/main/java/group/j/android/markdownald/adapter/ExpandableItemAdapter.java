@@ -113,7 +113,10 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
                 if (getData().get(pos) instanceof Note) {
                     String name = ((Note) getData().get(pos)).getTitle();
                     String notebook = ((Notebook) (getData().get(getParentPosition(getData().get(pos))))).getTitle();
-                    popupWindow.showAtLocation(LayoutInflater.from(context).inflate(R.layout.activity_main_window, null), Gravity.BOTTOM, 0, 0, notebook, name);
+                    popupWindow.showAtLocation(
+                            LayoutInflater.from(context).inflate(R.layout.activity_main_window, null),
+                            Gravity.BOTTOM, 0, 0,
+                            notebook, name);
                 }
             }
         });
