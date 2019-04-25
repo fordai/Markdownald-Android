@@ -13,7 +13,7 @@
             android:layout_width="90sp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="Title"
+            android:text="@string/create_title"
             android:textSize="18sp" />
 
         <EditText
@@ -21,12 +21,14 @@
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:hint="@string/create_hint"
+            android:inputType="none" />
     </LinearLayout>
 
     <Button
         android:id="@+id/btn_create"
         android:layout_width="match_parent"
         android:layout_height="60sp"
-        android:text="Create" />
+        android:text="@string/all_create" />
 </LinearLayout>

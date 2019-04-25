@@ -17,6 +17,9 @@ import group.j.android.markdownald.util.FileUtils;
  * If the name is the same as the previous one, a hint should be offered.
  */
 public class NoteCreateActivity extends AppCompatActivity {
+    private static final String TAG = "NoteCreateActivity";
+    private static final String DUPLICATION_REMINDER = "This note has been created";
+
     private EditText edit_title;
     private Button btn_create;
 
@@ -29,13 +32,13 @@ public class NoteCreateActivity extends AppCompatActivity {
         btn_create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = edit_title.getText().toString();
-                if (!FileUtils.exists(NoteCreateActivity.this, name)) {
-                    FileUtils.saveToDefault(NoteCreateActivity.this, name);
+                String title = edit_title.getText().toString();
+                if (!FileUtils.exists(NoteCreateActivity.this, title)) {
+                    FileUtils.saveToDefault(NoteCreateActivity.this, title);
                     Intent intent = new Intent(NoteCreateActivity.this, MainActivity.class);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(NoteCreateActivity.this, "This note has been created", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NoteCreateActivity.this, DUPLICATION_REMINDER, Toast.LENGTH_SHORT).show();
                 }
             }
         });

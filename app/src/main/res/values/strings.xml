@@ -2,4 +2,7 @@
     <string name="app_name">Markdownald</string>
     <string name="main_create_note">Create New Note</string>
     <string name="main_create_notebook">Create New Notebook</string>
+    <string name="create_title">Title</string>
+    <string name="create_hint">Please type here</string>
+    <string name="all_create">Create</string>
 </resources>
