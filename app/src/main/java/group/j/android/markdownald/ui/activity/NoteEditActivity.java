@@ -17,6 +17,8 @@ import group.j.android.markdownald.util.MarkdownSyntaxHighlighter;
  * By clicking the button, user can preview the effect of Markdown. Auto-completion is offered.
  */
 public class NoteEditActivity extends AppCompatActivity {
+    private static final String TAG = "NoteEditActivity";
+
     EditText edit_note;
 
     @Override

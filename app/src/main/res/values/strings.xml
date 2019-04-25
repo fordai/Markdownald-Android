@@ -5,4 +5,5 @@
     <string name="create_title">Title</string>
     <string name="create_hint">Please type here</string>
     <string name="all_create">Create</string>
+    <string name="edit_hint">Please type here</string>
 </resources>

@@ -15,6 +15,7 @@ import group.j.android.markdownald.util.MarkdownRenderer;
  * User can share his note in this interface.
  */
 public class NotePreviewActivity extends AppCompatActivity {
+    private static final String TAG = "NotePreviewActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
