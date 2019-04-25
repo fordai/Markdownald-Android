@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import group.j.android.markdownald.R;
 import group.j.android.markdownald.util.FileUtils;
@@ -26,9 +27,13 @@ public class NoteMoveActivity extends AppCompatActivity {
                 String source = getIntent().getStringExtra("notebook_title");
                 String title = getIntent().getStringExtra("note_title");
                 String destination = edit_destination_title.getText().toString();
-                FileUtils.move(NoteMoveActivity.this, source, destination, title);
-                Intent intent = new Intent(NoteMoveActivity.this, MainActivity.class);
-                startActivity(intent);
+                if (!FileUtils.exists(NoteMoveActivity.this, destination, title)) {
+                    FileUtils.move(NoteMoveActivity.this, source, destination, title);
+                    Intent intent = new Intent(NoteMoveActivity.this, MainActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(NoteMoveActivity.this, "The destination has the same note", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

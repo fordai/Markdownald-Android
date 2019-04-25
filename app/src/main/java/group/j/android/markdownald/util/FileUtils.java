@@ -72,6 +72,10 @@ public class FileUtils {
         return new File(getNotebookDir(context, "Default"), name).exists();
     }
 
+    public static boolean exists(Context context, String notebook, String note){
+        return new File(getNotebookDir(context, notebook), note).exists();
+    }
+
     public static ArrayList<MultiItemEntity> load(Context context) {
         ArrayList<MultiItemEntity> data = new ArrayList<>();
 
