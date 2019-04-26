@@ -39,7 +39,7 @@ dependencies {
     annotationProcessor "ru.noties:prism4j-bundler:$latest_version"
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.42'
     implementation 'com.github.anzaizai:EasySwipeMenuLayout:1.1.2'
-    implementation files('build/lib/iText-5.0.6.jar')
-    implementation files('build/lib/zxing-3.3.3.jar')
-    implementation files('build\\lib\\zxing-3.3.3.jar')
+    implementation files('lib/iText-5.0.6.jar')
+    implementation files('lib/zxing-3.3.3.jar')
+
 }
