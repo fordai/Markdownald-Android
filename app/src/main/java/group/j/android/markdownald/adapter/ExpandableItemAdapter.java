@@ -2,6 +2,7 @@ package group.j.android.markdownald.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,13 +30,15 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
     private static final int TYPE_LEVEL_ONE = 1;
 
     private Context context;
-    private MorePopupWindow popupWindow;
+    private MorePopupWindow notePopupWindow;
+    private MorePopupWindow notebookPopupWindow;
     private EasySwipeMenuLayout easySwipeMenuLayout;
 
     public ExpandableItemAdapter(List<MultiItemEntity> data, Context context, int layoutResId) {
         super(data);
         this.context = context;
-        this.popupWindow = new MorePopupWindow(context);
+        this.notePopupWindow = new MorePopupWindow(context, true);
+        this.notebookPopupWindow = new MorePopupWindow(context, false);
         this.setDefaultViewTypeLayout(layoutResId);
         addItemType(TYPE_LEVEL_ZERO, R.layout.activity_main_adapter);
         addItemType(TYPE_LEVEL_ONE, R.layout.activity_main_adapter);
@@ -96,7 +99,8 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
             public void onClick(View v) {
                 int pos = holder.getAdapterPosition();
                 if (getData().get(pos) instanceof Note) {
-                    FileUtils.deleteDefault(context, ((Note) getData().get(pos)).getTitle());
+                    String notebook = ((Notebook) (getData().get(getParentPosition(getData().get(pos))))).getTitle();
+                    FileUtils.deleteNote(context, notebook, ((Note) getData().get(pos)).getTitle());
                 }
                 if (getData().get(pos) instanceof Notebook) {
                     FileUtils.deleteNotebook(context, ((Notebook) getData().get(pos)).getTitle());
@@ -116,10 +120,19 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
                 if (getData().get(pos) instanceof Note) {
                     String name = ((Note) getData().get(pos)).getTitle();
                     String notebook = ((Notebook) (getData().get(getParentPosition(getData().get(pos))))).getTitle();
-                    popupWindow.showAtLocation(
+                    notePopupWindow.showAtLocation(
                             LayoutInflater.from(context).inflate(R.layout.activity_main_window, null),
                             Gravity.BOTTOM, 0, 0,
                             notebook, name);
+                    Log.d(TAG, "onClick: " + name);
+                }
+                if (getData().get(pos) instanceof Notebook) {
+                    String notebook = ((Notebook) (getData().get(pos))).getTitle();
+                    notebookPopupWindow.showAtLocation(
+                            LayoutInflater.from(context).inflate(R.layout.activity_main_window, null),
+                            Gravity.BOTTOM, 0, 0,
+                            notebook, "");
+                    Log.d(TAG, "onClick: " + notebook);
                 }
             }
         });

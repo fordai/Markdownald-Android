@@ -12,4 +12,7 @@
 
     <string name="edit_hint">Please type here</string>
 
+    <string name="rename_title">Title</string>
+    <string name="rename_hint">Please type new name here</string>
+    <string name="rename_rename">Rename</string>
 </resources>

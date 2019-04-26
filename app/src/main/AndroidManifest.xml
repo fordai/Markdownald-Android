@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.NoteMoveActivity"></activity>
+        <activity android:name=".ui.activity.NotebookRenameActivity"></activity>
+        <activity android:name=".ui.activity.NoteRenameActivity" />
+        <activity android:name=".ui.activity.NoteMoveActivity" />
         <activity android:name=".ui.activity.NotebookCreateActivity" />
         <activity android:name=".ui.activity.NoteCreateActivity" />
         <activity android:name=".ui.activity.NotePreviewActivity" />

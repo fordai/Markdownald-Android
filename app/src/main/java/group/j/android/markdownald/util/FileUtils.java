@@ -76,6 +76,10 @@ public class FileUtils {
         return new File(getNotebookDir(context, notebook), note).exists();
     }
 
+    public static boolean notebookExists(Context context, String notebook) {
+        return new File(getDataDir(context), notebook).exists();
+    }
+
     public static ArrayList<MultiItemEntity> load(Context context) {
         ArrayList<MultiItemEntity> data = new ArrayList<>();
 
@@ -226,6 +230,22 @@ public class FileUtils {
         String content = load(context, source, title);
         deleteNote(context, source, title);
         saveToSpecific(context, destination, title, content);
+    }
+
+    public static void rename(Context context, String notebook, String oldName, String newName) {
+        File from = getNoteFile(context, notebook, oldName);
+        File to = getNoteFile(context, notebook, newName);
+        if (from.renameTo(to)) {
+            Log.d(TAG, "rename: " + from.getAbsolutePath() + " to " + to.getAbsolutePath());
+        }
+    }
+
+    public static void rename(Context context, String oldName, String newName) {
+        File from = new File(getNotebookDir(context, oldName));
+        File to = new File(getNotebookDir(context, newName));
+        if (from.renameTo(to)) {
+            Log.d(TAG, "rename: " + from.getAbsolutePath() + " to " + to.getAbsolutePath());
+        }
     }
 
 }
