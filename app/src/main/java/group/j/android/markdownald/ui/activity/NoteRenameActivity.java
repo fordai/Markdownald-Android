@@ -16,7 +16,7 @@ import group.j.android.markdownald.util.FileUtils;
  */
 public class NoteRenameActivity extends AppCompatActivity {
     private static final String TAG = "NoteRenameActivity";
-    private static final String DUPLICATION_REMINDER = "This note has existed in this notebook";
+    private static final String DUPLICATION_REMINDER = "This note has existed in this notebook.";
 
     private EditText edit_rename_note;
     private Button btn_rename_note;
