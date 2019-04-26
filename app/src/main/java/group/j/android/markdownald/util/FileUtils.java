@@ -72,7 +72,7 @@ public class FileUtils {
         return new File(getNotebookDir(context, "Default"), name).exists();
     }
 
-    public static boolean exists(Context context, String notebook, String note) {
+    public static boolean exists(Context context, String notebook, String note){
         return new File(getNotebookDir(context, notebook), note).exists();
     }
 
@@ -92,7 +92,7 @@ public class FileUtils {
 
         if (data.isEmpty()) {
             data.add(new Notebook("Default"));
-            FileUtils.saveToDir(context, "Default");
+            getNotebookDir(context,"Default");
         }
 
         return data;
