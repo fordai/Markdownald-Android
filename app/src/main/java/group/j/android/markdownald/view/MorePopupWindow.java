@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import group.j.android.markdownald.R;
 import group.j.android.markdownald.ui.activity.NoteMoveActivity;
 import group.j.android.markdownald.ui.activity.NoteRenameActivity;
+import group.j.android.markdownald.ui.activity.NotebookRenameActivity;
 
 /**
  * Implements <code>PopupWindow</code> for more operations, such as renaming and move.
@@ -80,7 +81,9 @@ public class MorePopupWindow extends PopupWindow {
                         renameIntent.putExtra("notebook_title", mNotebook);
                         mContext.startActivity(renameIntent);
                     } else {
-
+                        Intent renameIntent = new Intent(mContext, NotebookRenameActivity.class);
+                        renameIntent.putExtra("notebook_title", mNotebook);
+                        mContext.startActivity(renameIntent);
                     }
                     break;
             }
