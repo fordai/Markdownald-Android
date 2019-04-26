@@ -3,11 +3,9 @@ package group.j.android.markdownald.util;
 import android.content.Context;
 import android.graphics.pdf.PdfDocument;
 import android.os.Build;
-import android.os.Environment;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileOutputStream;
