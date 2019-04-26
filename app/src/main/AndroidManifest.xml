@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="group.j.android.markdownald">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.NotebookRenameActivity"></activity>
+        <activity
+            android:name=".ui.activity.NoteQRActivity"
+            android:label="@string/title_activity_node_qr"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".ui.activity.NotebookRenameActivity" />
         <activity android:name=".ui.activity.NoteRenameActivity" />
         <activity android:name=".ui.activity.NoteMoveActivity" />
         <activity android:name=".ui.activity.NotebookCreateActivity" />
@@ -26,6 +33,5 @@
             </intent-filter>
         </activity>
     </application>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
 </manifest>

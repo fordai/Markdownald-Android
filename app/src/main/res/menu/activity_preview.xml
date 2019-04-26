@@ -3,7 +3,9 @@
     <item
         android:id="@+id/menu_pdf"
         android:title="Export PDF" />
-
+    <item
+        android:id="@+id/menu_QR"
+        android:title="Share QR code" />
     <item
         android:id="@+id/menu_close"
         android:title="Close" />

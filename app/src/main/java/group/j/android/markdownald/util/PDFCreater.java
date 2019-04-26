@@ -1,11 +1,13 @@
 package group.j.android.markdownald.util;
 
+import android.content.Context;
 import android.graphics.pdf.PdfDocument;
 import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -14,6 +16,12 @@ import java.io.IOException;
 import static android.content.ContentValues.TAG;
 
 public class PDFCreater {
+
+    private Context context;
+
+    public PDFCreater(Context context){
+        this.context = context;
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void createPDF(View view) {
@@ -24,7 +32,7 @@ public class PDFCreater {
         view.draw(page.getCanvas());
         document.finishPage(page);
         try{
-            String path = Environment.getExternalStorageState() + File.separator + "table.pdf";
+            String path = FileUtils.getFiles(context) + "\\table.pdf";
             Log.i(TAG, path);
             File e = new File(path);
             if (e.exists()) {

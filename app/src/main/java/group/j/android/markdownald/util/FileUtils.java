@@ -248,4 +248,8 @@ public class FileUtils {
         }
     }
 
+    public static String getFiles(Context context){
+        return context.getFilesDir().getAbsolutePath();
+    }
+
 }

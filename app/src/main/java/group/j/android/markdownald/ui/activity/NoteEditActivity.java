@@ -11,6 +11,7 @@ import group.j.android.markdownald.R;
 import group.j.android.markdownald.util.AutoCompleter;
 import group.j.android.markdownald.util.FileUtils;
 import group.j.android.markdownald.util.MarkdownSyntaxHighlighter;
+import group.j.android.markdownald.util.PDFCreater;
 
 /**
  * Implements the interface for editing the note. Syntax highlight and auto-completion should be offered here.
