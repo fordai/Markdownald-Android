@@ -1,16 +1,13 @@
 package group.j.android.markdownald.util;
 
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
-import java.util.ArrayList;
-
-
 /**
  * Complete the markdown syntax automatically
  */
+
 public class AutoCompleter {
 
     private EditText et;

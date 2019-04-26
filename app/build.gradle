@@ -39,4 +39,5 @@ dependencies {
 
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.42'
     implementation 'com.github.anzaizai:EasySwipeMenuLayout:1.1.2'
+    implementation files('build\\lib\\iText-5.0.6.jar')
 }
