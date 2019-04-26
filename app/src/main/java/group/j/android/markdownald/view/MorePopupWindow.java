@@ -12,22 +12,24 @@ import android.widget.RelativeLayout;
 
 import group.j.android.markdownald.R;
 import group.j.android.markdownald.ui.activity.NoteMoveActivity;
+import group.j.android.markdownald.ui.activity.NoteRenameActivity;
 
 /**
  * Implements <code>PopupWindow</code> for more operations, such as renaming and move.
  */
 public class MorePopupWindow extends PopupWindow {
-    private Context context;
-    private View view;
+    private Context mContext;
+    private View mView;
+    private boolean isNote;
     private Button btn_move;
     private Button btn_rename;
-    private String note;
-    private String notebook = "";
+    private String mNote = "";
+    private String mNotebook = "";
 
-    public MorePopupWindow(Context context) {
-        this.context = context;
-        this.view = LayoutInflater.from(context).inflate(R.layout.activity_main_window, null);
-        this.setContentView(this.view);
+    public MorePopupWindow(Context mContext, Boolean isNote) {
+        this.mContext = mContext;
+        this.mView = LayoutInflater.from(mContext).inflate(R.layout.activity_main_window, null);
+        this.setContentView(this.mView);
         this.setHeight(RelativeLayout.LayoutParams.MATCH_PARENT);
         this.setWidth(RelativeLayout.LayoutParams.MATCH_PARENT);
         ColorDrawable dw = new ColorDrawable(0xb0000000);
@@ -35,9 +37,9 @@ public class MorePopupWindow extends PopupWindow {
 
         this.setFocusable(true);
         this.setOutsideTouchable(true);
-        this.view.setOnTouchListener(new View.OnTouchListener() {
+        this.mView.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
-                int height = view.findViewById(R.id.layout_window).getTop();
+                int height = mView.findViewById(R.id.layout_window).getTop();
                 int y = (int) event.getY();
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     if (y < height) {
@@ -48,9 +50,14 @@ public class MorePopupWindow extends PopupWindow {
             }
         });
 
-        btn_move = view.findViewById(R.id.btn_move);
-        btn_rename = view.findViewById(R.id.btn_rename);
-        btn_move.setOnClickListener(onClickListener);
+        this.isNote = isNote;
+        btn_move = mView.findViewById(R.id.btn_move);
+        if (isNote) {
+            btn_move.setOnClickListener(onClickListener);
+        } else {
+            btn_move.setVisibility(View.GONE);
+        }
+        btn_rename = mView.findViewById(R.id.btn_rename);
         btn_rename.setOnClickListener(onClickListener);
     }
 
@@ -60,13 +67,21 @@ public class MorePopupWindow extends PopupWindow {
             switch (v.getId()) {
                 case R.id.btn_move:
                     dismiss();
-                    Intent intent = new Intent(context, NoteMoveActivity.class);
-                    intent.putExtra("note_title", note);
-                    intent.putExtra("notebook_title", notebook);
-                    context.startActivity(intent);
+                    Intent moveIntent = new Intent(mContext, NoteMoveActivity.class);
+                    moveIntent.putExtra("note_title", mNote);
+                    moveIntent.putExtra("notebook_title", mNotebook);
+                    mContext.startActivity(moveIntent);
                     break;
                 case R.id.btn_rename:
                     dismiss();
+                    if (isNote) {
+                        Intent renameIntent = new Intent(mContext, NoteRenameActivity.class);
+                        renameIntent.putExtra("note_title", mNote);
+                        renameIntent.putExtra("notebook_title", mNotebook);
+                        mContext.startActivity(renameIntent);
+                    } else {
+
+                    }
                     break;
             }
         }
@@ -74,8 +89,8 @@ public class MorePopupWindow extends PopupWindow {
 
     public void showAtLocation(View parent, int gravity, int x, int y, String notebook, String note) {
         super.showAtLocation(parent, gravity, x, y);
-        this.notebook = notebook;
-        this.note = note;
+        this.mNotebook = notebook;
+        this.mNote = note;
     }
 
 }

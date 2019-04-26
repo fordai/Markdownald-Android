@@ -228,4 +228,12 @@ public class FileUtils {
         saveToSpecific(context, destination, title, content);
     }
 
+    public static void rename(Context context, String notebook, String oldName, String newName) {
+        File from = getNoteFile(context, notebook, oldName);
+        File to = getNoteFile(context, notebook, newName);
+        if (from.renameTo(to)) {
+            Log.d(TAG, "rename: " + from.getAbsolutePath() + " to " + to.getAbsolutePath());
+        }
+    }
+
 }
