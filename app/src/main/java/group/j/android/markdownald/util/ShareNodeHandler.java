@@ -1,6 +1,8 @@
 package group.j.android.markdownald.util;
 
 import android.graphics.Bitmap;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 
 import com.google.zxing.*;
 import com.google.zxing.EncodeHintType;
@@ -45,6 +47,7 @@ public class ShareNodeHandler {
         return null;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void createQR(String content){
         String path = System.getProperty("user.dir")+"\\qrcode.png";
         String format = "png";
