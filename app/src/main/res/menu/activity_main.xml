@@ -6,4 +6,5 @@
     <item
         android:id="@+id/menu_create_directory"
         android:title="@string/main_create_notebook" />
+
 </menu>
