@@ -2,14 +2,18 @@ package group.j.android.markdownald.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Handler;
+import android.os.Looper;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
 import group.j.android.markdownald.R;
+import group.j.android.markdownald.base.BaseActivity;
+import group.j.android.markdownald.db.DatabaseHelper;
 import group.j.android.markdownald.util.AutoCompleter;
-import group.j.android.markdownald.util.FileUtils;
 import group.j.android.markdownald.util.MarkdownSyntaxHighlighter;
 import group.j.android.markdownald.util.PDFCreater;
 
@@ -17,15 +21,17 @@ import group.j.android.markdownald.util.PDFCreater;
  * Implements the interface for editing the note. Syntax highlight and auto-completion should be offered here.
  * By clicking the button, user can preview the effect of Markdown. Auto-completion is offered.
  */
-public class NoteEditActivity extends AppCompatActivity {
+public class NoteEditActivity extends BaseActivity {
     private static final String TAG = "NoteEditActivity";
 
+    private DatabaseHelper mDatabase;
     EditText edit_note;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_edit);
+        mDatabase = getDatabase();
         Intent intent = getIntent();
         this.setTitle(intent.getStringExtra("note_title"));
         edit_note = findViewById(R.id.edit_note);
@@ -41,8 +47,7 @@ public class NoteEditActivity extends AppCompatActivity {
         edit_note.setText(highlighter.highlight(intent.getStringExtra("note_content")));
         edit_note.setSelection(edit_note.getText().length());
 
-        // Implementation for auto-save
-        FileUtils.save(this, "Default", this.getTitle().toString(), edit_note);
+        save(intent.getStringExtra("note_title"), edit_note);
     }
 
     @Override
@@ -64,5 +69,34 @@ public class NoteEditActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    private void save(final String name, final EditText editText) {
+        editText.addTextChangedListener(new TextWatcher() {
+            Handler handler = new Handler(Looper.myLooper());
+            Runnable runnable;
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                handler.removeCallbacks(runnable);
+                runnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        mDatabase.updateNoteContent(name, editText.getText().toString());
+                    }
+                };
+                handler.postDelayed(runnable, 500);
+            }
+        });
     }
 }

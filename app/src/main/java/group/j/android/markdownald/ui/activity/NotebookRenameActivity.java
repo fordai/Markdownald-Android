@@ -1,7 +1,6 @@
 package group.j.android.markdownald.ui.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,15 +8,17 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import group.j.android.markdownald.R;
-import group.j.android.markdownald.util.FileUtils;
+import group.j.android.markdownald.base.BaseActivity;
+import group.j.android.markdownald.db.DatabaseHelper;
 
 /**
  * Implements the interface for renaming a notebook.
  */
-public class NotebookRenameActivity extends AppCompatActivity {
+public class NotebookRenameActivity extends BaseActivity {
     private static final String TAG = "NotebookRenameActivity";
     private static final String DUPLICATION_REMINDER = "This notebook has existed";
 
+    private DatabaseHelper mDatabase;
     private EditText edit_rename_notebook;
     private Button btn_rename_notebook;
 
@@ -25,15 +26,16 @@ public class NotebookRenameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notebook_rename);
+        mDatabase = getDatabase();
         edit_rename_notebook = findViewById(R.id.edit_rename_notebook);
         btn_rename_notebook = findViewById(R.id.btn_rename_notebook);
         btn_rename_notebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String oldTitle = getIntent().getStringExtra("notebook_title");
-                String newTitle = edit_rename_notebook.getText().toString();
-                if (!FileUtils.notebookExists(NotebookRenameActivity.this, newTitle)) {
-                    FileUtils.rename(NotebookRenameActivity.this, oldTitle, newTitle);
+                String oldName = getIntent().getStringExtra("notebook_title");
+                String newName = edit_rename_notebook.getText().toString();
+                if (!mDatabase.isNotebook(newName)) {
+                    mDatabase.updateNotebook(oldName, newName);
                     Intent intent = new Intent(NotebookRenameActivity.this, MainActivity.class);
                     startActivity(intent);
                 } else {

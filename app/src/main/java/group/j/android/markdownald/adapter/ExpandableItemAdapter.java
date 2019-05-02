@@ -15,11 +15,11 @@ import com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout;
 import java.util.List;
 
 import group.j.android.markdownald.R;
+import group.j.android.markdownald.db.DatabaseHelper;
 import group.j.android.markdownald.model.Note;
 import group.j.android.markdownald.model.Notebook;
 import group.j.android.markdownald.view.MorePopupWindow;
 import group.j.android.markdownald.ui.activity.NoteEditActivity;
-import group.j.android.markdownald.util.FileUtils;
 
 /**
  * Implements <code>Adapter</code> with the expandable item.
@@ -28,14 +28,17 @@ import group.j.android.markdownald.util.FileUtils;
 public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, BaseViewHolder> {
     private static final int TYPE_LEVEL_ZERO = 0;
     private static final int TYPE_LEVEL_ONE = 1;
-//
+
+    private DatabaseHelper mDb;
     private Context context;
     private MorePopupWindow notePopupWindow;
     private MorePopupWindow notebookPopupWindow;
     private EasySwipeMenuLayout easySwipeMenuLayout;
 
-    public ExpandableItemAdapter(List<MultiItemEntity> data, Context context, int layoutResId) {
+
+    public ExpandableItemAdapter(DatabaseHelper mDb, List<MultiItemEntity> data, Context context, int layoutResId) {
         super(data);
+        this.mDb = mDb;
         this.context = context;
         this.notePopupWindow = new MorePopupWindow(context, true);
         this.notebookPopupWindow = new MorePopupWindow(context, false);
@@ -48,7 +51,7 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
     public void onBindViewHolder(BaseViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
         MultiItemEntity tmp = getData().get(position);
-        if (tmp instanceof Notebook && ((Notebook) tmp).getTitle().equals("Default")) {
+        if (tmp instanceof Notebook && ((Notebook) tmp).getName().equals("Default")) {
             if (easySwipeMenuLayout == null) {
                 this.easySwipeMenuLayout = holder.getView(R.id.layout_swipe_menu);
             }
@@ -60,7 +63,7 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
     protected void convert(final BaseViewHolder holder, final MultiItemEntity item) {
         switch (holder.getItemViewType()) {
             case TYPE_LEVEL_ZERO:
-                holder.setText(R.id.notebook_title, ((Notebook) item).getTitle());
+                holder.setText(R.id.text_title, ((Notebook) item).getName());
 
                 holder.getView(R.id.view_content).setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -77,15 +80,15 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
 
                 break;
             case TYPE_LEVEL_ONE:
-                holder.setText(R.id.text_title, ((Note) item).getTitle());
+                holder.setText(R.id.text_title, ((Note) item).getName());
 
-                holder.getView(R.id.view_conten).setOnClickListener(new View.OnClickListener() {
+                holder.getView(R.id.view_content).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         int pos = holder.getAdapterPosition();
                         Note note = (Note) getData().get(pos);
                         Intent intent = new Intent(context, NoteEditActivity.class);
-                        intent.putExtra("note_title", note.getTitle());
+                        intent.putExtra("note_title", note.getName());
                         intent.putExtra("note_content", note.getContent());
                         context.startActivity(intent);
                     }
@@ -97,17 +100,21 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
         holder.getView(R.id.text_delete).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean hasRemoved = false;
                 int pos = holder.getAdapterPosition();
+
                 if (getData().get(pos) instanceof Note) {
-                    String notebook = ((Notebook) (getData().get(getParentPosition(getData().get(pos))))).getTitle();
-                    FileUtils.deleteNote(context, notebook, ((Note) getData().get(pos)).getTitle());
+                    mDb.deleteNote(((Note) (getData().get(pos))).getId());
+                    hasRemoved = true;
                 }
                 if (getData().get(pos) instanceof Notebook) {
-                    FileUtils.deleteNotebook(context, ((Notebook) getData().get(pos)).getTitle());
+                    mDb.deleteNotebook((Notebook) (getData().get(pos)), true);
+                    hasRemoved = true;
                 }
-                remove(pos);
-
-                notifyItemRemoved(pos);
+                if (hasRemoved) {
+                    remove(pos);
+                    notifyItemRemoved(pos);
+                }
             }
         });
 
@@ -116,23 +123,24 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
             public void onClick(View v) {
                 EasySwipeMenuLayout easySwipeMenuLayout = holder.getView(R.id.layout_swipe_menu);
                 easySwipeMenuLayout.resetStatus();
+
                 int pos = holder.getAdapterPosition();
                 if (getData().get(pos) instanceof Note) {
-                    String name = ((Note) getData().get(pos)).getTitle();
-                    String notebook = ((Notebook) (getData().get(getParentPosition(getData().get(pos))))).getTitle();
+                    String noteName = ((Note) getData().get(pos)).getName();
+                    String notebookName = ((Notebook) (getData().get(getParentPosition(getData().get(pos))))).getName();
                     notePopupWindow.showAtLocation(
                             LayoutInflater.from(context).inflate(R.layout.activity_main_window, null),
                             Gravity.BOTTOM, 0, 0,
-                            notebook, name);
-                    Log.d(TAG, "onClick: " + name);
+                            notebookName, noteName);
+                    Log.d(TAG, "onClick: " + noteName);
                 }
                 if (getData().get(pos) instanceof Notebook) {
-                    String notebook = ((Notebook) (getData().get(pos))).getTitle();
+                    String notebookName = ((Notebook) (getData().get(pos))).getName();
                     notebookPopupWindow.showAtLocation(
                             LayoutInflater.from(context).inflate(R.layout.activity_main_window, null),
                             Gravity.BOTTOM, 0, 0,
-                            notebook, "");
-                    Log.d(TAG, "onClick: " + notebook);
+                            notebookName, "");
+                    Log.d(TAG, "onClick: " + notebookName);
                 }
             }
         });

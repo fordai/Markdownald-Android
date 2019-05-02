@@ -88,7 +88,7 @@ public class FileUtils {
             Notebook notebook = new Notebook(notebookFile.getName());
             for (File noteFile : notebookFile.listFiles()) {
                 String title = noteFile.getName();
-                Note note = new Note(title, load(context, notebook.getTitle(), title));
+                Note note = new Note(title, load(context, notebook.getName(), title));
                 notebook.addSubItem(note);
             }
             data.add(notebook);

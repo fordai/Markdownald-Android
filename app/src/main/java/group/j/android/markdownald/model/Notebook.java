@@ -9,23 +9,35 @@ import java.util.List;
  * Stores a list of <code>Note</code>.
  */
 public class Notebook extends AbstractExpandableItem<Note> implements MultiItemEntity {
-    private String title;
+    private int id;
+    private String name;
 
-    public Notebook(String title) {
-        this.title = title;
+    public Notebook() {
     }
 
-    public Notebook(String title, List<Note> notes) {
-        this.title = title;
-        this.setSubItems(notes);
+    public Notebook(String name) {
+        this.name = name;
     }
 
-    public String getTitle() {
-        return title;
+    public Notebook(int id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -36,13 +48,5 @@ public class Notebook extends AbstractExpandableItem<Note> implements MultiItemE
     @Override
     public int getItemType() {
         return 0;
-    }
-
-    @Override
-    public String toString() {
-        return "Notebook{" +
-                "title='" + title + '\'' +
-                ", mSubItems=" + mSubItems +
-                '}';
     }
 }

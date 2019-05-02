@@ -2,20 +2,21 @@ package group.j.android.markdownald.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import group.j.android.markdownald.R;
 import group.j.android.markdownald.adapter.ExpandableItemAdapter;
-import group.j.android.markdownald.util.FileUtils;
+import group.j.android.markdownald.base.BaseActivity;
+import group.j.android.markdownald.db.DatabaseHelper;
 
 /**
  * Implements the homepage.
@@ -30,10 +31,11 @@ import group.j.android.markdownald.util.FileUtils;
  * <li>By swiping to left, do more operations including moving and renaming;</li>
  * </ul>
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     private static final String TAG = "MainActivity";
 
-    private ArrayList<MultiItemEntity> mNotes;
+    private DatabaseHelper mDatabase;
+    private List<MultiItemEntity> mNotes;
     private ExpandableItemAdapter mAdapter;
     private RecyclerView mRecyclerView;
 
@@ -42,8 +44,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mRecyclerView = findViewById(R.id.recycler_note_list);
-        mNotes = FileUtils.load(this);
-        mAdapter = new ExpandableItemAdapter(mNotes, MainActivity.this, R.layout.activity_main_adapter);
+        mDatabase = getDatabase();
+        mNotes = mDatabase.loadDB();
+        mAdapter = new ExpandableItemAdapter(mDatabase, mNotes, MainActivity.this, R.layout.activity_main_adapter);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
@@ -53,8 +56,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         mNotes.clear();
-        mNotes.addAll(FileUtils.load(this));
+        mNotes.addAll(mDatabase.loadDB());
         mAdapter.notifyDataSetChanged();
+        Log.d(TAG, "onRestart: ");
     }
 
     @Override

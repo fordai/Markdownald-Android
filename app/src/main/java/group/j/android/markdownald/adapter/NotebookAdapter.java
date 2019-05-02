@@ -15,9 +15,9 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 import java.util.List;
 
 import group.j.android.markdownald.R;
+import group.j.android.markdownald.db.DatabaseHelper;
 import group.j.android.markdownald.model.Notebook;
 import group.j.android.markdownald.ui.activity.MainActivity;
-import group.j.android.markdownald.util.FileUtils;
 
 /**
  * Implements <code>Adapter</code> for moving the note.
@@ -25,6 +25,7 @@ import group.j.android.markdownald.util.FileUtils;
 public class NotebookAdapter extends RecyclerView.Adapter<NotebookAdapter.ViewHolder> {
     private static final String DUPLICATION_REMINDER = "The destination has the same note";
 
+    private DatabaseHelper mDatabase;
     private Context mContext;
     private List<MultiItemEntity> mNotebooks;
     private String mNotebook;
@@ -39,7 +40,8 @@ public class NotebookAdapter extends RecyclerView.Adapter<NotebookAdapter.ViewHo
         }
     }
 
-    public NotebookAdapter(Context mContext, List<MultiItemEntity> mNotebooks) {
+    public NotebookAdapter(DatabaseHelper db, Context mContext, List<MultiItemEntity> mNotebooks) {
+        this.mDatabase = db;
         this.mContext = mContext;
         this.mNotebooks = mNotebooks;
     }
@@ -54,9 +56,9 @@ public class NotebookAdapter extends RecyclerView.Adapter<NotebookAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 int pos = holder.getAdapterPosition();
-                String destination = ((Notebook) mNotebooks.get(pos)).getTitle();
-                if (!FileUtils.exists(mContext, destination, mNote)) {
-                    FileUtils.move(mContext, mNotebook, destination, mNote);
+                String destination = ((Notebook) mNotebooks.get(pos)).getName();
+                if (!mDatabase.isNoteByNotebook(mNote, destination)) {
+                    mDatabase.updateNoteToNotebook(mDatabase.getNoteByName(mNote).getId(), mDatabase.getNotebookByName(destination).getId());
                     Intent intent = new Intent(mContext, MainActivity.class);
                     mContext.startActivity(intent);
                 } else {
@@ -71,7 +73,7 @@ public class NotebookAdapter extends RecyclerView.Adapter<NotebookAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Notebook notebook = (Notebook) mNotebooks.get(position);
-        holder.text_notebook_title.setText(notebook.getTitle());
+        holder.text_notebook_title.setText(notebook.getName());
     }
 
     @Override
