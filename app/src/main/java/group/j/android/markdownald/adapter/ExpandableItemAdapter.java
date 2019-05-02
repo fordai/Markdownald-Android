@@ -28,7 +28,7 @@ import group.j.android.markdownald.util.FileUtils;
 public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, BaseViewHolder> {
     private static final int TYPE_LEVEL_ZERO = 0;
     private static final int TYPE_LEVEL_ONE = 1;
-
+//
     private Context context;
     private MorePopupWindow notePopupWindow;
     private MorePopupWindow notebookPopupWindow;
@@ -60,7 +60,7 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
     protected void convert(final BaseViewHolder holder, final MultiItemEntity item) {
         switch (holder.getItemViewType()) {
             case TYPE_LEVEL_ZERO:
-                holder.setText(R.id.text_title, ((Notebook) item).getTitle());
+                holder.setText(R.id.notebook_title, ((Notebook) item).getTitle());
 
                 holder.getView(R.id.view_content).setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -79,7 +79,7 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
             case TYPE_LEVEL_ONE:
                 holder.setText(R.id.text_title, ((Note) item).getTitle());
 
-                holder.getView(R.id.view_content).setOnClickListener(new View.OnClickListener() {
+                holder.getView(R.id.view_conten).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         int pos = holder.getAdapterPosition();
