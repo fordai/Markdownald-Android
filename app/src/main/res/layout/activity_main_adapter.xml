@@ -5,21 +5,51 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:contentView="@+id/view_content"
-    app:rightMenuView="@+id/view_right">
+    app:rightMenuView="@+id/view_right"
+    >
 
-    <LinearLayout
+
+
+
+    <RelativeLayout
         android:id="@+id/view_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="20dp">
 
+        <ImageView
+            android:id="@+id/image_notebook"
+            android:layout_width="69dp"
+            android:layout_height="56dp"
+            android:src="@drawable/notes"/>
+
         <TextView
-            android:id="@+id/text_title"
-            android:layout_width="wrap_content"
+            android:id="@+id/notebook_title"
+            android:layout_width="156dp"
+            android:layout_height="58dp"
+            android:gravity="center"
+            android:paddingLeft="60dp"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+        <LinearLayout
+            android:id="@+id/view_conten"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="60dp" />
-    </LinearLayout>
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/text_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="60dp" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
 
     <LinearLayout
         android:id="@+id/view_right"
