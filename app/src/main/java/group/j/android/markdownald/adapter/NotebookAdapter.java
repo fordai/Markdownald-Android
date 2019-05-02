@@ -28,7 +28,6 @@ public class NotebookAdapter extends RecyclerView.Adapter<NotebookAdapter.ViewHo
     private DatabaseHelper mDatabase;
     private Context mContext;
     private List<MultiItemEntity> mNotebooks;
-    private String mNotebook;
     private String mNote;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -79,10 +78,6 @@ public class NotebookAdapter extends RecyclerView.Adapter<NotebookAdapter.ViewHo
     @Override
     public int getItemCount() {
         return mNotebooks.size();
-    }
-
-    public void setNotebook(String mNotebook) {
-        this.mNotebook = mNotebook;
     }
 
     public void setNote(String mNote) {

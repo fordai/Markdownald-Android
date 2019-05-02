@@ -20,6 +20,7 @@ import group.j.android.markdownald.db.DatabaseHelper;
  */
 public class NoteMoveActivity extends BaseActivity {
     private static final String TAG = "NoteMoveActivity";
+    private static final String NOTE_NAME = "note_name";
 
     public DatabaseHelper mDatabase;
     private List<MultiItemEntity> mNotes;
@@ -33,8 +34,7 @@ public class NoteMoveActivity extends BaseActivity {
         mDatabase = getDatabase();
         mNotes = mDatabase.loadDB();
         mAdapter = new NotebookAdapter(mDatabase, this, mNotes);
-        mAdapter.setNotebook(getIntent().getStringExtra("notebook_title"));
-        mAdapter.setNote(getIntent().getStringExtra("note_title"));
+        mAdapter.setNote(getIntent().getStringExtra(NOTE_NAME));
         mRecyclerView = findViewById(R.id.recycler_notebook_list);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));

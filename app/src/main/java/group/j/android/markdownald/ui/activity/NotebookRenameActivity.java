@@ -16,6 +16,7 @@ import group.j.android.markdownald.db.DatabaseHelper;
  */
 public class NotebookRenameActivity extends BaseActivity {
     private static final String TAG = "NotebookRenameActivity";
+    private static final String NOTEBOOK_NAME = "notebook_name";
     private static final String DUPLICATION_REMINDER = "This notebook has existed";
 
     private DatabaseHelper mDatabase;
@@ -32,7 +33,7 @@ public class NotebookRenameActivity extends BaseActivity {
         btn_rename_notebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String oldName = getIntent().getStringExtra("notebook_title");
+                String oldName = getIntent().getStringExtra(NOTEBOOK_NAME);
                 String newName = edit_rename_notebook.getText().toString();
                 if (!mDatabase.isNotebook(newName)) {
                     mDatabase.updateNotebook(oldName, newName);

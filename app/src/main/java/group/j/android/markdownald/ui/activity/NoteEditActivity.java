@@ -23,6 +23,8 @@ import group.j.android.markdownald.util.PDFCreater;
  */
 public class NoteEditActivity extends BaseActivity {
     private static final String TAG = "NoteEditActivity";
+    private static final String NOTE_NAME = "note_name";
+    private static final String NOTE_CONTENT = "note_content";
 
     private DatabaseHelper mDatabase;
     EditText edit_note;
@@ -33,7 +35,8 @@ public class NoteEditActivity extends BaseActivity {
         setContentView(R.layout.activity_note_edit);
         mDatabase = getDatabase();
         Intent intent = getIntent();
-        this.setTitle(intent.getStringExtra("note_title"));
+        String name = intent.getStringExtra(NOTE_NAME);
+        this.setTitle(name);
         edit_note = findViewById(R.id.edit_note);
 
         //Implementation for auto-completion here
@@ -44,10 +47,10 @@ public class NoteEditActivity extends BaseActivity {
         MarkdownSyntaxHighlighter highlighter = new MarkdownSyntaxHighlighter();
         highlighter.highlight(edit_note);
 
-        edit_note.setText(highlighter.highlight(intent.getStringExtra("note_content")));
+        edit_note.setText(highlighter.highlight(intent.getStringExtra(NOTE_CONTENT)));
         edit_note.setSelection(edit_note.getText().length());
 
-        save(intent.getStringExtra("note_title"), edit_note);
+        save(name, edit_note);
     }
 
     @Override
@@ -62,8 +65,8 @@ public class NoteEditActivity extends BaseActivity {
             case R.id.menu_preview:
                 String content = edit_note.getText().toString();
                 Intent intent = new Intent(this, NotePreviewActivity.class);
-                intent.putExtra("note_content", content);
-                intent.putExtra("note_title", getTitle());
+                intent.putExtra(NOTE_NAME, getTitle());
+                intent.putExtra(NOTE_CONTENT, content);
                 startActivity(intent);
             default:
         }

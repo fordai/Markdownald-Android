@@ -19,6 +19,9 @@ import group.j.android.markdownald.ui.activity.NotebookRenameActivity;
  * Implements <code>PopupWindow</code> for more operations, such as renaming and move.
  */
 public class MorePopupWindow extends PopupWindow {
+    private static final String NOTE_NAME = "note_name";
+    private static final String NOTEBOOK_NAME = "notebook_name";
+
     private Context mContext;
     private View mView;
     private boolean isNote;
@@ -69,20 +72,19 @@ public class MorePopupWindow extends PopupWindow {
                 case R.id.btn_move:
                     dismiss();
                     Intent moveIntent = new Intent(mContext, NoteMoveActivity.class);
-                    moveIntent.putExtra("note_title", mNote);
-                    moveIntent.putExtra("notebook_title", mNotebook);
+                    moveIntent.putExtra(NOTE_NAME, mNote);
                     mContext.startActivity(moveIntent);
                     break;
                 case R.id.btn_rename:
                     dismiss();
                     if (isNote) {
                         Intent renameIntent = new Intent(mContext, NoteRenameActivity.class);
-                        renameIntent.putExtra("note_title", mNote);
-                        renameIntent.putExtra("notebook_title", mNotebook);
+                        renameIntent.putExtra(NOTE_NAME, mNote);
+                        renameIntent.putExtra(NOTEBOOK_NAME, mNotebook);
                         mContext.startActivity(renameIntent);
                     } else {
                         Intent renameIntent = new Intent(mContext, NotebookRenameActivity.class);
-                        renameIntent.putExtra("notebook_title", mNotebook);
+                        renameIntent.putExtra(NOTEBOOK_NAME, mNotebook);
                         mContext.startActivity(renameIntent);
                     }
                     break;

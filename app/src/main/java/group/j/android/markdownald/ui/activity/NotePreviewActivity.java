@@ -20,14 +20,18 @@ import group.j.android.markdownald.util.ShareNodeHandler;
  */
 public class NotePreviewActivity extends AppCompatActivity {
     private static final String TAG = "NotePreviewActivity";
+    private static final String NOTE_NAME = "note_name";
+    private static final String NOTE_CONTENT = "note_content";
+
     private TextView text_preview;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_preview);
         Intent intent = getIntent();
-        this.setTitle(intent.getStringExtra("note_title"));
-        String content = intent.getStringExtra("note_content");
+        this.setTitle(intent.getStringExtra(NOTE_NAME));
+        String content = intent.getStringExtra(NOTE_CONTENT);
         text_preview = findViewById(R.id.text_preview);
 
         // Implementation for markdown rendering here
