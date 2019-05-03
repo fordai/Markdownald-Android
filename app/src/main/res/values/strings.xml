@@ -14,6 +14,6 @@
 
     <string name="rename_title">Title</string>
     <string name="rename_hint">Please type new name here</string>
-    <string name="rename_rename">Rename</string>
+    <string name="all_rename">Rename</string>
     <string name="title_activity_node_qr">NodeQRActivity</string>
 </resources>

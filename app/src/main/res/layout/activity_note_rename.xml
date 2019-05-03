@@ -30,10 +30,4 @@
             android:inputType="none" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_rename_note"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/rename_rename" />
-
 </LinearLayout>
