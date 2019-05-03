@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.NoteQRActivity">
 
+    <include
+        android:id="@+id/toolbar_note_qr"
+        layout="@layout/toolbar_customized"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"

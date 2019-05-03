@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -26,6 +27,7 @@ public class NoteEditActivity extends BaseActivity {
     private static final String NOTE_NAME = "note_name";
     private static final String NOTE_CONTENT = "note_content";
 
+    private Toolbar mToolbar;
     private DatabaseHelper mDatabase;
     EditText edit_note;
 
@@ -33,10 +35,15 @@ public class NoteEditActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_edit);
+        mToolbar = findViewById(R.id.toolbar_note_edit);
+        setSupportActionBar(mToolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         mDatabase = getDatabase();
         Intent intent = getIntent();
         String name = intent.getStringExtra(NOTE_NAME);
-        this.setTitle(name);
+        getSupportActionBar().setTitle(name);
         edit_note = findViewById(R.id.edit_note);
 
         //Implementation for auto-completion here
@@ -65,9 +72,13 @@ public class NoteEditActivity extends BaseActivity {
             case R.id.menu_preview:
                 String content = edit_note.getText().toString();
                 Intent intent = new Intent(this, NotePreviewActivity.class);
-                intent.putExtra(NOTE_NAME, getTitle());
+                intent.putExtra(NOTE_NAME, mToolbar.getTitle());
                 intent.putExtra(NOTE_CONTENT, content);
                 startActivity(intent);
+                break;
+            case android.R.id.home:
+                finish();
+                break;
             default:
         }
 

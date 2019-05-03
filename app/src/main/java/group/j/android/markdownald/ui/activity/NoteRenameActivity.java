@@ -2,6 +2,8 @@ package group.j.android.markdownald.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +22,7 @@ public class NoteRenameActivity extends BaseActivity {
     private static final String NOTEBOOK_NAME = "notebook_name";
     private static final String DUPLICATION_REMINDER = "This note has existed in this notebook.";
 
+    private Toolbar mToolbar;
     private DatabaseHelper mDatabase;
     private EditText edit_rename_note;
     private Button btn_rename_note;
@@ -28,6 +31,11 @@ public class NoteRenameActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_rename);
+        mToolbar = findViewById(R.id.toolbar_note_rename);
+        setSupportActionBar(mToolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         mDatabase = getDatabase();
         edit_rename_note = findViewById(R.id.edit_rename_note);
         btn_rename_note = findViewById(R.id.btn_rename_note);
@@ -46,5 +54,16 @@ public class NoteRenameActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+
+        return true;
     }
 }

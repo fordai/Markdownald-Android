@@ -5,6 +5,7 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -23,14 +24,20 @@ public class NotePreviewActivity extends AppCompatActivity {
     private static final String NOTE_NAME = "note_name";
     private static final String NOTE_CONTENT = "note_content";
 
+    private Toolbar mToolbar;
     private TextView text_preview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_preview);
+        mToolbar = findViewById(R.id.toolbar_note_preview);
+        setSupportActionBar(mToolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         Intent intent = getIntent();
-        this.setTitle(intent.getStringExtra(NOTE_NAME));
+        getSupportActionBar().setTitle(intent.getStringExtra(NOTE_NAME));
         String content = intent.getStringExtra(NOTE_CONTENT);
         text_preview = findViewById(R.id.text_preview);
 
@@ -49,9 +56,6 @@ public class NotePreviewActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_close:
-                this.finish();
-                break;
             case R.id.menu_pdf:
                 PDFCreater pdfCreater = new PDFCreater(this);
                 pdfCreater.createPDF(text_preview);
@@ -62,6 +66,9 @@ public class NotePreviewActivity extends AppCompatActivity {
                 Intent intentQR = new Intent(this, NoteQRActivity.class);
                 intentQR.putExtra("note_QR", contentQR);
                 startActivity(intentQR);
+                break;
+            case android.R.id.home:
+                finish();
                 break;
             default:
         }

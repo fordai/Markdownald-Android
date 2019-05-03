@@ -2,6 +2,8 @@ package group.j.android.markdownald.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +21,7 @@ public class NotebookCreateActivity extends BaseActivity {
     private static final String TAG = "NotebookCreateActivity";
     private static final String DUPLICATION_REMINDER = "This notebook has been created";
 
+    private Toolbar mToolbar;
     private DatabaseHelper mDatabase;
     private EditText edit_notebook_title;
     private Button btn_create_notebook;
@@ -27,6 +30,11 @@ public class NotebookCreateActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notebook_create);
+        mToolbar = findViewById(R.id.toolbar_notebook_create);
+        setSupportActionBar(mToolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         mDatabase = getDatabase();
         edit_notebook_title = findViewById(R.id.edit_notebook_title);
         btn_create_notebook = findViewById(R.id.btn_create_notebook);
@@ -43,5 +51,16 @@ public class NotebookCreateActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+
+        return true;
     }
 }
