@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.jaeger.library.StatusBarUtil;
+
+import group.j.android.markdownald.R;
 import group.j.android.markdownald.db.DatabaseHelper;
 
 /**
@@ -16,6 +19,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDatabase = DatabaseHelper.getInstance(getApplicationContext());
+        StatusBarUtil.setColor(this, getResources().getColor(R.color.colorPrimary),0);
     }
 
     @Override
