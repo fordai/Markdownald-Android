@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import group.j.android.markdownald.R;
@@ -21,6 +22,7 @@ public class NotebookCreateActivity extends BaseActivity {
     private static final String DUPLICATION_REMINDER = "This notebook has been created";
 
     private Toolbar mToolbar;
+    private TextView toolbar_title;
     private EditText edit_notebook_title;
     private DatabaseHelper mDatabase;
 
@@ -32,7 +34,10 @@ public class NotebookCreateActivity extends BaseActivity {
         setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
+        toolbar_title = mToolbar.findViewById(R.id.toolbar_title);
+        toolbar_title.setText(getString(R.string.all_create_notebook));
         edit_notebook_title = findViewById(R.id.edit_notebook_title);
 
         mDatabase = getDatabase();

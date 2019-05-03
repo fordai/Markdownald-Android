@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import group.j.android.markdownald.R;
@@ -22,6 +23,7 @@ public class NoteRenameActivity extends BaseActivity {
     private static final String DUPLICATION_REMINDER = "This note has existed in this notebook.";
 
     private Toolbar mToolbar;
+    private TextView toolbar_title;
     private EditText edit_rename_note;
     private DatabaseHelper mDatabase;
 
@@ -33,7 +35,10 @@ public class NoteRenameActivity extends BaseActivity {
         setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
+        toolbar_title = mToolbar.findViewById(R.id.toolbar_title);
+        toolbar_title.setText(getString(R.string.all_rename_note));
         edit_rename_note = findViewById(R.id.edit_rename_note);
 
         mDatabase = getDatabase();

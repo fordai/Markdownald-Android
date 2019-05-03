@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_create_note"
-        android:title="@string/main_create_note" />
+        android:title="@string/all_create_note" />
     <item
         android:id="@+id/menu_create_notebook"
-        android:title="@string/main_create_notebook" />
+        android:title="@string/all_create_notebook" />
 
 </menu>
