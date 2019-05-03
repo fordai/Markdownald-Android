@@ -3,7 +3,6 @@ package group.j.android.markdownald.ui.activity;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -11,6 +10,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import group.j.android.markdownald.R;
+import group.j.android.markdownald.base.BaseActivity;
 import group.j.android.markdownald.util.MarkdownRenderer;
 import group.j.android.markdownald.util.PDFCreater;
 import group.j.android.markdownald.util.ShareNodeHandler;
@@ -19,7 +19,7 @@ import group.j.android.markdownald.util.ShareNodeHandler;
  * Implements the interface for displaying Markdown rendering effect.
  * User can share his note in this interface.
  */
-public class NotePreviewActivity extends AppCompatActivity {
+public class NotePreviewActivity extends BaseActivity {
     private static final String TAG = "NotePreviewActivity";
     private static final String NOTE_NAME = "note_name";
     private static final String NOTE_CONTENT = "note_content";
