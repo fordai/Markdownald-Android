@@ -19,7 +19,7 @@ import group.j.android.markdownald.db.DatabaseHelper;
 public class NotebookRenameActivity extends BaseActivity {
     private static final String TAG = "NotebookRenameActivity";
     private static final String EXTRA_NOTEBOOK_NAME = "notebook_name";
-    private static final String DUPLICATION_REMINDER = "This notebook has existed";
+    private static final String DUPLICATION_REMINDER = "Repeated notebook.";
 
     private Toolbar mToolbar;
     private TextView toolbar_title;

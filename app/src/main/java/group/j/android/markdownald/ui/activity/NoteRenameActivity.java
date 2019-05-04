@@ -20,7 +20,7 @@ public class NoteRenameActivity extends BaseActivity {
     private static final String TAG = "NoteRenameActivity";
     private static final String EXTRA_NOTE_NAME = "note_name";
     private static final String EXTRA_NOTEBOOK_NAME = "notebook_name";
-    private static final String DUPLICATION_REMINDER = "This note has existed in this notebook.";
+    private static final String DUPLICATION_REMINDER = "Repeated title.";
 
     private Toolbar mToolbar;
     private TextView toolbar_title;

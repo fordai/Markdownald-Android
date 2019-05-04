@@ -23,7 +23,7 @@ import group.j.android.markdownald.ui.activity.MainActivity;
  * Implements <code>Adapter</code> for moving the note.
  */
 public class NotebookAdapter extends RecyclerView.Adapter<NotebookAdapter.ViewHolder> {
-    private static final String DUPLICATION_REMINDER = "The destination has the same note";
+    private static final String DUPLICATION_REMINDER = "Repeated note.";
 
     private DatabaseHelper mDatabase;
     private Context mContext;

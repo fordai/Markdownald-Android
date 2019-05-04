@@ -21,7 +21,7 @@ import group.j.android.markdownald.model.Note;
  */
 public class NoteCreateActivity extends BaseActivity {
     private static final String TAG = "NoteCreateActivity";
-    private static final String DUPLICATION_REMINDER = "This note has been created";
+    private static final String DUPLICATION_REMINDER = "Note already exists.";
 
     private Toolbar mToolbar;
     private TextView toolbar_title;

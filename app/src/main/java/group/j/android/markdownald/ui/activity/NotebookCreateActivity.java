@@ -19,7 +19,7 @@ import group.j.android.markdownald.db.DatabaseHelper;
  */
 public class NotebookCreateActivity extends BaseActivity {
     private static final String TAG = "NotebookCreateActivity";
-    private static final String DUPLICATION_REMINDER = "This notebook has been created";
+    private static final String DUPLICATION_REMINDER = "Notebook already exists.";
 
     private Toolbar mToolbar;
     private TextView toolbar_title;

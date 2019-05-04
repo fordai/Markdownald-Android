@@ -57,6 +57,7 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
             this.easySwipeMenuLayout = holder.getView(R.id.layout_swipe_menu);
             easySwipeMenuLayout.setCanLeftSwipe(false);
         }
+
     }
 
     @Override
