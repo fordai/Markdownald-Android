@@ -36,6 +36,8 @@ public class NoteEditActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_edit);
+
+        // Configure the Toolbar
         mToolbar = findViewById(R.id.toolbar_note_edit);
         setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null) {
@@ -46,6 +48,7 @@ public class NoteEditActivity extends BaseActivity {
         String name = intent.getStringExtra(EXTRA_NOTE_NAME);
         toolbar_title = mToolbar.findViewById(R.id.toolbar_title);
         toolbar_title.setText(name);
+
         edit_note = findViewById(R.id.edit_note);
 
         mDatabase = getDatabase();

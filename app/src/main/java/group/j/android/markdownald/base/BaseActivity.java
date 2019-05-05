@@ -19,7 +19,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDatabase = DatabaseHelper.getInstance(getApplicationContext());
-        StatusBarUtil.setColor(this, getResources().getColor(R.color.colorPrimary),0);
+        StatusBarUtil.setColorNoTranslucent(this, getResources().getColor(R.color.colorAccentBlue));
     }
 
     @Override

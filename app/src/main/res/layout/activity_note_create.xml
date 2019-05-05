@@ -10,26 +10,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:paddingLeft="20sp"
+        android:paddingTop="20sp"
+        android:text="@string/all_note_name"
+        android:textSize="14sp" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60sp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="90sp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/create_title"
-            android:textSize="18sp" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="16sp"
+        android:paddingRight="16sp">
 
         <EditText
             android:id="@+id/edit_note_title"
-            android:layout_width="0sp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:hint="@string/create_hint"
-            android:inputType="none" />
+            android:hint="@string/all_type_hint"
+            android:inputType="none"
+            android:singleLine="true"
+            android:textSize="34sp" />
     </LinearLayout>
 
 </LinearLayout>

@@ -1,11 +1,12 @@
 package group.j.android.markdownald.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -36,8 +37,7 @@ public class MorePopupWindow extends PopupWindow {
         this.setContentView(this.mView);
         this.setHeight(RelativeLayout.LayoutParams.MATCH_PARENT);
         this.setWidth(RelativeLayout.LayoutParams.MATCH_PARENT);
-        ColorDrawable dw = new ColorDrawable(0xb0000000);
-        this.setBackgroundDrawable(dw);
+        this.setAnimationStyle(R.style.BottomWindowAnim);
 
         this.setFocusable(true);
         this.setOutsideTouchable(true);
@@ -63,6 +63,19 @@ public class MorePopupWindow extends PopupWindow {
         }
         btn_rename = mView.findViewById(R.id.btn_rename);
         btn_rename.setOnClickListener(onClickListener);
+    }
+
+    @Override
+    public void dismiss() {
+        super.dismiss();
+        setBackgroundAlpha(1f);
+    }
+
+    public void showAtLocation(View parent, int gravity, int x, int y, String notebook, String note) {
+        super.showAtLocation(parent, gravity, x, y);
+        setBackgroundAlpha(0.5f);
+        this.mNotebook = notebook;
+        this.mNote = note;
     }
 
     private View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -92,10 +105,9 @@ public class MorePopupWindow extends PopupWindow {
         }
     };
 
-    public void showAtLocation(View parent, int gravity, int x, int y, String notebook, String note) {
-        super.showAtLocation(parent, gravity, x, y);
-        this.mNotebook = notebook;
-        this.mNote = note;
+    private void setBackgroundAlpha(float bgAlpha) {
+        WindowManager.LayoutParams lp = ((Activity) mContext).getWindow().getAttributes();
+        lp.alpha = bgAlpha;
+        ((Activity) mContext).getWindow().setAttributes(lp);
     }
-
 }

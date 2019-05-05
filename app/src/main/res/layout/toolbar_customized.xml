@@ -4,9 +4,9 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorPrimaryBlue"
     android:fitsSystemWindows="true"
-    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+    app:popupTheme="@style/OverflowMenuStyle"
     app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
     app:title="@string/app_name"
     app:titleTextColor="@android:color/white">
@@ -17,5 +17,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
 </android.support.v7.widget.Toolbar>

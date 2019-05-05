@@ -30,6 +30,8 @@ public class NotebookCreateActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notebook_create);
+
+        // Configure the Toolbar
         mToolbar = findViewById(R.id.toolbar_notebook_create);
         setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null) {
@@ -38,6 +40,7 @@ public class NotebookCreateActivity extends BaseActivity {
         }
         toolbar_title = mToolbar.findViewById(R.id.toolbar_title);
         toolbar_title.setText(getString(R.string.all_create_notebook));
+
         edit_notebook_title = findViewById(R.id.edit_notebook_title);
 
         mDatabase = getDatabase();

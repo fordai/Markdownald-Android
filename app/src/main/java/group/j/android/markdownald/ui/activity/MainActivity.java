@@ -1,13 +1,15 @@
 package group.j.android.markdownald.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.content.Intent;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
@@ -34,15 +36,35 @@ import group.j.android.markdownald.db.DatabaseHelper;
 public class MainActivity extends BaseActivity {
     private static final String TAG = "MainActivity";
 
+    private Toolbar mToolbar;
+    private TextView toolbar_title;
+    private RecyclerView mRecyclerView;
     private DatabaseHelper mDatabase;
     private List<MultiItemEntity> mNotes;
     private ExpandableItemAdapter mAdapter;
-    private RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Configure the Toolbar
+        mToolbar = findViewById(R.id.toolbar_main);
+        setSupportActionBar(mToolbar);
+        mToolbar.setNavigationIcon(R.drawable.ic_action_username);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // For sidebar
+            }
+        });
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+        toolbar_title = mToolbar.findViewById(R.id.toolbar_title);
+        toolbar_title.setText(getString(R.string.app_name));
+
+        // Configure the RecyclerView
         mRecyclerView = findViewById(R.id.recycler_note_list);
         mDatabase = getDatabase();
         mNotes = mDatabase.loadDB();
@@ -58,12 +80,12 @@ public class MainActivity extends BaseActivity {
         mNotes.clear();
         mNotes.addAll(mDatabase.loadDB());
         mAdapter.notifyDataSetChanged();
-        Log.d(TAG, "onRestart: ");
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_main, menu);
+
         return true;
     }
 
@@ -77,8 +99,6 @@ public class MainActivity extends BaseActivity {
             case R.id.menu_create_notebook:
                 Intent directoryIntent = new Intent(this, NotebookCreateActivity.class);
                 startActivity(directoryIntent);
-                break;
-            default:
                 break;
         }
 
