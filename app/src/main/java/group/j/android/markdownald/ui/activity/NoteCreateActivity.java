@@ -3,10 +3,10 @@ package group.j.android.markdownald.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import group.j.android.markdownald.R;
@@ -21,12 +21,12 @@ import group.j.android.markdownald.model.Note;
  */
 public class NoteCreateActivity extends BaseActivity {
     private static final String TAG = "NoteCreateActivity";
-    private static final String DUPLICATION_REMINDER = "This note has been created";
+    private static final String DUPLICATION_REMINDER = "Note already exists.";
 
     private Toolbar mToolbar;
+    private TextView toolbar_title;
+    private EditText edit_note_title;
     private DatabaseHelper mDatabase;
-    private EditText edit_title;
-    private Button btn_create;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,26 +36,20 @@ public class NoteCreateActivity extends BaseActivity {
         setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
+        toolbar_title = mToolbar.findViewById(R.id.toolbar_title);
+        toolbar_title.setText(getString(R.string.all_create_note));
+        edit_note_title = findViewById(R.id.edit_note_title);
+
         mDatabase = getDatabase();
-        edit_title = findViewById(R.id.edit_title);
-        btn_create = findViewById(R.id.btn_create);
-        btn_create.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String name = edit_title.getText().toString();
-                if (!mDatabase.isNote(name)) {
-                    long id = mDatabase.createNote(new Note(name));
-                    mDatabase.createNoteToNotebook(id, mDatabase.getNotebookByName("Default").getId());
-                    Intent intent = new Intent(NoteCreateActivity.this, MainActivity.class);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(NoteCreateActivity.this, DUPLICATION_REMINDER, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_create, menu);
 
+        return true;
     }
 
     @Override
@@ -63,6 +57,17 @@ public class NoteCreateActivity extends BaseActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
+                break;
+            case R.id.menu_create:
+                String name = edit_note_title.getText().toString();
+                if (!mDatabase.isNoteByNotebook(name, "Default")) {
+                    long id = mDatabase.createNote(new Note(name));
+                    mDatabase.createNoteToNotebook(id, mDatabase.getNotebookByName("Default").getId());
+                    Intent intent = new Intent(NoteCreateActivity.this, MainActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(NoteCreateActivity.this, DUPLICATION_REMINDER, Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
 

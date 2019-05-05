@@ -13,7 +13,6 @@ import group.j.android.markdownald.R;
 import group.j.android.markdownald.base.BaseActivity;
 import group.j.android.markdownald.util.MarkdownRenderer;
 import group.j.android.markdownald.util.PDFCreater;
-import group.j.android.markdownald.util.ShareNodeHandler;
 
 /**
  * Implements the interface for displaying Markdown rendering effect.
@@ -21,10 +20,11 @@ import group.j.android.markdownald.util.ShareNodeHandler;
  */
 public class NotePreviewActivity extends BaseActivity {
     private static final String TAG = "NotePreviewActivity";
-    private static final String NOTE_NAME = "note_name";
-    private static final String NOTE_CONTENT = "note_content";
+    private static final String EXTRA_NOTE_NAME = "note_name";
+    private static final String EXTRA_NOTE_CONTENT = "note_content";
 
     private Toolbar mToolbar;
+    private TextView toolbar_title;
     private TextView text_preview;
 
     @Override
@@ -35,10 +35,12 @@ public class NotePreviewActivity extends BaseActivity {
         setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
         Intent intent = getIntent();
-        getSupportActionBar().setTitle(intent.getStringExtra(NOTE_NAME));
-        String content = intent.getStringExtra(NOTE_CONTENT);
+        toolbar_title = mToolbar.findViewById(R.id.toolbar_title);
+        toolbar_title.setText(intent.getStringExtra(EXTRA_NOTE_NAME));
+        String content = intent.getStringExtra(EXTRA_NOTE_CONTENT);
         text_preview = findViewById(R.id.text_preview);
 
         // Implementation for markdown rendering here

@@ -74,7 +74,7 @@ public class MainActivity extends BaseActivity {
                 Intent noteIntent = new Intent(this, NoteCreateActivity.class);
                 startActivity(noteIntent);
                 break;
-            case R.id.menu_create_directory:
+            case R.id.menu_create_notebook:
                 Intent directoryIntent = new Intent(this, NotebookCreateActivity.class);
                 startActivity(directoryIntent);
                 break;

@@ -3,10 +3,10 @@ package group.j.android.markdownald.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import group.j.android.markdownald.R;
@@ -19,12 +19,12 @@ import group.j.android.markdownald.db.DatabaseHelper;
  */
 public class NotebookCreateActivity extends BaseActivity {
     private static final String TAG = "NotebookCreateActivity";
-    private static final String DUPLICATION_REMINDER = "This notebook has been created";
+    private static final String DUPLICATION_REMINDER = "Notebook already exists.";
 
     private Toolbar mToolbar;
-    private DatabaseHelper mDatabase;
+    private TextView toolbar_title;
     private EditText edit_notebook_title;
-    private Button btn_create_notebook;
+    private DatabaseHelper mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +34,29 @@ public class NotebookCreateActivity extends BaseActivity {
         setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
-        mDatabase = getDatabase();
+        toolbar_title = mToolbar.findViewById(R.id.toolbar_title);
+        toolbar_title.setText(getString(R.string.all_create_notebook));
         edit_notebook_title = findViewById(R.id.edit_notebook_title);
-        btn_create_notebook = findViewById(R.id.btn_create_notebook);
-        btn_create_notebook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+
+        mDatabase = getDatabase();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_create, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            case R.id.menu_create:
                 String name = edit_notebook_title.getText().toString();
                 if (!mDatabase.isNotebook(name)) {
                     mDatabase.createNotebook(name);
@@ -49,15 +65,6 @@ public class NotebookCreateActivity extends BaseActivity {
                 } else {
                     Toast.makeText(NotebookCreateActivity.this, DUPLICATION_REMINDER, Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
                 break;
         }
 

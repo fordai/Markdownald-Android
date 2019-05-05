@@ -2,7 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu_preview"
-        android:title="@string/all_preview"
+        android:id="@+id/menu_rename"
+        android:title="@string/all_rename"
         app:showAsAction="always" />
+
 </menu>

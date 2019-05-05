@@ -10,13 +10,13 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import group.j.android.markdownald.R;
 import group.j.android.markdownald.base.BaseActivity;
 import group.j.android.markdownald.db.DatabaseHelper;
 import group.j.android.markdownald.util.AutoCompleter;
 import group.j.android.markdownald.util.MarkdownSyntaxHighlighter;
-import group.j.android.markdownald.util.PDFCreater;
 
 /**
  * Implements the interface for editing the note. Syntax highlight and auto-completion should be offered here.
@@ -24,12 +24,13 @@ import group.j.android.markdownald.util.PDFCreater;
  */
 public class NoteEditActivity extends BaseActivity {
     private static final String TAG = "NoteEditActivity";
-    private static final String NOTE_NAME = "note_name";
-    private static final String NOTE_CONTENT = "note_content";
+    private static final String EXTRA_NOTE_NAME = "note_name";
+    private static final String EXTRA_NOTE_CONTENT = "note_content";
 
     private Toolbar mToolbar;
+    private TextView toolbar_title;
+    private EditText edit_note;
     private DatabaseHelper mDatabase;
-    EditText edit_note;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +40,15 @@ public class NoteEditActivity extends BaseActivity {
         setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
-        mDatabase = getDatabase();
         Intent intent = getIntent();
-        String name = intent.getStringExtra(NOTE_NAME);
-        getSupportActionBar().setTitle(name);
+        String name = intent.getStringExtra(EXTRA_NOTE_NAME);
+        toolbar_title = mToolbar.findViewById(R.id.toolbar_title);
+        toolbar_title.setText(name);
         edit_note = findViewById(R.id.edit_note);
+
+        mDatabase = getDatabase();
 
         //Implementation for auto-completion here
         AutoCompleter z = new AutoCompleter(edit_note);
@@ -54,7 +58,7 @@ public class NoteEditActivity extends BaseActivity {
         MarkdownSyntaxHighlighter highlighter = new MarkdownSyntaxHighlighter();
         highlighter.highlight(edit_note);
 
-        edit_note.setText(highlighter.highlight(intent.getStringExtra(NOTE_CONTENT)));
+        edit_note.setText(highlighter.highlight(intent.getStringExtra(EXTRA_NOTE_CONTENT)));
         edit_note.setSelection(edit_note.getText().length());
 
         save(name, edit_note);
@@ -72,8 +76,8 @@ public class NoteEditActivity extends BaseActivity {
             case R.id.menu_preview:
                 String content = edit_note.getText().toString();
                 Intent intent = new Intent(this, NotePreviewActivity.class);
-                intent.putExtra(NOTE_NAME, mToolbar.getTitle());
-                intent.putExtra(NOTE_CONTENT, content);
+                intent.putExtra(EXTRA_NOTE_NAME, toolbar_title.getText());
+                intent.putExtra(EXTRA_NOTE_CONTENT, content);
                 startActivity(intent);
                 break;
             case android.R.id.home:

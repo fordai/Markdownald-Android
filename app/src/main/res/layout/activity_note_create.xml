@@ -23,7 +23,7 @@
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/edit_title"
+            android:id="@+id/edit_note_title"
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -32,9 +32,4 @@
             android:inputType="none" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_create"
-        android:layout_width="match_parent"
-        android:layout_height="60sp"
-        android:text="@string/all_create" />
 </LinearLayout>
