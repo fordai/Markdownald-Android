@@ -13,17 +13,20 @@ import group.j.android.markdownald.util.ShareNodeHandler;
 public class NoteQRActivity extends BaseActivity {
 
     private Toolbar mToolbar;
-    ImageView imageView;
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_qr);
+
+        // Configure the Toolbar
         mToolbar = findViewById(R.id.toolbar_note_qr);
         setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
         ShareNodeHandler shareNodeHandler = new ShareNodeHandler();
         Intent intent = getIntent();
         String content = intent.getStringExtra("note_QR");

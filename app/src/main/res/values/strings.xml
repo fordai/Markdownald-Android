@@ -1,24 +1,27 @@
 <resources>
     <string name="app_name">Markdownald</string>
 
+    <string name="all_type_hint">Please type here</string>
+    <string name="all_note_name">Note Name</string>
+    <string name="all_notebook_name">Notebook Name</string>
+
     <string name="all_create">Create</string>
     <string name="all_create_note">Create New Note</string>
     <string name="all_create_notebook">Create New Notebook</string>
+
     <string name="all_rename">Rename</string>
     <string name="all_rename_note">Rename The Note</string>
     <string name="all_rename_notebook">Rename The Notebook</string>
+
+    <string name="all_move">Move</string>
+    <string name="all_move_note">Move The Note</string>
+
     <string name="all_preview">Preview</string>
+
+    <string name="all_cancel">Cancel</string>
 
     <string name="main_more">More</string>
     <string name="main_delete">Delete</string>
-
-    <string name="create_title">Title</string>
-    <string name="create_hint">Please type here</string>
-
-    <string name="edit_hint">Please type here</string>
-
-    <string name="rename_title">Title</string>
-    <string name="rename_hint">Please type new name here</string>
 
     <string name="title_activity_node_qr">NodeQRActivity</string>
 </resources>

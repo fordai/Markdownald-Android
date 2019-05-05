@@ -5,8 +5,8 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
@@ -25,6 +25,7 @@ public class NoteMoveActivity extends BaseActivity {
     private static final String NOTE_NAME = "note_name";
 
     public Toolbar mToolbar;
+    private TextView toolbar_title;
     public DatabaseHelper mDatabase;
     private List<MultiItemEntity> mNotes;
     private NotebookAdapter mAdapter;
@@ -34,11 +35,18 @@ public class NoteMoveActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_move);
+
+        // Configure the Toolbar
         mToolbar = findViewById(R.id.toolbar_note_move);
         setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
+        toolbar_title = mToolbar.findViewById(R.id.toolbar_title);
+        toolbar_title.setText(getString(R.string.all_move_note));
+
+        // Configure the RecyclerView
         mDatabase = getDatabase();
         mNotes = mDatabase.loadDB();
         mAdapter = new NotebookAdapter(mDatabase, this, mNotes);
@@ -47,7 +55,6 @@ public class NoteMoveActivity extends BaseActivity {
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        Log.d(TAG, "onCreate: ");
     }
 
     @Override

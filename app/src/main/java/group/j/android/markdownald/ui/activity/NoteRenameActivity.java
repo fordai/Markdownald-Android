@@ -31,6 +31,8 @@ public class NoteRenameActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_rename);
+
+        // Configure the Toolbar
         mToolbar = findViewById(R.id.toolbar_note_rename);
         setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null) {
@@ -39,6 +41,7 @@ public class NoteRenameActivity extends BaseActivity {
         }
         toolbar_title = mToolbar.findViewById(R.id.toolbar_title);
         toolbar_title.setText(getString(R.string.all_rename_note));
+
         edit_rename_note = findViewById(R.id.edit_rename_note);
 
         mDatabase = getDatabase();

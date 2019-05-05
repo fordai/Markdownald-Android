@@ -30,6 +30,8 @@ public class NotebookRenameActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notebook_rename);
+
+        // Configure the Toolbar
         mToolbar = findViewById(R.id.toolbar_notebook_rename);
         setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null) {
@@ -38,6 +40,7 @@ public class NotebookRenameActivity extends BaseActivity {
         }
         toolbar_title = mToolbar.findViewById(R.id.toolbar_title);
         toolbar_title.setText(getString(R.string.all_rename_notebook));
+
         edit_rename_notebook = findViewById(R.id.edit_rename_notebook);
 
         mDatabase = getDatabase();

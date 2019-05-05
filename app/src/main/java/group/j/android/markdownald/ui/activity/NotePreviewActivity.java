@@ -31,6 +31,8 @@ public class NotePreviewActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_preview);
+
+        // Configure the Toolbar
         mToolbar = findViewById(R.id.toolbar_note_preview);
         setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null) {
@@ -40,12 +42,12 @@ public class NotePreviewActivity extends BaseActivity {
         Intent intent = getIntent();
         toolbar_title = mToolbar.findViewById(R.id.toolbar_title);
         toolbar_title.setText(intent.getStringExtra(EXTRA_NOTE_NAME));
-        String content = intent.getStringExtra(EXTRA_NOTE_CONTENT);
+
         text_preview = findViewById(R.id.text_preview);
 
         // Implementation for markdown rendering here
         MarkdownRenderer markdownRenderer = new MarkdownRenderer(this);
-        markdownRenderer.setMarkdown(text_preview, content);
+        markdownRenderer.setMarkdown(text_preview, intent.getStringExtra(EXTRA_NOTE_CONTENT));
     }
 
     @Override
@@ -72,7 +74,6 @@ public class NotePreviewActivity extends BaseActivity {
             case android.R.id.home:
                 finish();
                 break;
-            default:
         }
 
         return true;
