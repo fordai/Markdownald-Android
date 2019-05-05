@@ -2,10 +2,13 @@ package group.j.android.markdownald.ui.activity;
 
 import android.os.Bundle;
 import android.content.Intent;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,27 +45,41 @@ public class MainActivity extends BaseActivity {
     private DatabaseHelper mDatabase;
     private List<MultiItemEntity> mNotes;
     private ExpandableItemAdapter mAdapter;
-
+    private DrawerLayout mDrawerLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
+
         // Configure the Toolbar
-        mToolbar = findViewById(R.id.toolbar_main);
-        setSupportActionBar(mToolbar);
-        mToolbar.setNavigationIcon(R.drawable.ic_action_username);
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // For sidebar
-            }
-        });
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
-        }
-        toolbar_title = mToolbar.findViewById(R.id.toolbar_title);
-        toolbar_title.setText(getString(R.string.app_name));
+      //  mToolbar = findViewById(R.id.toolbar_main);
+       // setSupportActionBar(mToolbar);
+       // mDrawerLayout = (DrawerLayout) findViewById(R.id.layouyt_main);
+
+
+
+
+
+      //  mToolbar.setNavigationIcon(R.drawable.ic_action_username);
+       // mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        //    @Override
+         //   public void onClick(View v) {
+          //      switch (v.getId()){
+          //          case R.id.toolbar_main:
+          //              mDrawerLayout.openDrawer(Gravity.LEFT);
+          //              break;
+
+       //         }
+        //    }
+       // });
+       // if (getSupportActionBar() != null) {
+      //      getSupportActionBar().setDisplayShowTitleEnabled(false);
+     //  }
+     //   toolbar_title = mToolbar.findViewById(R.id.toolbar_title);
+      //  toolbar_title.setText(getString(R.string.app_name));
 
         // Configure the RecyclerView
         mRecyclerView = findViewById(R.id.recycler_note_list);
@@ -104,4 +121,5 @@ public class MainActivity extends BaseActivity {
 
         return true;
     }
+
 }
