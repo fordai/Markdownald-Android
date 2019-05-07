@@ -24,10 +24,4 @@
     <string name="main_delete">Delete</string>
 
     <string name="title_activity_node_qr">NodeQRActivity</string>
-    <string name="string_setting">setting</string>
-    <string name="string_login">login</string>
-    <string name="all_setting">setting</string>
-    <string name="all_login">login</string>
-    <string name="all_open">Open</string>
-    <string name="all_close">Close</string>
 </resources>
