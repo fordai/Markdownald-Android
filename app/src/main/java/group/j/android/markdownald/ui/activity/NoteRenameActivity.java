@@ -40,7 +40,8 @@ public class NoteRenameActivity extends BaseActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
         toolbar_title = mToolbar.findViewById(R.id.toolbar_title);
-        toolbar_title.setText(getString(R.string.all_rename_note));
+        toolbar_title.setText(getString(R.string.all_rename));
+        mToolbar.setOverflowIcon(getResources().getDrawable(R.drawable.ic_baseline_done_white));
 
         edit_rename_note = findViewById(R.id.edit_rename_note);
 

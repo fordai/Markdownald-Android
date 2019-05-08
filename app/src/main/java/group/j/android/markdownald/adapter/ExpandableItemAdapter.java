@@ -46,7 +46,7 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
         this.notebookPopupWindow = new MorePopupWindow(context, false);
         this.setDefaultViewTypeLayout(layoutResId);
         addItemType(TYPE_LEVEL_ZERO, R.layout.activity_main_adapter);
-        addItemType(TYPE_LEVEL_ONE, R.layout.activity_main_adapter);
+        addItemType(TYPE_LEVEL_ONE, R.layout.activity_note_adapter);
     }
 
     @Override

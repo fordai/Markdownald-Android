@@ -51,7 +51,7 @@ public class MainActivity extends BaseActivity {
         // Configure the Toolbar
         mToolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(mToolbar);
-        mToolbar.setNavigationIcon(R.drawable.ic_action_username);
+        mToolbar.setNavigationIcon(R.drawable.ic_baseline_menu_white);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,6 +63,7 @@ public class MainActivity extends BaseActivity {
         }
         toolbar_title = mToolbar.findViewById(R.id.toolbar_title);
         toolbar_title.setText(getString(R.string.app_name));
+        mToolbar.setOverflowIcon(getResources().getDrawable(R.drawable.ic_baseline_add_white));
 
         // Configure the RecyclerView
         mRecyclerView = findViewById(R.id.recycler_note_list);

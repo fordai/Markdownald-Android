@@ -42,6 +42,7 @@ public class NoteCreateActivity extends BaseActivity {
         }
         toolbar_title = mToolbar.findViewById(R.id.toolbar_title);
         toolbar_title.setText(getString(R.string.all_create_note));
+        mToolbar.setOverflowIcon(getResources().getDrawable(R.drawable.ic_baseline_create_white));
 
         edit_note_title = findViewById(R.id.edit_note_title);
 

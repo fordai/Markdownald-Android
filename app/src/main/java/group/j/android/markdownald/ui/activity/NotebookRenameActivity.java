@@ -39,7 +39,7 @@ public class NotebookRenameActivity extends BaseActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
         toolbar_title = mToolbar.findViewById(R.id.toolbar_title);
-        toolbar_title.setText(getString(R.string.all_rename_notebook));
+        toolbar_title.setText(getString(R.string.all_rename));
 
         edit_rename_notebook = findViewById(R.id.edit_rename_notebook);
 
