@@ -20,6 +20,8 @@
 
     <string name="all_cancel">Cancel</string>
 
+    <string name="all_sync">Sync</string>
+
     <string name="main_more">More</string>
     <string name="main_delete">Delete</string>
 

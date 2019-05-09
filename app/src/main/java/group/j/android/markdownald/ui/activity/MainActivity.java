@@ -2,10 +2,12 @@ package group.j.android.markdownald.ui.activity;
 
 import android.os.Bundle;
 import android.content.Intent;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,6 +44,7 @@ public class MainActivity extends BaseActivity {
     private DatabaseHelper mDatabase;
     private List<MultiItemEntity> mNotes;
     private ExpandableItemAdapter mAdapter;
+    private DrawerLayout layout_navigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +57,11 @@ public class MainActivity extends BaseActivity {
 
         // Configure the navigation icon
         mToolbar.setNavigationIcon(R.drawable.ic_baseline_menu_white);
+        layout_navigation = findViewById(R.id.layout_navigation);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // For sidebar
+                layout_navigation.openDrawer(Gravity.START);
             }
         });
 
@@ -106,6 +110,8 @@ public class MainActivity extends BaseActivity {
             case R.id.menu_create_notebook:
                 Intent notebookIntent = new Intent(this, NotebookCreateActivity.class);
                 startActivity(notebookIntent);
+                break;
+            case R.id.menu_sync:
                 break;
             default:
                 break;
