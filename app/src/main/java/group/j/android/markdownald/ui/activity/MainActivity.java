@@ -44,7 +44,6 @@ public class MainActivity extends BaseActivity {
     private DatabaseHelper mDatabase;
     private List<MultiItemEntity> mNotes;
     private ExpandableItemAdapter mAdapter;
-    private DrawerLayout layout_navigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +56,11 @@ public class MainActivity extends BaseActivity {
 
         // Configure the navigation icon
         mToolbar.setNavigationIcon(R.drawable.ic_baseline_menu_white);
-        layout_navigation = findViewById(R.id.layout_navigation);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                layout_navigation.openDrawer(Gravity.START);
+                DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.layout_navigation);
+                drawerLayout.openDrawer(Gravity.START);
             }
         });
 
@@ -110,8 +109,6 @@ public class MainActivity extends BaseActivity {
             case R.id.menu_create_notebook:
                 Intent notebookIntent = new Intent(this, NotebookCreateActivity.class);
                 startActivity(notebookIntent);
-                break;
-            case R.id.menu_sync:
                 break;
             default:
                 break;
