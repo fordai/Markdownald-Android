@@ -25,6 +25,7 @@ import group.j.android.markdownald.model.Note;
 public class NoteCreateActivity extends BaseActivity {
     private static final String TAG = "NoteCreateActivity";
     private static final String DUPLICATION_REMINDER = "Note already exists.";
+    private static final String EMPTY_REMINDER = "The note name cannot be empty.";
 
     private DatabaseHelper mDatabase;
 
@@ -71,8 +72,12 @@ public class NoteCreateActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (mDatabase.isNoteByNotebook(s.toString(), "Default")) {
+                String name = s.toString().trim();
+
+                if (mDatabase.isNoteByNotebook(name, "Default")) {
                     layout_note_title.setError(DUPLICATION_REMINDER);
+                } else if (name.isEmpty()) {
+                    layout_note_title.setError(EMPTY_REMINDER);
                 } else {
                     layout_note_title.setError("");
                 }
@@ -94,8 +99,10 @@ public class NoteCreateActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.menu_create:
-                String name = edit_note_title.getText().toString();
-                if (!mDatabase.isNoteByNotebook(name, "Default")) {
+                String name = edit_note_title.getText().toString().trim();
+                if (name.isEmpty()) {
+                    Toast.makeText(NoteCreateActivity.this, EMPTY_REMINDER, Toast.LENGTH_SHORT).show();
+                } else if (!mDatabase.isNoteByNotebook(name, "Default")) {
                     long id = mDatabase.createNote(new Note(name));
                     mDatabase.createNoteToNotebook(id, mDatabase.getNotebookByName("Default").getId());
                     Intent intent = new Intent(NoteCreateActivity.this, MainActivity.class);
@@ -103,6 +110,8 @@ public class NoteCreateActivity extends BaseActivity {
                 } else {
                     Toast.makeText(NoteCreateActivity.this, DUPLICATION_REMINDER, Toast.LENGTH_SHORT).show();
                 }
+                break;
+            default:
                 break;
         }
 

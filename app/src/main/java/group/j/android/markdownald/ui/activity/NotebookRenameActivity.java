@@ -23,6 +23,7 @@ public class NotebookRenameActivity extends BaseActivity {
     private static final String TAG = "NotebookRenameActivity";
     private static final String EXTRA_NOTEBOOK_NAME = "notebook_name";
     private static final String DUPLICATION_REMINDER = "Repeated notebook.";
+    private static final String EMPTY_REMINDER = "The notebook name cannot be empty.";
 
     private String oldName;
 
@@ -67,8 +68,12 @@ public class NotebookRenameActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (mDatabase.isNotebook(s.toString())) {
+                String name = s.toString().trim();
+
+                if (mDatabase.isNotebook(name)) {
                     layout_rename_notebook.setError(DUPLICATION_REMINDER);
+                } else if (name.isEmpty()) {
+                    layout_rename_notebook.setError(EMPTY_REMINDER);
                 } else {
                     layout_rename_notebook.setError("");
                 }
@@ -90,8 +95,10 @@ public class NotebookRenameActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.menu_rename:
-                String newName = edit_rename_notebook.getText().toString();
-                if (!mDatabase.isNotebook(newName)) {
+                String newName = edit_rename_notebook.getText().toString().trim();
+                if (newName.isEmpty()) {
+                    Toast.makeText(NotebookRenameActivity.this, EMPTY_REMINDER, Toast.LENGTH_SHORT).show();
+                } else if (!mDatabase.isNotebook(newName)) {
                     mDatabase.updateNotebook(oldName, newName);
                     Intent intent = new Intent(NotebookRenameActivity.this, MainActivity.class);
                     startActivity(intent);

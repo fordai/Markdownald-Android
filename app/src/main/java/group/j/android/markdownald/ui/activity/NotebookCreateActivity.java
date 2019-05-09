@@ -23,6 +23,7 @@ import group.j.android.markdownald.db.DatabaseHelper;
 public class NotebookCreateActivity extends BaseActivity {
     private static final String TAG = "NotebookCreateActivity";
     private static final String DUPLICATION_REMINDER = "Notebook already exists.";
+    private static final String EMPTY_REMINDER = "The notebook name cannot be empty.";
 
     private DatabaseHelper mDatabase;
 
@@ -66,8 +67,12 @@ public class NotebookCreateActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (mDatabase.isNotebook(s.toString())) {
+                String name = s.toString().trim();
+
+                if (mDatabase.isNotebook(name)) {
                     layout_notebook_title.setError(DUPLICATION_REMINDER);
+                } else if (name.isEmpty()) {
+                    layout_notebook_title.setError(EMPTY_REMINDER);
                 } else {
                     layout_notebook_title.setError("");
                 }
@@ -89,14 +94,18 @@ public class NotebookCreateActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.menu_create:
-                String name = edit_notebook_title.getText().toString();
-                if (!mDatabase.isNotebook(name)) {
+                String name = edit_notebook_title.getText().toString().trim();
+                if (name.isEmpty()) {
+                    Toast.makeText(NotebookCreateActivity.this, EMPTY_REMINDER, Toast.LENGTH_SHORT).show();
+                } else if (!mDatabase.isNotebook(name)) {
                     mDatabase.createNotebook(name);
                     Intent intent = new Intent(NotebookCreateActivity.this, MainActivity.class);
                     startActivity(intent);
                 } else {
                     Toast.makeText(NotebookCreateActivity.this, DUPLICATION_REMINDER, Toast.LENGTH_SHORT).show();
                 }
+                break;
+            default:
                 break;
         }
 
