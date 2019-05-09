@@ -87,6 +87,7 @@ public class NoteEditActivity extends BaseActivity {
                 finish();
                 break;
             default:
+                break;
         }
 
         return true;

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -17,16 +18,22 @@
         android:paddingLeft="20sp"
         android:paddingTop="20sp"
         android:text="@string/all_note_name"
-        android:textSize="14sp" />
+        android:textColor="@color/colorPrimaryBlue"
+        android:textSize="16sp" />
 
-    <LinearLayout
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/layout_rename_note"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="16sp"
-        android:paddingRight="16sp">
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:theme="@style/MyEditText"
+        app:errorEnabled="true"
+        app:errorTextAppearance="@style/ErrorText"
+        app:hintEnabled="false">
 
-        <EditText
+        <android.support.design.widget.TextInputEditText
             android:id="@+id/edit_rename_note"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,6 +42,6 @@
             android:inputType="none"
             android:singleLine="true"
             android:textSize="34sp" />
-    </LinearLayout>
+    </android.support.design.widget.TextInputLayout>
 
 </LinearLayout>

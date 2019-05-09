@@ -2,7 +2,10 @@ package group.j.android.markdownald.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -22,15 +25,25 @@ public class NoteRenameActivity extends BaseActivity {
     private static final String EXTRA_NOTEBOOK_NAME = "notebook_name";
     private static final String DUPLICATION_REMINDER = "Repeated title.";
 
+    private String oldName;
+    private String notebookName;
+
+    private DatabaseHelper mDatabase;
+
     private Toolbar mToolbar;
     private TextView toolbar_title;
     private EditText edit_rename_note;
-    private DatabaseHelper mDatabase;
+    private TextInputLayout layout_rename_note;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_rename);
+
+        mDatabase = getDatabase();
+
+        oldName = getIntent().getStringExtra(EXTRA_NOTE_NAME);
+        notebookName = getIntent().getStringExtra(EXTRA_NOTEBOOK_NAME);
 
         // Configure the Toolbar
         mToolbar = findViewById(R.id.toolbar_note_rename);
@@ -39,13 +52,34 @@ public class NoteRenameActivity extends BaseActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
+
+        // Configure the title
         toolbar_title = mToolbar.findViewById(R.id.toolbar_title);
         toolbar_title.setText(getString(R.string.all_rename));
         mToolbar.setOverflowIcon(getResources().getDrawable(R.drawable.ic_baseline_done_white));
 
         edit_rename_note = findViewById(R.id.edit_rename_note);
+        layout_rename_note = findViewById(R.id.layout_rename_note);
+        edit_rename_note.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-        mDatabase = getDatabase();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (mDatabase.isNoteByNotebook(s.toString(), notebookName)) {
+                    layout_rename_note.setError(DUPLICATION_REMINDER);
+                } else {
+                    layout_rename_note.setError("");
+                }
+            }
+        });
     }
 
     @Override
@@ -62,8 +96,6 @@ public class NoteRenameActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.menu_rename:
-                String oldName = getIntent().getStringExtra(EXTRA_NOTE_NAME);
-                String notebookName = getIntent().getStringExtra(EXTRA_NOTEBOOK_NAME);
                 String newName = edit_rename_note.getText().toString();
                 if (!mDatabase.isNoteByNotebook(newName, notebookName)) {
                     mDatabase.updateNoteName(oldName, newName);
@@ -72,6 +104,8 @@ public class NoteRenameActivity extends BaseActivity {
                 } else {
                     Toast.makeText(NoteRenameActivity.this, DUPLICATION_REMINDER, Toast.LENGTH_SHORT).show();
                 }
+                break;
+            default:
                 break;
         }
 

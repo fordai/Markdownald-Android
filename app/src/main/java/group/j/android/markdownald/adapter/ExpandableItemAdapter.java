@@ -29,8 +29,8 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
     private static final int TYPE_LEVEL_ZERO = 0;
     private static final int TYPE_LEVEL_ONE = 1;
 
-    private static final String NOTE_NAME = "note_name";
-    private static final String NOTE_CONTENT = "note_content";
+    private static final String EXTRA_NOTE_NAME = "note_name";
+    private static final String EXTRA_NOTE_CONTENT = "note_content";
 
     private DatabaseHelper mDatabase;
     private Context context;
@@ -45,7 +45,7 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
         this.notePopupWindow = new MorePopupWindow(context, true);
         this.notebookPopupWindow = new MorePopupWindow(context, false);
         this.setDefaultViewTypeLayout(layoutResId);
-        addItemType(TYPE_LEVEL_ZERO, R.layout.activity_main_adapter);
+        addItemType(TYPE_LEVEL_ZERO, R.layout.activity_notebook_adapter);
         addItemType(TYPE_LEVEL_ONE, R.layout.activity_note_adapter);
     }
 
@@ -57,7 +57,6 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
             this.easySwipeMenuLayout = holder.getView(R.id.layout_swipe_menu);
             easySwipeMenuLayout.setCanLeftSwipe(false);
         }
-
     }
 
     @Override
@@ -89,8 +88,8 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
                         int pos = holder.getAdapterPosition();
                         Note note = (Note) getData().get(pos);
                         Intent intent = new Intent(context, NoteEditActivity.class);
-                        intent.putExtra(NOTE_NAME, note.getName());
-                        intent.putExtra(NOTE_CONTENT, note.getContent());
+                        intent.putExtra(EXTRA_NOTE_NAME, note.getName());
+                        intent.putExtra(EXTRA_NOTE_CONTENT, note.getContent());
                         context.startActivity(intent);
                     }
                 });

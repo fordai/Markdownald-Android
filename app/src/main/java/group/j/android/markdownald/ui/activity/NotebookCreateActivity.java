@@ -2,7 +2,10 @@ package group.j.android.markdownald.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -21,15 +24,19 @@ public class NotebookCreateActivity extends BaseActivity {
     private static final String TAG = "NotebookCreateActivity";
     private static final String DUPLICATION_REMINDER = "Notebook already exists.";
 
+    private DatabaseHelper mDatabase;
+
     private Toolbar mToolbar;
     private TextView toolbar_title;
     private EditText edit_notebook_title;
-    private DatabaseHelper mDatabase;
+    private TextInputLayout layout_notebook_title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notebook_create);
+
+        mDatabase = getDatabase();
 
         // Configure the Toolbar
         mToolbar = findViewById(R.id.toolbar_notebook_create);
@@ -38,12 +45,34 @@ public class NotebookCreateActivity extends BaseActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
+
+        // Configure the title
         toolbar_title = mToolbar.findViewById(R.id.toolbar_title);
         toolbar_title.setText(getString(R.string.all_create_notebook));
 
+        // Configure the edit text
         edit_notebook_title = findViewById(R.id.edit_notebook_title);
+        layout_notebook_title = findViewById(R.id.layout_notebook_title);
+        edit_notebook_title.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-        mDatabase = getDatabase();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (mDatabase.isNotebook(s.toString())) {
+                    layout_notebook_title.setError(DUPLICATION_REMINDER);
+                } else {
+                    layout_notebook_title.setError("");
+                }
+            }
+        });
     }
 
     @Override

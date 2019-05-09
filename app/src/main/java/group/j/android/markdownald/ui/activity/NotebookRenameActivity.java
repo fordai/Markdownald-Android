@@ -2,7 +2,10 @@ package group.j.android.markdownald.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -21,15 +24,23 @@ public class NotebookRenameActivity extends BaseActivity {
     private static final String EXTRA_NOTEBOOK_NAME = "notebook_name";
     private static final String DUPLICATION_REMINDER = "Repeated notebook.";
 
+    private String oldName;
+
+    private DatabaseHelper mDatabase;
+
     private Toolbar mToolbar;
     private TextView toolbar_title;
     private EditText edit_rename_notebook;
-    private DatabaseHelper mDatabase;
+    private TextInputLayout layout_rename_notebook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notebook_rename);
+
+        mDatabase = getDatabase();
+
+        oldName = getIntent().getStringExtra(EXTRA_NOTEBOOK_NAME);
 
         // Configure the Toolbar
         mToolbar = findViewById(R.id.toolbar_notebook_rename);
@@ -42,8 +53,27 @@ public class NotebookRenameActivity extends BaseActivity {
         toolbar_title.setText(getString(R.string.all_rename));
 
         edit_rename_notebook = findViewById(R.id.edit_rename_notebook);
+        layout_rename_notebook = findViewById(R.id.layout_rename_notebook);
+        edit_rename_notebook.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-        mDatabase = getDatabase();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (mDatabase.isNotebook(s.toString())) {
+                    layout_rename_notebook.setError(DUPLICATION_REMINDER);
+                } else {
+                    layout_rename_notebook.setError("");
+                }
+            }
+        });
     }
 
     @Override
@@ -60,7 +90,6 @@ public class NotebookRenameActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.menu_rename:
-                String oldName = getIntent().getStringExtra(EXTRA_NOTEBOOK_NAME);
                 String newName = edit_rename_notebook.getText().toString();
                 if (!mDatabase.isNotebook(newName)) {
                     mDatabase.updateNotebook(oldName, newName);
@@ -69,6 +98,8 @@ public class NotebookRenameActivity extends BaseActivity {
                 } else {
                     Toast.makeText(NotebookRenameActivity.this, DUPLICATION_REMINDER, Toast.LENGTH_SHORT).show();
                 }
+                break;
+            default:
                 break;
         }
 

@@ -51,6 +51,8 @@ public class MainActivity extends BaseActivity {
         // Configure the Toolbar
         mToolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(mToolbar);
+
+        // Configure the navigation icon
         mToolbar.setNavigationIcon(R.drawable.ic_baseline_menu_white);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,18 +60,22 @@ public class MainActivity extends BaseActivity {
                 // For sidebar
             }
         });
+
+        // Configure the title
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
         toolbar_title = mToolbar.findViewById(R.id.toolbar_title);
         toolbar_title.setText(getString(R.string.app_name));
+
+        // Configure the overflow icon
         mToolbar.setOverflowIcon(getResources().getDrawable(R.drawable.ic_baseline_add_white));
 
         // Configure the RecyclerView
         mRecyclerView = findViewById(R.id.recycler_note_list);
         mDatabase = getDatabase();
         mNotes = mDatabase.loadDB();
-        mAdapter = new ExpandableItemAdapter(mDatabase, mNotes, MainActivity.this, R.layout.activity_main_adapter);
+        mAdapter = new ExpandableItemAdapter(mDatabase, mNotes, MainActivity.this, R.layout.activity_notebook_adapter);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
@@ -98,11 +104,14 @@ public class MainActivity extends BaseActivity {
                 startActivity(noteIntent);
                 break;
             case R.id.menu_create_notebook:
-                Intent directoryIntent = new Intent(this, NotebookCreateActivity.class);
-                startActivity(directoryIntent);
+                Intent notebookIntent = new Intent(this, NotebookCreateActivity.class);
+                startActivity(notebookIntent);
+                break;
+            default:
                 break;
         }
 
         return true;
     }
+
 }

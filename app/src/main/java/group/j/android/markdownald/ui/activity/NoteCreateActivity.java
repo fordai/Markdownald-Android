@@ -2,7 +2,10 @@ package group.j.android.markdownald.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -23,15 +26,19 @@ public class NoteCreateActivity extends BaseActivity {
     private static final String TAG = "NoteCreateActivity";
     private static final String DUPLICATION_REMINDER = "Note already exists.";
 
+    private DatabaseHelper mDatabase;
+
     private Toolbar mToolbar;
     private TextView toolbar_title;
     private EditText edit_note_title;
-    private DatabaseHelper mDatabase;
+    private TextInputLayout layout_note_title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_create);
+
+        mDatabase = getDatabase();
 
         // Configure the Toolbar
         mToolbar = findViewById(R.id.toolbar_note_create);
@@ -40,13 +47,37 @@ public class NoteCreateActivity extends BaseActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
+
+        // Configure the title
         toolbar_title = mToolbar.findViewById(R.id.toolbar_title);
         toolbar_title.setText(getString(R.string.all_create_note));
+
+        // Configure the overflow icon
         mToolbar.setOverflowIcon(getResources().getDrawable(R.drawable.ic_baseline_create_white));
 
+        // Configure the edit text
         edit_note_title = findViewById(R.id.edit_note_title);
+        layout_note_title = findViewById(R.id.layout_note_title);
+        edit_note_title.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-        mDatabase = getDatabase();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (mDatabase.isNoteByNotebook(s.toString(), "Default")) {
+                    layout_note_title.setError(DUPLICATION_REMINDER);
+                } else {
+                    layout_note_title.setError("");
+                }
+            }
+        });
     }
 
     @Override
@@ -77,4 +108,5 @@ public class NoteCreateActivity extends BaseActivity {
 
         return true;
     }
+
 }
