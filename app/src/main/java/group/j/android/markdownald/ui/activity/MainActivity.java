@@ -1,28 +1,28 @@
 package group.j.android.markdownald.ui.activity;
 
-        import android.os.Bundle;
-        import android.content.Intent;
-        import android.support.annotation.NonNull;
-        import android.support.design.widget.NavigationView;
-        import android.support.v4.widget.DrawerLayout;
-        import android.support.v7.widget.DividerItemDecoration;
-        import android.support.v7.widget.LinearLayoutManager;
-        import android.support.v7.widget.RecyclerView;
-        import android.support.v7.widget.Toolbar;
-        import android.view.Gravity;
-        import android.view.Menu;
-        import android.view.MenuItem;
-        import android.view.View;
-        import android.widget.TextView;
+import android.os.Bundle;
+import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
-        import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.chad.library.adapter.base.entity.MultiItemEntity;
 
-        import java.util.List;
+import java.util.List;
 
-        import group.j.android.markdownald.R;
-        import group.j.android.markdownald.adapter.ExpandableItemAdapter;
-        import group.j.android.markdownald.base.BaseActivity;
-        import group.j.android.markdownald.db.DatabaseHelper;
+import group.j.android.markdownald.R;
+import group.j.android.markdownald.adapter.ExpandableItemAdapter;
+import group.j.android.markdownald.base.BaseActivity;
+import group.j.android.markdownald.db.DatabaseHelper;
 
 /**
  * Implements the homepage.
@@ -37,7 +37,7 @@ package group.j.android.markdownald.ui.activity;
  * <li>By swiping to left, do more operations including moving and renaming;</li>
  * </ul>
  */
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MainActivity";
 
     private Toolbar mToolbar;
@@ -116,8 +116,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             case R.id.menu_create_notebook:
                 Intent notebookIntent = new Intent(this, NotebookCreateActivity.class);
                 startActivity(notebookIntent);
-                break;
-            case R.id.menu_sync:
                 break;
             default:
                 break;
