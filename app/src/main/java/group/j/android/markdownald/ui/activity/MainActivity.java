@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
@@ -23,6 +24,7 @@ import group.j.android.markdownald.R;
 import group.j.android.markdownald.adapter.ExpandableItemAdapter;
 import group.j.android.markdownald.base.BaseActivity;
 import group.j.android.markdownald.db.DatabaseHelper;
+import group.j.android.markdownald.db.NoteSyncTask;
 
 /**
  * Implements the homepage.
@@ -47,6 +49,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private List<MultiItemEntity> mNotes;
     private ExpandableItemAdapter mAdapter;
     private DrawerLayout layout_navigation;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +92,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+
+        mProgressBar = findViewById(R.id.progress_circular);
     }
 
     @Override
@@ -116,6 +121,31 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             case R.id.menu_create_notebook:
                 Intent notebookIntent = new Intent(this, NotebookCreateActivity.class);
                 startActivity(notebookIntent);
+                break;
+            case R.id.menu_sync:
+                NoteSyncTask syncTask = new NoteSyncTask(new NoteSyncTask.SyncListener() {
+                    @Override
+                    public void onStart() {
+                        mRecyclerView.setVisibility(View.GONE);
+                        mProgressBar.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onSuccess() {
+                        mProgressBar.setVisibility(View.GONE);
+                        mNotes.clear();
+                        mNotes.addAll(mDatabase.loadDB());
+                        mAdapter.notifyDataSetChanged();
+                        mRecyclerView.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onFailed() {
+                        mRecyclerView.setVisibility(View.VISIBLE);
+                        mProgressBar.setVisibility(View.GONE);
+                    }
+                });
+                syncTask.execute("");
                 break;
             default:
                 break;

@@ -24,6 +24,14 @@
             android:id="@+id/recycler_note_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+        <ProgressBar
+            android:id="@+id/progress_circular"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="150dp"
+            android:indeterminate="false" />
     </LinearLayout>
 
     <android.support.design.widget.NavigationView

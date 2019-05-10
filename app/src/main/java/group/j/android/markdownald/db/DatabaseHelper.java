@@ -9,8 +9,11 @@ import android.util.Log;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import group.j.android.markdownald.model.Note;
 import group.j.android.markdownald.model.Notebook;
@@ -35,6 +38,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Column names for NOTE table
     private static final String KEY_NOTE_NAME = "note_name";
     private static final String KEY_NOTE_CONTENT = "note_content";
+    private static final String KEY_TIMESTAMP = "timestamp";
 
     // Column names for NOTEBOOK table
     private static final String KEY_NOTEBOOK_NAME = "notebook_name";
@@ -49,7 +53,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     + "("
                     + KEY_ID + " INTEGER PRIMARY KEY,"
                     + KEY_NOTE_NAME + " TEXT,"
-                    + KEY_NOTE_CONTENT + " TEXT"
+                    + KEY_NOTE_CONTENT + " TEXT,"
+                    + KEY_TIMESTAMP + " DATETIME"
                     + ")";
 
     // NOTEBOOK table create statements
@@ -107,6 +112,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_NOTE_NAME, note.getName());
         values.put(KEY_NOTE_CONTENT, note.getContent());
+        values.put(KEY_TIMESTAMP, getDateTime());
 
         Log.d(TAG, "createNote: " + note.getName());
 
@@ -143,6 +149,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         note.setId(c.getInt(c.getColumnIndex(KEY_ID)));
         note.setName((c.getString(c.getColumnIndex(KEY_NOTE_NAME))));
         note.setContent((c.getString(c.getColumnIndex(KEY_NOTE_CONTENT))));
+        note.setTimestamp(c.getString(c.getColumnIndex(KEY_TIMESTAMP)));
         c.close();
 
         return note;
@@ -162,6 +169,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         note.setId(c.getInt(c.getColumnIndex(KEY_ID)));
         note.setName((c.getString(c.getColumnIndex(KEY_NOTE_NAME))));
         note.setContent((c.getString(c.getColumnIndex(KEY_NOTE_CONTENT))));
+        note.setTimestamp(c.getString(c.getColumnIndex(KEY_TIMESTAMP)));
         c.close();
 
         return note;
@@ -180,6 +188,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 note.setId(c.getInt((c.getColumnIndex(KEY_ID))));
                 note.setName((c.getString(c.getColumnIndex(KEY_NOTE_NAME))));
                 note.setContent((c.getString(c.getColumnIndex(KEY_NOTE_CONTENT))));
+                note.setTimestamp(c.getString(c.getColumnIndex(KEY_TIMESTAMP)));
 
                 notes.add(note);
             } while (c.moveToNext());
@@ -197,6 +206,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_NOTE_NAME, updated_name);
         values.put(KEY_NOTE_CONTENT, note.getContent());
+        values.put(KEY_TIMESTAMP, getDateTime());
 
         Log.d(TAG, "updateNoteName: " + "from " + note_name + " to " + updated_name);
 
@@ -212,6 +222,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_NOTE_NAME, note_name);
         values.put(KEY_NOTE_CONTENT, note_content);
+        values.put(KEY_TIMESTAMP, getDateTime());
 
         Log.d(TAG, "updateNoteContent: ");
 
@@ -421,6 +432,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (db != null && db.isOpen()) {
             db.close();
         }
+    }
+
+    private String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
     }
 
 }
