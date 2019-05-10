@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">
+    tools:showIn="navigation_view"
+    >
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/loginId"
+            android:id="@+id/registerId"
             android:icon="@drawable/ic_action_login"
+            android:title="register"
+            />
+        <item
+            android:id="@+id/loginId"
+            android:icon="@drawable/ic_action_register"
             android:title="@string/all_login" />
         <item
             android:id="@+id/settingId"

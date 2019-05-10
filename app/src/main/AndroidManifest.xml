@@ -17,11 +17,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".ui.activity.RegisterActivity"
+            android:label="@string/title_activity_register"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".base.BaseActivity" />
         <activity
             android:name=".ui.activity.NoteQRActivity"
             android:label="@string/title_activity_node_qr"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.activity.NotebookRenameActivity" />
         <activity android:name=".ui.activity.NoteRenameActivity" />
         <activity android:name=".ui.activity.NoteMoveActivity" />
@@ -29,6 +33,9 @@
         <activity android:name=".ui.activity.NoteCreateActivity" />
         <activity android:name=".ui.activity.NotePreviewActivity" />
         <activity android:name=".ui.activity.NoteEditActivity" />
+        <activity android:name=".ui.activity.SettingActivity"/>
+        <activity android:name=".ui.activity.LoginActivity"/>
+
         <activity
             android:name=".ui.activity.MainActivity"
             android:launchMode="singleTask">
