@@ -7,12 +7,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.activity.RegisterActivity"
     >
+
+    <include
+        android:id="@+id/toolbar_register"
+        layout="@layout/toolbar_customized"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <EditText
         android:id="@+id/userId"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
         android:background="#11000000"
+        android:layout_marginTop="250dp"
         android:drawableLeft="@drawable/ic_action_username"
         android:ems="10"
         android:hint="user id"
@@ -54,7 +62,7 @@
         android:layout_height="50dp"
         android:layout_below="@+id/Password"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="50dp"
         app:cardBackgroundColor="#CC6672"
         app:cardCornerRadius="25dp"
         app:cardElevation="10dp"
@@ -71,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="REGISTER"
-                android:textColor="@color/colorLightBlack"
+                android:textColor="@color/colorLightBlue"
                 android:background="@color/colorLightRed"
                 android:textSize="18sp"/>
         </RelativeLayout>
@@ -83,7 +91,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/Nickname"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="146dp"
+        android:layout_marginTop="206dp"
         android:text="Rigister  here"
         android:textSize="18sp" />
 
