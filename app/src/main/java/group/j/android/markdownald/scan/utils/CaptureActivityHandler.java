@@ -28,12 +28,7 @@ import group.j.android.markdownald.ui.activity.CaptureActivity;
 import group.j.android.markdownald.scan.camera.CameraManager;
 import group.j.android.markdownald.scan.decode.DecodeThread;
 
-/**
- * This class handles all the messaging which comprises the state machine for
- * capture.
- * 
- * @author dswitkin@google.com (Daniel Switkin)
- */
+
 public class CaptureActivityHandler extends Handler {
 
 	private final CaptureActivity activity;

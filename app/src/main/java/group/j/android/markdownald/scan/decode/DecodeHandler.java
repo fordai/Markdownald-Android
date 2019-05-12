@@ -65,29 +65,15 @@ public class DecodeHandler extends Handler {
 		}
 	}
 
-	/**
-	 * Decode the data within the viewfinder rectangle, and time how long it
-	 * took. For efficiency, reuse the same reader objects from one decode to
-	 * the next.
-	 * 
-	 * @param data
-	 *            The YUV preview frame.
-	 * @param width
-	 *            The width of the preview frame.
-	 * @param height
-	 *            The height of the preview frame.
-	 */
 	private void decode(byte[] data, int width, int height) {
 		Size size = activity.getCameraManager().getPreviewSize();
 
-		// 这里需要将获取的data翻转一下，因为相机默认拿的的横屏的数据
 		byte[] rotatedData = new byte[data.length];
 		for (int y = 0; y < size.height; y++) {
 			for (int x = 0; x < size.width; x++)
 				rotatedData[x * size.height + size.height - y - 1] = data[x + y * size.width];
 		}
 
-		// 宽高也要调整
 		int tmp = size.width;
 		size.width = size.height;
 		size.height = tmp;
@@ -134,18 +120,6 @@ public class DecodeHandler extends Handler {
 		bundle.putByteArray(DecodeThread.BARCODE_BITMAP, out.toByteArray());
 	}
 
-	/**
-	 * A factory method to build the appropriate LuminanceSource object based on
-	 * the format of the preview buffers, as described by Camera.Parameters.
-	 * 
-	 * @param data
-	 *            A preview frame.
-	 * @param width
-	 *            The width of the image.
-	 * @param height
-	 *            The height of the image.
-	 * @return A PlanarYUVLuminanceSource instance.
-	 */
 	public PlanarYUVLuminanceSource buildLuminanceSource(byte[] data, int width, int height) {
 		Rect rect = activity.getCropRect();
 		if (rect == null) {

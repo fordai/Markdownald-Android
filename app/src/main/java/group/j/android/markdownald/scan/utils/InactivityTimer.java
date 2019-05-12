@@ -27,10 +27,6 @@ import android.os.BatteryManager;
 import android.os.Build;
 import android.util.Log;
 
-/**
- * Finishes an activity after a period of inactivity if the device is on battery
- * power.
- */
 public class InactivityTimer {
 
 	private static final String TAG = InactivityTimer.class.getSimpleName();

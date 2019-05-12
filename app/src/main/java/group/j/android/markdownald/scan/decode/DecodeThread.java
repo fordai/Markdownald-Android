@@ -30,11 +30,6 @@ import com.google.zxing.DecodeHintType;
 
 import group.j.android.markdownald.ui.activity.CaptureActivity;
 
-/**
- * This thread does all the heavy lifting of decoding the images.
- * 
- * @author dswitkin@google.com (Daniel Switkin)
- */
 public class DecodeThread extends Thread {
 
 	public static final String BARCODE_BITMAP = "barcode_bitmap";
