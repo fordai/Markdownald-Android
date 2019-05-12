@@ -26,6 +26,8 @@
     <string name="main_delete">Delete</string>
 
     <string name="title_activity_node_qr">NodeQRActivity</string>
+    <string name="scan">Scan</string>
+
 
     <string name="all_setting">setting</string>
     <string name="all_login">login</string>

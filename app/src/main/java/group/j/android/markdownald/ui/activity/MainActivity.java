@@ -1,9 +1,13 @@
 package group.j.android.markdownald.ui.activity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -121,6 +125,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             case R.id.menu_create_notebook:
                 Intent notebookIntent = new Intent(this, NotebookCreateActivity.class);
                 startActivity(notebookIntent);
+                break;
+            case R.id.menu_scan:
+                if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA}, 1);
+                } else {
+                    Intent intent = new Intent(MainActivity.this, CaptureActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.menu_sync:
                 NoteSyncTask syncTask = new NoteSyncTask(new NoteSyncTask.SyncListener() {
