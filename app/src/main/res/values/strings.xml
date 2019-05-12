@@ -32,4 +32,5 @@
     <string name="all_open">Open</string>
     <string name="all_close">Close</string>
     <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_infor">InforActivity</string>
 </resources>

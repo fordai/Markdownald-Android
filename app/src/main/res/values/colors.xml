@@ -7,4 +7,6 @@
     <color name="colorAccentBlue">#303f9f</color>
     <color name="colorPrimaryBlue">#3F51B5</color>
     <color name="colorLightBlue">#C5CAE9</color>
+    <color name="colorLightRed">#CC6672</color>
+    <color name="colorLightBlack">#ff000000</color>
 </resources>

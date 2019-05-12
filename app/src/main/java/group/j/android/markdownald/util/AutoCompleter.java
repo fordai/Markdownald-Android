@@ -44,11 +44,6 @@ public class AutoCompleter {
                     s.insert(point, "*");
                     addMyTextListener();
                     et.setSelection(point);
-                }else if(add == '#'){
-                    et.removeTextChangedListener(this);
-                    s.insert(point, "#");
-                    addMyTextListener();
-                    et.setSelection(point);
                 }
             }
         });

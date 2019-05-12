@@ -18,9 +18,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ui.activity.InforActivity"
+            android:label="@string/title_activity_infor"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".ui.activity.RegisterActivity"
             android:label="@string/title_activity_register"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".base.BaseActivity" />
         <activity
             android:name=".ui.activity.NoteQRActivity"
@@ -33,9 +37,8 @@
         <activity android:name=".ui.activity.NoteCreateActivity" />
         <activity android:name=".ui.activity.NotePreviewActivity" />
         <activity android:name=".ui.activity.NoteEditActivity" />
-        <activity android:name=".ui.activity.SettingActivity"/>
-        <activity android:name=".ui.activity.LoginActivity"/>
-
+        <activity android:name=".ui.activity.SettingActivity" />
+        <activity android:name=".ui.activity.LoginActivity" />
         <activity
             android:name=".ui.activity.MainActivity"
             android:launchMode="singleTask">

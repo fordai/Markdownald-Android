@@ -45,6 +45,7 @@ public class NoteSyncTask extends AsyncTask<String, Integer, Integer> {
                 out = new PrintWriter(new BufferedWriter
                         (new OutputStreamWriter(socket.getOutputStream())), true);
                 Log.d(TAG, "doInBackground: I/O created");
+
                 Thread.sleep(1000);
                 return TYPE_SUCCESS;
             } catch (IOException e) {
