@@ -164,16 +164,6 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
 	}
 
-	/**
-	 * A valid barcode has been found, so give an indication of success and show
-	 * the results.
-	 * 
-	 * @param rawResult
-	 *            The contents of the barcode.
-	 * 
-	 * @param bundle
-	 *            The extras
-	 */
 	public void handleDecode(Result rawResult, Bundle bundle) {
 		inactivityTimer.onActivity();
 		beepManager.playBeepSoundAndVibrate();

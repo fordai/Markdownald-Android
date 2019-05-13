@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.google.gson.JsonObject;
@@ -138,33 +139,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 }
                 break;
             case R.id.menu_sync:
-                NoteSyncTask syncTask = new NoteSyncTask(new NoteSyncTask.SyncListener() {
-                    @Override
-                    public void onStart() {
-                        mRecyclerView.setVisibility(View.GONE);
-                        mProgressBar.setVisibility(View.VISIBLE);
-                    }
-
-                    @Override
-                    public void onSuccess() {
-                        mProgressBar.setVisibility(View.GONE);
-                        mNotes.clear();
-                        mNotes.addAll(mDatabase.loadDB());
-                        mAdapter.notifyDataSetChanged();
-                        mRecyclerView.setVisibility(View.VISIBLE);
-                    }
-
-                    @Override
-                    public void onFailed() {
-                        mRecyclerView.setVisibility(View.VISIBLE);
-                        mProgressBar.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onRegistered() {
-
-                    }
-                });
                 SharedPreferences sharedPreferences = getSharedPreferences(CONFIG,MODE_PRIVATE);
                 String uid = sharedPreferences.getString("userid","");
                 String password = sharedPreferences.getString("password","");
@@ -173,6 +147,33 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 for(Notebook nb: lbk){
                     List<Note> alln = mDatabase.getAllNotesByNotebook(nb.getName());
                     for(Note n : alln){
+                        NoteSyncTask syncTask = new NoteSyncTask(new NoteSyncTask.SyncListener() {
+                            @Override
+                            public void onStart() {
+                                mRecyclerView.setVisibility(View.GONE);
+                                mProgressBar.setVisibility(View.VISIBLE);
+                            }
+
+                            @Override
+                            public void onSuccess() {
+                                mProgressBar.setVisibility(View.GONE);
+                                mNotes.clear();
+                                mNotes.addAll(mDatabase.loadDB());
+                                mAdapter.notifyDataSetChanged();
+                                mRecyclerView.setVisibility(View.VISIBLE);
+                            }
+
+                            @Override
+                            public void onFailed() {
+                                mRecyclerView.setVisibility(View.VISIBLE);
+                                mProgressBar.setVisibility(View.GONE);
+                            }
+
+                            @Override
+                            public void onRegistered() {
+
+                            }
+                        });
                         syncTask.execute(js.addNote(n.getId(),n.getName(),nb.getName(),n.getContent(),uid).toString());
                     }
                 }
