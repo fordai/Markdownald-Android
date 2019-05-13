@@ -75,7 +75,6 @@ public class LoginActivity extends BaseActivity {
             default:
                 break;
         }
-
         return true;
     }
 

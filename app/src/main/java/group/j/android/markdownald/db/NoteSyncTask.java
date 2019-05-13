@@ -66,16 +66,16 @@ public class NoteSyncTask extends AsyncTask<String, Integer, Integer> {
                         result = result + new String(ReadBuffer,0,ReadBufferLengh);
                     }
                 }
-
                 Log.d(TAG, result);
                 JsonObject js = new JsonParser().parse(result).getAsJsonObject();
+//                JSONObject jsonObject = new JSONObject(result);
                 Log.d(TAG, js.toString());
                 boolean re = js .get("result").getAsBoolean();
-                if(!re){
+                String loginInfor = js.get("infor").getAsString();
+                if(!re)
                     return TYPE_REGISTED;
-                }
+                if(loginInfor.equals("login successful"))
                 Thread.sleep(1000);
-
                 return TYPE_SUCCESS;
             } catch (IOException e) {
                 e.printStackTrace();
@@ -104,7 +104,6 @@ public class NoteSyncTask extends AsyncTask<String, Integer, Integer> {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return TYPE_FAILED;
     }
 

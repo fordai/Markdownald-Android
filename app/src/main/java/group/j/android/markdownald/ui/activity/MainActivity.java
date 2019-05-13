@@ -167,6 +167,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 });
                 SharedPreferences sharedPreferences = getSharedPreferences(CONFIG,MODE_PRIVATE);
                 String uid = sharedPreferences.getString("userid","");
+                String password = sharedPreferences.getString("password","");
                 JsonCreator js = new JsonCreator();
                 List<Notebook> lbk = mDatabase.getAllNotebooks();
                 for(Notebook nb: lbk){
@@ -174,8 +175,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     for(Note n : alln){
                         syncTask.execute(js.addNote(n.getId(),n.getName(),nb.getName(),n.getContent(),uid).toString());
                     }
-        }
-
+                }
+//                syncTask.execute(js.loginJson(uid,password).toString());
                 break;
             default:
                 break;
