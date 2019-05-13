@@ -171,10 +171,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 Intent loginIntent = new Intent(this, LoginActivity.class);
                 startActivity(loginIntent);
                 break;
-            case R.id.settingId:
-                Intent settingIntent = new Intent(this, SettingActivity.class);
-                startActivity(settingIntent);
-                break;
             case R.id.registerId:
                 Intent registerIntent = new Intent(this, RegisterActivity.class);
                 startActivity(registerIntent);

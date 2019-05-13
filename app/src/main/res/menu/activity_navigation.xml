@@ -11,10 +11,7 @@
         <item
             android:id="@+id/loginId"
             android:icon="@drawable/ic_action_register"
-            android:title="@string/all_login" />
-        <item
-            android:id="@+id/settingId"
-            android:icon="@drawable/ic_action_setting"
-            android:title="@string/all_setting" />
+            android:title="@string/all_login"
+            />
     </group>
 </menu>
