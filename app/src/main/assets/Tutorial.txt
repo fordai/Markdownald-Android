@@ -86,9 +86,9 @@ Underlines can be achieved by HTML's <u> tag:
 
 <u>Underline text</u>
 
-### Footnotes:
+### Footnote:
 
-Footnotes is a supplementary note to the text.
+Footnote is a supplementary note to the text.
 
 Create a footnote format similar to this：
 
