@@ -19,7 +19,6 @@
         />
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/userId"
         android:theme="@style/MyEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,7 +29,7 @@
         android:paddingTop="20dp"
         >
         <android.support.design.widget.TextInputEditText
-
+            android:id="@+id/userId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/all_userid"
@@ -40,7 +39,6 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/username"
         android:theme="@style/MyEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -51,6 +49,7 @@
         android:layout_marginTop="-15dp"
        >
         <android.support.design.widget.TextInputEditText
+            android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/all_username"
@@ -60,7 +59,6 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/password"
         android:theme="@style/MyEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -72,6 +70,7 @@
         android:layout_marginTop="-15dp"
         >
         <android.support.design.widget.TextInputEditText
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/all_password"
@@ -82,6 +81,7 @@
 
 
     <Button
+        android:id="@+id/button_register"
         android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="-10dp"

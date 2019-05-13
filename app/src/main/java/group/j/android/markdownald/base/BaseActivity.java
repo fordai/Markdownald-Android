@@ -14,6 +14,7 @@ import group.j.android.markdownald.db.DatabaseHelper;
  */
 public class BaseActivity extends AppCompatActivity {
     private DatabaseHelper mDatabase;
+    public static final String CONFIG = "config";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
