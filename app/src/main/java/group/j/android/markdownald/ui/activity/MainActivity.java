@@ -17,6 +17,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -54,6 +55,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private ExpandableItemAdapter mAdapter;
     private DrawerLayout layout_navigation;
     private ProgressBar mProgressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,8 +98,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-
         mProgressBar = findViewById(R.id.progress_circular);
+
+
     }
 
     @Override

@@ -26,14 +26,17 @@
     <string name="main_delete">Delete</string>
 
     <string name="title_activity_node_qr">NodeQRActivity</string>
-    <string name="scan">Scan</string>
-
 
     <string name="all_setting">setting</string>
     <string name="all_login">login</string>
-    <string name="all_register">Register Member</string>
     <string name="all_open">Open</string>
     <string name="all_close">Close</string>
     <string name="title_activity_register">RegisterActivity</string>
-    <string name="title_activity_infor">InforActivity</string>
+    <string name="all_register">register</string>
+    <string name="all_email">Email</string>
+    <string name="all_username">Username</string>
+    <string name="all_userid">UserID</string>
+    <string name="all_password">Password</string>
+
+
 </resources>

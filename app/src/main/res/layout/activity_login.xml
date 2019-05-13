@@ -19,7 +19,7 @@
         android:ems="10"
         android:hint="UserName"
         android:inputType="textPersonName"
-        android:textSize="16dp" />
+        android:textSize="22dp" />
 
     <EditText
         android:id="@+id/password"
@@ -33,6 +33,7 @@
         android:drawableLeft="@drawable/ic_action_password"
         android:ems="10"
         android:hint="Password"
+        android:textSize="22dp"
         android:inputType="textPassword" />
 
     <android.support.v7.widget.CardView

@@ -7,7 +7,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:openDrawer="start">
+    tools:openDrawer="start"
+    tools:context=".ui.activity.ShowMainMenu">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -40,6 +41,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        app:theme="@style/myNavigationDrawerStyle"
         app:headerLayout="@layout/activity_header_of_navigation"
         app:menu="@menu/activity_navigation" />
 </android.support.v4.widget.DrawerLayout>

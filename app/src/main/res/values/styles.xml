@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -43,10 +43,8 @@
         <item name="colorControlActivated">@color/colorPrimaryBlue</item>
     </style>
 
-    <style name="AppBaseTheme" parent="@android:style/Theme.Black.NoTitleBar">
+    <style name="myNavigationDrawerStyle">
+        <item name="android:textSize">18sp</item>
     </style>
-    <!--<style name="AppTheme" parent="AppBaseTheme">-->
-    <!--</style>-->
-
 
 </resources>
