@@ -46,7 +46,6 @@ import group.j.android.markdownald.db.NoteSyncTask;
  */
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MainActivity";
-
     private Toolbar mToolbar;
     private TextView toolbar_title;
     private RecyclerView mRecyclerView;
@@ -56,7 +55,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private DrawerLayout layout_navigation;
     private ProgressBar mProgressBar;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,8 +63,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         // Configure the Toolbar
         mToolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(mToolbar);
-
-
         NavigationView navigationView = findViewById(R.id.NavigationId);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -99,8 +95,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         mProgressBar = findViewById(R.id.progress_circular);
-
-
     }
 
     @Override
