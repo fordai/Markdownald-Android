@@ -22,6 +22,7 @@
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/userId2"
+        android:theme="@style/MyEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColorHint="@color/colorLightBlue"
@@ -39,6 +40,7 @@
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/password2"
+        android:theme="@style/MyEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColorHint="@color/colorLightBlue"
