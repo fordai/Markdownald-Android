@@ -34,8 +34,8 @@
         <activity android:name=".ui.activity.NotePreviewActivity" />
         <activity android:name=".ui.activity.NoteEditActivity" />
         <activity android:name=".ui.activity.LoginActivity"/>
-        <activity
-            android:name=".ui.activity.MainActivity"
+        <activity android:name=".ui.activity.TutorialActivity"/>/>
+        <activity android:name=".ui.activity.MainActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

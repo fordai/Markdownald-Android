@@ -13,5 +13,10 @@
             android:icon="@drawable/ic_action_register"
             android:title="@string/all_login"
             />
+        <item
+            android:id="@+id/tutorialId"
+            android:icon="@drawable/ic_action_tutorial"
+            android:title="@string/all_tutorial"
+            />
     </group>
 </menu>
