@@ -19,6 +19,8 @@ import java.net.Socket;
 import java.util.Map;
 
 public class NoteSyncTask extends AsyncTask<String, Integer, Integer> {
+    private DownLoadServer downLoadServer = new DownLoadServer();
+    private DatabaseHelper mDatabase;
     private static final String TAG = "NoteSyncTask";
     private static final String serverAddress = "101.132.106.166";
     private static final int portNo = 9997;
@@ -32,15 +34,20 @@ public class NoteSyncTask extends AsyncTask<String, Integer, Integer> {
         this.listener = listener;
     }
 
+    public NoteSyncTask(SyncListener listener, DatabaseHelper mDatabase) {
+        this.listener = listener;
+        this.mDatabase = mDatabase;
+    }
+
     @Override
-    protected void onPreExecute() {
+    protected void onPreExecute() {;
         super.onPreExecute();
         listener.onStart();
     }
 
     @Override
     protected Integer doInBackground(String... strings) {
-        DownLoadServer downLoadServer = new DownLoadServer();
+
         BufferedReader in = null;
         PrintWriter out = null;
         boolean RD = true;
@@ -76,7 +83,7 @@ public class NoteSyncTask extends AsyncTask<String, Integer, Integer> {
                 if(!re)
                     return TYPE_REGISTED;
                 if(loginInfor.equals("login successful"))
-                    downLoadServer.downloadData(result);
+                    downLoadServer.downloadData(result,mDatabase);
                 Thread.sleep(1000);
                 return TYPE_SUCCESS;
             } catch (IOException e) {

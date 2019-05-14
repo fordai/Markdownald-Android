@@ -173,7 +173,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                             public void onRegistered() {
 
                             }
-                        });
+                        }, mDatabase);
                         syncTask.execute(js.addNote(n.getId(), n.getName(), nb.getName(), n.getContent(), uid).toString());
                     }
                 }

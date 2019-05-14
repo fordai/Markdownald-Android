@@ -12,10 +12,12 @@ import android.widget.Toast;
 
 import group.j.android.markdownald.R;
 import group.j.android.markdownald.base.BaseActivity;
+import group.j.android.markdownald.db.DatabaseHelper;
 import group.j.android.markdownald.db.JsonCreator;
 import group.j.android.markdownald.db.NoteSyncTask;
 
 public class LoginActivity extends BaseActivity {
+    private DatabaseHelper mDatabase;
     private Toolbar mToolbar;
     private TextView toolbar_title;
     private Button button_login;
@@ -25,6 +27,7 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mDatabase = getDatabase();
         mToolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null) {
@@ -60,7 +63,7 @@ public class LoginActivity extends BaseActivity {
                     public void onRegistered() {
                         Toast.makeText(LoginActivity.this, "User or Password Error", Toast.LENGTH_SHORT).show();
                     }
-                });
+                }, mDatabase);
                 JsonCreator js = new JsonCreator();
                 syncTask.execute(js.loginJson(uid,password).toString());
             }

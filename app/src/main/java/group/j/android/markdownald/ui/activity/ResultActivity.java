@@ -23,9 +23,7 @@ public class ResultActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_result);
-
 		Bundle extras = getIntent().getExtras();
-
 //		mResultImage = (ImageView) findViewById(R.id.result_image);
 		mResultText = (TextView) findViewById(R.id.result_text);
 
@@ -50,7 +48,6 @@ public class ResultActivity extends Activity {
 				// Mutable copy:
 				barcode = barcode.copy(Bitmap.Config.RGB_565, true);
 			}
-
 //			mResultImage.setImageBitmap(barcode);
 		}
 	}
