@@ -130,23 +130,23 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 Intent notebookIntent = new Intent(this, NotebookCreateActivity.class);
                 startActivity(notebookIntent);
                 break;
-            case R.id.menu_scan:
-                if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA}, 1);
-                } else {
-                    Intent intent = new Intent(MainActivity.this, CaptureActivity.class);
-                    startActivity(intent);
-                }
-                break;
+//            case R.id.menu_scan:
+//                if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+//                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA}, 1);
+//                } else {
+//                    Intent intent = new Intent(MainActivity.this, CaptureActivity.class);
+//                    startActivity(intent);
+//                }
+//                break;
             case R.id.menu_sync:
-                SharedPreferences sharedPreferences = getSharedPreferences(CONFIG,MODE_PRIVATE);
-                String uid = sharedPreferences.getString("userid","");
-                String password = sharedPreferences.getString("password","");
+                SharedPreferences sharedPreferences = getSharedPreferences(CONFIG, MODE_PRIVATE);
+                String uid = sharedPreferences.getString("userid", "");
+                String password = sharedPreferences.getString("password", "");
                 JsonCreator js = new JsonCreator();
                 List<Notebook> lbk = mDatabase.getAllNotebooks();
-                for(Notebook nb: lbk){
+                for (Notebook nb : lbk) {
                     List<Note> alln = mDatabase.getAllNotesByNotebook(nb.getName());
-                    for(Note n : alln){
+                    for (Note n : alln) {
                         NoteSyncTask syncTask = new NoteSyncTask(new NoteSyncTask.SyncListener() {
                             @Override
                             public void onStart() {
@@ -174,7 +174,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
                             }
                         });
-                        syncTask.execute(js.addNote(n.getId(),n.getName(),nb.getName(),n.getContent(),uid).toString());
+                        syncTask.execute(js.addNote(n.getId(), n.getName(), nb.getName(), n.getContent(), uid).toString());
                     }
                 }
 //                syncTask.execute(js.loginJson(uid,password).toString());
@@ -188,7 +188,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
         switch (item.getItemId()) {
             case R.id.loginId:
                 Intent loginIntent = new Intent(this, LoginActivity.class);
