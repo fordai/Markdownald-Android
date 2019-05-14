@@ -18,6 +18,7 @@ public class ResultActivity extends Activity {
 //	private ImageView mResultImage;
 	private TextView mResultText;
 
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
