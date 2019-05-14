@@ -15,17 +15,16 @@ import group.j.android.markdownald.scan.decode.DecodeThread;
 
 public class ResultActivity extends Activity {
 
-	private ImageView mResultImage;
+//	private ImageView mResultImage;
 	private TextView mResultText;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_result);
-
 		Bundle extras = getIntent().getExtras();
-
-		mResultImage = (ImageView) findViewById(R.id.result_image);
+//		mResultImage = (ImageView) findViewById(R.id.result_image);
 		mResultText = (TextView) findViewById(R.id.result_text);
 
 		if (null != extras) {
@@ -37,7 +36,7 @@ public class ResultActivity extends Activity {
 			lps.leftMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics());
 			lps.rightMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics());
 			
-			mResultImage.setLayoutParams(lps);
+//			mResultImage.setLayoutParams(lps);
 
 			String result = extras.getString("result");
 			mResultText.setText(result);
@@ -49,8 +48,7 @@ public class ResultActivity extends Activity {
 				// Mutable copy:
 				barcode = barcode.copy(Bitmap.Config.RGB_565, true);
 			}
-
-			mResultImage.setImageBitmap(barcode);
+//			mResultImage.setImageBitmap(barcode);
 		}
 	}
 }

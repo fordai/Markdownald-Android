@@ -1,6 +1,7 @@
 package group.j.android.markdownald.ui.activity;
 
 import android.Manifest;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,8 +22,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.google.gson.JsonObject;
 
 import java.util.List;
 
@@ -29,7 +33,10 @@ import group.j.android.markdownald.R;
 import group.j.android.markdownald.adapter.ExpandableItemAdapter;
 import group.j.android.markdownald.base.BaseActivity;
 import group.j.android.markdownald.db.DatabaseHelper;
+import group.j.android.markdownald.db.JsonCreator;
 import group.j.android.markdownald.db.NoteSyncTask;
+import group.j.android.markdownald.model.Note;
+import group.j.android.markdownald.model.Notebook;
 
 /**
  * Implements the homepage.
@@ -123,38 +130,54 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 Intent notebookIntent = new Intent(this, NotebookCreateActivity.class);
                 startActivity(notebookIntent);
                 break;
-            case R.id.menu_scan:
-                if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA}, 1);
-                } else {
-                    Intent intent = new Intent(MainActivity.this, CaptureActivity.class);
-                    startActivity(intent);
-                }
-                break;
+//            case R.id.menu_scan:
+//                if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+//                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA}, 1);
+//                } else {
+//                    Intent intent = new Intent(MainActivity.this, CaptureActivity.class);
+//                    startActivity(intent);
+//                }
+//                break;
             case R.id.menu_sync:
-                NoteSyncTask syncTask = new NoteSyncTask(new NoteSyncTask.SyncListener() {
-                    @Override
-                    public void onStart() {
-                        mRecyclerView.setVisibility(View.GONE);
-                        mProgressBar.setVisibility(View.VISIBLE);
-                    }
+                SharedPreferences sharedPreferences = getSharedPreferences(CONFIG, MODE_PRIVATE);
+                String uid = sharedPreferences.getString("userid", "");
+                String password = sharedPreferences.getString("password", "");
+                JsonCreator js = new JsonCreator();
+                List<Notebook> lbk = mDatabase.getAllNotebooks();
+                for (Notebook nb : lbk) {
+                    List<Note> alln = mDatabase.getAllNotesByNotebook(nb.getName());
+                    for (Note n : alln) {
+                        NoteSyncTask syncTask = new NoteSyncTask(new NoteSyncTask.SyncListener() {
+                            @Override
+                            public void onStart() {
+                                mRecyclerView.setVisibility(View.GONE);
+                                mProgressBar.setVisibility(View.VISIBLE);
+                            }
 
-                    @Override
-                    public void onSuccess() {
-                        mProgressBar.setVisibility(View.GONE);
-                        mNotes.clear();
-                        mNotes.addAll(mDatabase.loadDB());
-                        mAdapter.notifyDataSetChanged();
-                        mRecyclerView.setVisibility(View.VISIBLE);
-                    }
+                            @Override
+                            public void onSuccess() {
+                                mProgressBar.setVisibility(View.GONE);
+                                mNotes.clear();
+                                mNotes.addAll(mDatabase.loadDB());
+                                mAdapter.notifyDataSetChanged();
+                                mRecyclerView.setVisibility(View.VISIBLE);
+                            }
 
-                    @Override
-                    public void onFailed() {
-                        mRecyclerView.setVisibility(View.VISIBLE);
-                        mProgressBar.setVisibility(View.GONE);
+                            @Override
+                            public void onFailed() {
+                                mRecyclerView.setVisibility(View.VISIBLE);
+                                mProgressBar.setVisibility(View.GONE);
+                            }
+
+                            @Override
+                            public void onRegistered() {
+
+                            }
+                        }, mDatabase);
+                        syncTask.execute(js.addNote(n.getId(), n.getName(), nb.getName(), n.getContent(), uid).toString());
                     }
-                });
-                syncTask.execute("");
+                }
+//                syncTask.execute(js.loginJson(uid,password).toString());
                 break;
             default:
                 break;
@@ -165,7 +188,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
         switch (item.getItemId()) {
             case R.id.loginId:
                 Intent loginIntent = new Intent(this, LoginActivity.class);

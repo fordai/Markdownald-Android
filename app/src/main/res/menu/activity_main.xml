@@ -8,9 +8,9 @@
         android:id="@+id/menu_create_notebook"
         android:title="@string/all_create_notebook" />
 
-    <item
-        android:id="@+id/menu_scan"
-        android:title="@string/scan" />
+    <!--<item-->
+        <!--android:id="@+id/menu_scan"-->
+        <!--android:title="@string/all_scan" />-->
 
     <item
         android:id="@+id/menu_sync"

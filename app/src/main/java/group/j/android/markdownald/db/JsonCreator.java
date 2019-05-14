@@ -1,6 +1,5 @@
 package group.j.android.markdownald.db;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 public class JsonCreator {
@@ -11,7 +10,6 @@ public class JsonCreator {
         json.addProperty("pid",pid);
         json.addProperty("name",name);
         json.addProperty("password",password);
-        JsonArray array = new JsonArray();
         return json;
     }
 

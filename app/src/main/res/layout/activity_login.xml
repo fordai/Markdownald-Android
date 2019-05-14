@@ -19,7 +19,7 @@
         />
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/userId2"
+
         android:theme="@style/MyEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
         android:paddingTop="20dp"
         >
         <android.support.design.widget.TextInputEditText
-
+            android:id="@+id/userId2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/all_userid"
@@ -40,7 +40,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/password2"
+
         android:theme="@style/MyEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
         android:layout_marginTop="-15dp"
         >
         <android.support.design.widget.TextInputEditText
-
+            android:id="@+id/password2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/all_password"
@@ -60,17 +60,14 @@
             android:inputType="textPassword"
             />
     </android.support.design.widget.TextInputLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    >
+
     <Button
-        android:layout_width="match_parent"
+        android:id="@+id/button_login"
+        android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="-10dp"
+        android:layout_marginLeft="15dp"
         android:text="SIGN IN"
         />
-</LinearLayout>
+
 </LinearLayout>
