@@ -40,6 +40,7 @@ public class NoteSyncTask extends AsyncTask<String, Integer, Integer> {
 
     @Override
     protected Integer doInBackground(String... strings) {
+        DownLoadServer downLoadServer = new DownLoadServer();
         BufferedReader in = null;
         PrintWriter out = null;
         boolean RD = true;
@@ -75,6 +76,7 @@ public class NoteSyncTask extends AsyncTask<String, Integer, Integer> {
                 if(!re)
                     return TYPE_REGISTED;
                 if(loginInfor.equals("login successful"))
+                    downLoadServer.downloadData(result);
                 Thread.sleep(1000);
                 return TYPE_SUCCESS;
             } catch (IOException e) {
