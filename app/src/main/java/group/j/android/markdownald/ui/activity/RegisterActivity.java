@@ -75,7 +75,6 @@ public class RegisterActivity extends BaseActivity {
                         toast.show();
                     }
                 });
-
                 JsonCreator js = new JsonCreator();
                 syncTask.execute(js.registerJson(uid, name, password).toString());
             }

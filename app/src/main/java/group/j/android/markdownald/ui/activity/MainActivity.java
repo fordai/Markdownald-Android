@@ -98,7 +98,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         //change the header of navigation_sidebar in activity_main
         View headerView = navigation_sidebar.getHeaderView(0);
-        text_username = headerView.findViewById(R.id.text_username);
+        text_username = (TextView) headerView.findViewById(R.id.text_username);
 
         // Configure the progress bar
         mProgressBar = findViewById(R.id.progress_circular);
@@ -107,7 +107,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mRecyclerView = findViewById(R.id.recycler_note_list);
         mDatabase = getDatabase();
         mNotes = mDatabase.loadDB();
-        mAdapter = new ExpandableItemAdapter(mDatabase, mNotes, MainActivity.this, R.layout.activity_notebook_adapter);
+        SharedPreferences sharedPreferences = getSharedPreferences(CONFIG, MODE_PRIVATE);
+        String userId = sharedPreferences.getString(USER_ID, "");
+        mAdapter = new ExpandableItemAdapter(mDatabase, mNotes, MainActivity.this, R.layout.activity_notebook_adapter, userId);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
@@ -121,8 +123,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             SharedPreferences sharedPreferences = getSharedPreferences(CONFIG, MODE_PRIVATE);
             String userId = sharedPreferences.getString(USER_ID, "");
             text_username.setText(userId);
-        } else {
-            text_username.setText(R.string.all_please_login);
         }
 
         mNotes.clear();
@@ -161,7 +161,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 SharedPreferences sharedPreferences = getSharedPreferences(CONFIG, MODE_PRIVATE);
                 String userId = sharedPreferences.getString(USER_ID, "");
                 String password = sharedPreferences.getString(PASSWORD, "");
-
                 List<Notebook> notebooks = mDatabase.getAllNotebooks();
                 for (Notebook notebook : notebooks) {
                     List<Note> notes = mDatabase.getAllNotesByNotebook(notebook.getName());
@@ -199,7 +198,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                         syncTask.execute(js.addNote(note.getId(), note.getName(), notebook.getName(), note.getContent(), userId).toString());
                     }
                 }
-//                syncTask.execute(js.loginJson(userId,password).toString());
                 break;
             default:
                 break;
@@ -212,21 +210,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_register:
-                Intent registerIntent = new Intent(this, RegisterActivity.class);
-                startActivity(registerIntent);
-                break;
             case R.id.menu_login:
                 Intent loginIntent = new Intent(this, LoginActivity.class);
                 startActivity(loginIntent);
                 break;
-            case R.id.menu_logout:
-                setLogin(false);
-                text_username.setText(R.string.all_please_login);
-                layout_main.closeDrawer(Gravity.START);
-
-                Intent logoutIntent = new Intent(this, MainActivity.class);
-                startActivity(logoutIntent);
+            case R.id.menu_register:
+                Intent registerIntent = new Intent(this, RegisterActivity.class);
+                startActivity(registerIntent);
+                break;
             case R.id.menu_tutorial:
                 Intent settingIntent = new Intent(this, TutorialActivity.class);
                 startActivity(settingIntent);

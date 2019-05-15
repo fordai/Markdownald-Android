@@ -44,4 +44,13 @@ public class JsonCreator {
         return json;
     }
 
+    public JsonObject deleteNote(long nid, String pid){
+        int newid = (int)nid;
+        JsonObject json = new JsonObject();
+        json.addProperty("operate","deleteNote");
+        json.addProperty("nid",newid);
+        json.addProperty("pid",pid);
+        return json;
+    }
+
 }

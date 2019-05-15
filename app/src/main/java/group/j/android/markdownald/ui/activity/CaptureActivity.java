@@ -97,23 +97,14 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 	@Override
 	protected void onResume() {
 		super.onResume();
-
-
 		cameraManager = new CameraManager(getApplication());
-
 		handler = null;
 
 		if (isHasSurface) {
-			// The activity was paused but not stopped, so the surface still
-			// exists. Therefore
-			// surfaceCreated() won't be called, so init the camera here.
 			initCamera(scanPreview.getHolder());
 		} else {
-			// Install the callback and wait for surfaceCreated() to init the
-			// camera.
 			scanPreview.getHolder().addCallback(this);
 		}
-
 		inactivityTimer.onResume();
 	}
 

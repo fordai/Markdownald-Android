@@ -16,6 +16,8 @@ import java.util.List;
 
 import group.j.android.markdownald.R;
 import group.j.android.markdownald.db.DatabaseHelper;
+import group.j.android.markdownald.db.JsonCreator;
+import group.j.android.markdownald.db.NoteSyncTask;
 import group.j.android.markdownald.model.Note;
 import group.j.android.markdownald.model.Notebook;
 import group.j.android.markdownald.view.MorePopupWindow;
@@ -33,14 +35,16 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
     private static final String EXTRA_NOTE_CONTENT = "note_content";
 
     private DatabaseHelper mDatabase;
-
+    private String pid;
     private Context context;
     private MorePopupWindow notePopupWindow;
     private MorePopupWindow notebookPopupWindow;
     private EasySwipeMenuLayout easySwipeMenuLayout;
 
-    public ExpandableItemAdapter(DatabaseHelper mDatabase, List<MultiItemEntity> data, Context context, int layoutResId) {
+
+    public ExpandableItemAdapter(DatabaseHelper mDatabase, List<MultiItemEntity> data, Context context, int layoutResId, String pid) {
         super(data);
+        this.pid = pid;
         this.mDatabase = mDatabase;
         this.context = context;
         this.notePopupWindow = new MorePopupWindow(context, true);
@@ -108,6 +112,7 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
 
                 if (getData().get(pos) instanceof Note) {
                     mDatabase.deleteNote(((Note) (getData().get(pos))).getId());
+                    deleteServerNote(((Note) (getData().get(pos))).getId());
                     hasRemoved = true;
                 }
                 if (getData().get(pos) instanceof Notebook) {
@@ -147,6 +152,21 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
                 }
             }
         });
+    }
+
+    public void deleteServerNote(long note_id){
+        NoteSyncTask syncTask = new NoteSyncTask(new NoteSyncTask.SyncListener() {
+            @Override
+            public void onStart() { }
+            @Override
+            public void onSuccess() { }
+            @Override
+            public void onFailed() { }
+            @Override
+            public void onRegistered() { }
+        });
+        JsonCreator js = new JsonCreator();
+        syncTask.execute(js.deleteNote(note_id, pid).toString());
     }
 
 }
