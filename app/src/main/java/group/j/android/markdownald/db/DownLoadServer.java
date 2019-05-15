@@ -31,7 +31,7 @@ public class DownLoadServer{
                     String data = notejs.get("data").getAsString();
                     Note note = new Note(title, data);
                     mDatabase.createNote(note);
-                    if (mDatabase.isNotebook(cla))
+                    if (!mDatabase.isNotebook(cla))
                         mDatabase.createNotebook(cla);
                     mDatabase.createNoteToNotebook(note.getId(), mDatabase.getNotebookByName(cla).getId());
                 }
