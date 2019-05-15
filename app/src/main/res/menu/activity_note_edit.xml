@@ -2,6 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/menu_share"
+        android:title="QR"
+        android:icon="@drawable/ic_baseline_collection_bookmark_white"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/menu_preview"
         android:icon="@drawable/ic_baseline_preview_white"
         android:title="@string/all_preview"

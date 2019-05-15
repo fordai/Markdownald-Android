@@ -83,6 +83,12 @@ public class NoteEditActivity extends BaseActivity {
                 intent.putExtra(EXTRA_NOTE_CONTENT, content);
                 startActivity(intent);
                 break;
+            case R.id.menu_share:
+                String contentQR = edit_note.getText().toString();
+                Intent intentQR = new Intent(this, NoteQRActivity.class);
+                intentQR.putExtra("note_QR", contentQR);
+                startActivity(intentQR);
+                break;
             case android.R.id.home:
                 finish();
                 break;
