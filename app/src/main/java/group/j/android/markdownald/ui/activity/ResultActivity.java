@@ -1,10 +1,13 @@
 package group.j.android.markdownald.ui.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.TypedValue;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
@@ -51,4 +54,37 @@ public class ResultActivity extends Activity {
 //			mResultImage.setImageBitmap(barcode);
 		}
 	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.activity_note_edit, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.menu_preview:
+				String content = mResultText.getText().toString();
+				Intent intent = new Intent(this, NotePreviewActivity.class);
+				intent.putExtra("note_name", "myscanNote");
+				intent.putExtra("note_content", content);
+				startActivity(intent);
+				break;
+			case R.id.menu_share:
+				String contentQR = mResultText.getText().toString();
+				Intent intentQR = new Intent(this, NoteQRActivity.class);
+				intentQR.putExtra("note_QR", contentQR);
+				startActivity(intentQR);
+				break;
+			case android.R.id.home:
+				finish();
+				break;
+			default:
+				break;
+		}
+
+		return true;
+	}
+
 }
