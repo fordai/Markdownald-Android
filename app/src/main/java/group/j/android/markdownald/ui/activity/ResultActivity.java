@@ -13,10 +13,13 @@ import android.widget.TextView;
 
 
 import group.j.android.markdownald.R;
+import group.j.android.markdownald.base.BaseActivity;
+import group.j.android.markdownald.db.DatabaseHelper;
 import group.j.android.markdownald.scan.decode.DecodeThread;
 
-public class ResultActivity extends Activity {
+public class ResultActivity extends BaseActivity {
 
+	private DatabaseHelper mDatabase;
 	private TextView mResultText;
 
 
@@ -24,6 +27,7 @@ public class ResultActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_result);
+		mDatabase = getDatabase();
 		Bundle extras = getIntent().getExtras();
 		mResultText = (TextView) findViewById(R.id.result_text);
 
@@ -46,7 +50,7 @@ public class ResultActivity extends Activity {
 				// Mutable copy:
 				barcode = barcode.copy(Bitmap.Config.RGB_565, true);
 			}
-		}
+	}
 	}
 
 	@Override

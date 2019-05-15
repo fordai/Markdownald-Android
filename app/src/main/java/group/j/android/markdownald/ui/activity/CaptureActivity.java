@@ -36,6 +36,8 @@ import android.widget.RelativeLayout;
 import com.google.zxing.Result;
 
 import group.j.android.markdownald.R;
+import group.j.android.markdownald.base.BaseActivity;
+import group.j.android.markdownald.db.DatabaseHelper;
 import group.j.android.markdownald.scan.camera.CameraManager;
 import group.j.android.markdownald.scan.decode.DecodeThread;
 import group.j.android.markdownald.scan.utils.BeepManager;
@@ -43,10 +45,11 @@ import group.j.android.markdownald.scan.utils.CaptureActivityHandler;
 import group.j.android.markdownald.scan.utils.InactivityTimer;
 
 
-public final class CaptureActivity extends Activity implements SurfaceHolder.Callback {
+public final class CaptureActivity extends BaseActivity implements SurfaceHolder.Callback {
 
 	private static final String TAG = CaptureActivity.class.getSimpleName();
 
+	private DatabaseHelper mDatabase;
 	private CameraManager cameraManager;
 	private CaptureActivityHandler handler;
 	private InactivityTimer inactivityTimer;
@@ -85,6 +88,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 		inactivityTimer = new InactivityTimer(this);
 		beepManager = new BeepManager(this);
 
+		mDatabase = getDatabase();
 		TranslateAnimation animation = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, 0.0f, Animation.RELATIVE_TO_PARENT, 0.0f, Animation.RELATIVE_TO_PARENT, 0.0f, Animation.RELATIVE_TO_PARENT,
 				0.9f);
 		animation.setDuration(4500);
@@ -97,13 +101,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 	protected void onResume() {
 		super.onResume();
 
-		// CameraManager must be initialized here, not in onCreate(). This is
-		// necessary because we don't
-		// want to open the camera driver and measure the screen size if we're
-		// going to show the help on
-		// first launch. That led to bugs where the scanning rectangle was the
-		// wrong size and partially
-		// off screen.
+
 		cameraManager = new CameraManager(getApplication());
 
 		handler = null;
