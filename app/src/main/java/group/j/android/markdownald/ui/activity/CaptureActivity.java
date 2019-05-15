@@ -17,6 +17,7 @@ package group.j.android.markdownald.ui.activity;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -36,8 +37,6 @@ import android.widget.RelativeLayout;
 import com.google.zxing.Result;
 
 import group.j.android.markdownald.R;
-import group.j.android.markdownald.base.BaseActivity;
-import group.j.android.markdownald.db.DatabaseHelper;
 import group.j.android.markdownald.scan.camera.CameraManager;
 import group.j.android.markdownald.scan.decode.DecodeThread;
 import group.j.android.markdownald.scan.utils.BeepManager;
@@ -45,11 +44,10 @@ import group.j.android.markdownald.scan.utils.CaptureActivityHandler;
 import group.j.android.markdownald.scan.utils.InactivityTimer;
 
 
-public final class CaptureActivity extends BaseActivity implements SurfaceHolder.Callback {
+public final class CaptureActivity extends Activity implements SurfaceHolder.Callback {
 
 	private static final String TAG = CaptureActivity.class.getSimpleName();
 
-	private DatabaseHelper mDatabase;
 	private CameraManager cameraManager;
 	private CaptureActivityHandler handler;
 	private InactivityTimer inactivityTimer;
@@ -88,7 +86,6 @@ public final class CaptureActivity extends BaseActivity implements SurfaceHolder
 		inactivityTimer = new InactivityTimer(this);
 		beepManager = new BeepManager(this);
 
-		mDatabase = getDatabase();
 		TranslateAnimation animation = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, 0.0f, Animation.RELATIVE_TO_PARENT, 0.0f, Animation.RELATIVE_TO_PARENT, 0.0f, Animation.RELATIVE_TO_PARENT,
 				0.9f);
 		animation.setDuration(4500);
