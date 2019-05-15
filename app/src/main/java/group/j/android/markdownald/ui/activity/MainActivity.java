@@ -102,6 +102,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         mProgressBar = findViewById(R.id.progress_circular);
+
+        //change the header of navigationView in activity_main
+        View headerView = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.UserName);
+        navUsername.setText("fuck~");
     }
 
     @Override
@@ -200,6 +205,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             case R.id.tutorialId:
                 Intent settingIntent = new Intent(this, TutorialActivity.class);
                 startActivity(settingIntent);
+                break;
+            case R.id.aboutId:
+                Intent aboutIntent = new Intent(this, TutorialActivity.class);
+                startActivity(aboutIntent);
                 break;
             default:
                 break;
