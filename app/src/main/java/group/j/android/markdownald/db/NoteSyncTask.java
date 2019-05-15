@@ -6,8 +6,6 @@ import android.util.Log;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -16,7 +14,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Map;
+
 
 public class NoteSyncTask extends AsyncTask<String, Integer, Integer> {
     private DownLoadServer downLoadServer = new DownLoadServer();
@@ -76,7 +74,6 @@ public class NoteSyncTask extends AsyncTask<String, Integer, Integer> {
                 }
                 Log.d(TAG, result);
                 JsonObject js = new JsonParser().parse(result).getAsJsonObject();
-//                JSONObject jsonObject = new JSONObject(result);
                 Log.d(TAG, js.toString());
                 boolean re = js .get("result").getAsBoolean();
                 String loginInfor = js.get("infor").getAsString();

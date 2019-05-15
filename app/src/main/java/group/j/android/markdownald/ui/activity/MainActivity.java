@@ -135,14 +135,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 Intent notebookIntent = new Intent(this, NotebookCreateActivity.class);
                 startActivity(notebookIntent);
                 break;
-//            case R.id.menu_scan:
-//                if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-//                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA}, 1);
-//                } else {
-//                    Intent intent = new Intent(MainActivity.this, CaptureActivity.class);
-//                    startActivity(intent);
-//                }
-//                break;
+            case R.id.menu_scan:
+                if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA}, 1);
+                } else {
+                    Intent intent = new Intent(MainActivity.this, CaptureActivity.class);
+                    startActivity(intent);
+                }
+                break;
             case R.id.menu_sync:
                 SharedPreferences sharedPreferences = getSharedPreferences(CONFIG, MODE_PRIVATE);
                 String uid = sharedPreferences.getString("userid", "");
@@ -183,7 +183,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                         syncTask.execute(js.addNote(n.getId(), n.getName(), nb.getName(), n.getContent(), uid).toString());
                     }
                 }
-//                syncTask.execute(js.loginJson(uid,password).toString());
                 break;
             default:
                 break;

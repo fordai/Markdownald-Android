@@ -1,7 +1,5 @@
 package group.j.android.markdownald.db;
 
-import android.app.Activity;
-import android.util.Log;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

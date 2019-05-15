@@ -15,6 +15,7 @@ import android.widget.TextView;
 import group.j.android.markdownald.R;
 import group.j.android.markdownald.base.BaseActivity;
 import group.j.android.markdownald.db.DatabaseHelper;
+import group.j.android.markdownald.model.Note;
 import group.j.android.markdownald.scan.decode.DecodeThread;
 
 public class ResultActivity extends BaseActivity {
@@ -55,25 +56,29 @@ public class ResultActivity extends BaseActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_note_edit, menu);
+		getMenuInflater().inflate(R.menu.activity_scan, menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-			case R.id.menu_preview:
+			case R.id.menu_show:
 				String content = mResultText.getText().toString();
 				Intent intent = new Intent(this, NotePreviewActivity.class);
 				intent.putExtra("note_name", "myscanNote");
 				intent.putExtra("note_content", content);
 				startActivity(intent);
 				break;
-			case R.id.menu_share:
-				String contentQR = mResultText.getText().toString();
-				Intent intentQR = new Intent(this, NoteQRActivity.class);
-				intentQR.putExtra("note_QR", contentQR);
-				startActivity(intentQR);
+			case R.id.menu_expot_note:
+				String content2 = mResultText.getText().toString();
+				if (!mDatabase.isNotebook("Default")) {
+					mDatabase.createNotebook("Default");
+				}
+				long id = mDatabase.createNote(new Note("newScan", content2));
+				mDatabase.createNoteToNotebook(id, mDatabase.getNotebookByName("Default").getId());
+				Intent noteIntent = new Intent(ResultActivity.this, MainActivity.class);
+				startActivity(noteIntent);
 				break;
 			case android.R.id.home:
 				finish();
