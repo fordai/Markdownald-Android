@@ -60,8 +60,6 @@ public class RegisterActivity extends BaseActivity {
 
                     @Override
                     public void onSuccess() {
-                        setLogin(true);
-
                         Intent noteIntent = new Intent(RegisterActivity.this, MainActivity.class);
                         startActivity(noteIntent);
                     }

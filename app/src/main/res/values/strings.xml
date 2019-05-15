@@ -42,5 +42,6 @@
     <string name="all_tutorial">Tutorial</string>
     <string name="all_about">About</string>
     <string name="all_share">Share</string>
+    <string name="all_logout">Logout</string>
 
 </resources>

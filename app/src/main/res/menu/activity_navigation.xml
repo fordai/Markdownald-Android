@@ -13,6 +13,10 @@
             android:icon="@drawable/ic_action_register"
             android:title="@string/all_login" />
         <item
+            android:id="@+id/menu_logout"
+            android:icon="@drawable/ic_baseline_exit_white"
+            android:title="@string/all_logout" />
+        <item
             android:id="@+id/menu_tutorial"
             android:icon="@drawable/ic_action_tutorial"
             android:title="@string/all_tutorial" />
