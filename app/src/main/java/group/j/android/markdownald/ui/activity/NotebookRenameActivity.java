@@ -6,6 +6,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -97,13 +98,17 @@ public class NotebookRenameActivity extends BaseActivity {
             case R.id.menu_rename:
                 String newName = edit_rename_notebook.getText().toString().trim();
                 if (newName.isEmpty()) {
-                    Toast.makeText(NotebookRenameActivity.this, EMPTY_REMINDER, Toast.LENGTH_SHORT).show();
+                    Toast toast = Toast.makeText(NotebookRenameActivity.this, EMPTY_REMINDER, Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
                 } else if (!mDatabase.isNotebook(newName)) {
                     mDatabase.updateNotebook(oldName, newName);
                     Intent intent = new Intent(NotebookRenameActivity.this, MainActivity.class);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(NotebookRenameActivity.this, DUPLICATION_REMINDER, Toast.LENGTH_SHORT).show();
+                    Toast toast = Toast.makeText(NotebookRenameActivity.this, DUPLICATION_REMINDER, Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
                 }
                 break;
             default:

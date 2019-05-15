@@ -6,6 +6,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -96,13 +97,17 @@ public class NotebookCreateActivity extends BaseActivity {
             case R.id.menu_create:
                 String name = edit_notebook_title.getText().toString().trim();
                 if (name.isEmpty()) {
-                    Toast.makeText(NotebookCreateActivity.this, EMPTY_REMINDER, Toast.LENGTH_SHORT).show();
+                    Toast toast = Toast.makeText(NotebookCreateActivity.this, EMPTY_REMINDER, Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
                 } else if (!mDatabase.isNotebook(name)) {
                     mDatabase.createNotebook(name);
                     Intent intent = new Intent(NotebookCreateActivity.this, MainActivity.class);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(NotebookCreateActivity.this, DUPLICATION_REMINDER, Toast.LENGTH_SHORT).show();
+                    Toast toast = Toast.makeText(NotebookCreateActivity.this, DUPLICATION_REMINDER, Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
                 }
                 break;
             default:

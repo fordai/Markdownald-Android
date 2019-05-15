@@ -33,6 +33,7 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
     private static final String EXTRA_NOTE_CONTENT = "note_content";
 
     private DatabaseHelper mDatabase;
+
     private Context context;
     private MorePopupWindow notePopupWindow;
     private MorePopupWindow notebookPopupWindow;
@@ -45,13 +46,17 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
         this.notePopupWindow = new MorePopupWindow(context, true);
         this.notebookPopupWindow = new MorePopupWindow(context, false);
         this.setDefaultViewTypeLayout(layoutResId);
+
         addItemType(TYPE_LEVEL_ZERO, R.layout.activity_notebook_adapter);
         addItemType(TYPE_LEVEL_ONE, R.layout.activity_note_adapter);
     }
 
+
+    // Fixes the default notebook on the top
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
+
         MultiItemEntity tmp = getData().get(position);
         if (tmp instanceof Notebook && ((Notebook) tmp).getName().equals("Default")) {
             this.easySwipeMenuLayout = holder.getView(R.id.layout_swipe_menu);
@@ -64,7 +69,6 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
         switch (holder.getItemViewType()) {
             case TYPE_LEVEL_ZERO:
                 holder.setText(R.id.text_title, ((Notebook) item).getName());
-
                 holder.getView(R.id.view_content).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -81,7 +85,6 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
                 break;
             case TYPE_LEVEL_ONE:
                 holder.setText(R.id.text_title, ((Note) item).getName());
-
                 holder.getView(R.id.view_content).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

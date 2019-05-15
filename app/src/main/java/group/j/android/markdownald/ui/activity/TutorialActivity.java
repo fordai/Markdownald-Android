@@ -13,6 +13,9 @@ import group.j.android.markdownald.R;
 import group.j.android.markdownald.base.BaseActivity;
 import group.j.android.markdownald.util.MarkdownSyntaxHighlighter;
 
+/**
+ * Provides the Markdown tutorial.
+ */
 public class TutorialActivity extends BaseActivity {
     private Toolbar mToolbar;
     private TextView toolbar_title;
@@ -23,6 +26,7 @@ public class TutorialActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutorial);
 
+        // Configure the toolbar
         mToolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null) {
@@ -32,6 +36,7 @@ public class TutorialActivity extends BaseActivity {
         toolbar_title = mToolbar.findViewById(R.id.toolbar_title);
         toolbar_title.setText(getString(R.string.app_name));
 
+        // Load the tutorial
         InputStream inputStream = null;
         try {
             inputStream = getAssets().open("Tutorial.txt");

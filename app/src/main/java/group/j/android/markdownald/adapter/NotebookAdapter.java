@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,7 +62,9 @@ public class NotebookAdapter extends RecyclerView.Adapter<NotebookAdapter.ViewHo
                     Intent intent = new Intent(mContext, MainActivity.class);
                     mContext.startActivity(intent);
                 } else {
-                    Toast.makeText(mContext, DUPLICATION_REMINDER, Toast.LENGTH_SHORT).show();
+                    Toast toast = Toast.makeText(mContext, DUPLICATION_REMINDER, Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
                 }
             }
         });

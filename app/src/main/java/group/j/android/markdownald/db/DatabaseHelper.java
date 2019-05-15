@@ -391,7 +391,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_NOTE_ID, note_id);
         values.put(KEY_NOTEBOOK_ID, notebook_id);
 
-        Log.d(TAG, "createNoteToNotebook: ");
 
         return db.insert(TABLE_NOTE_NOTEBOOK, null, values);
     }

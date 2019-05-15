@@ -6,6 +6,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -100,15 +101,20 @@ public class NoteCreateActivity extends BaseActivity {
                 break;
             case R.id.menu_create:
                 String name = edit_note_title.getText().toString().trim();
+
                 if (name.isEmpty()) {
-                    Toast.makeText(NoteCreateActivity.this, EMPTY_REMINDER, Toast.LENGTH_SHORT).show();
+                    Toast toast = Toast.makeText(NoteCreateActivity.this, EMPTY_REMINDER, Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
                 } else if (!mDatabase.isNoteByNotebook(name, "Default")) {
                     long id = mDatabase.createNote(new Note(name));
                     mDatabase.createNoteToNotebook(id, mDatabase.getNotebookByName("Default").getId());
                     Intent intent = new Intent(NoteCreateActivity.this, MainActivity.class);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(NoteCreateActivity.this, DUPLICATION_REMINDER, Toast.LENGTH_SHORT).show();
+                    Toast toast = Toast.makeText(NoteCreateActivity.this, DUPLICATION_REMINDER, Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
                 }
                 break;
             default:
@@ -117,5 +123,4 @@ public class NoteCreateActivity extends BaseActivity {
 
         return true;
     }
-
 }

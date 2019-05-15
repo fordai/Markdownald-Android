@@ -14,18 +14,14 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
-import com.google.gson.JsonObject;
 
 import java.util.List;
 
@@ -47,20 +43,25 @@ import group.j.android.markdownald.model.Notebook;
  * <li>By clicking the button on the top right corner, create a new note or notebook;</li>
  * <li>By clicking one notebook, display/hide its notes;</li>
  * <li>By clicking one note, display and edit its content;</li>
- * <li>By swiping to left, delete a note or notebook;</li>
- * <li>By swiping to left, do more operations including moving and renaming;</li>
+ * <li>By swiping to left on a note/notebook, delete a note or notebook;</li>
+ * <li>By swiping to left on a note/notebook, do more operations including moving and renaming;</li>
+ * <li>By swiping to right, display the sidebar, including register, login, tutorial and some information</li>
  * </ul>
  */
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MainActivity";
+
+    private DatabaseHelper mDatabase;
+
     private Toolbar mToolbar;
     private TextView toolbar_title;
+    private DrawerLayout layout_main;
+    private NavigationView navigation_sidebar;
     private RecyclerView mRecyclerView;
-    private DatabaseHelper mDatabase;
     private List<MultiItemEntity> mNotes;
     private ExpandableItemAdapter mAdapter;
-    private DrawerLayout layout_navigation;
     private ProgressBar mProgressBar;
+    private TextView text_username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,18 +71,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         // Configure the Toolbar
         mToolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(mToolbar);
-        NavigationView navigationView = findViewById(R.id.NavigationId);
-        navigationView.setNavigationItemSelectedListener(this);
 
         // Configure the navigation icon
         mToolbar.setNavigationIcon(R.drawable.ic_baseline_menu_white);
-        layout_navigation = findViewById(R.id.layout_navigation);
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                layout_navigation.openDrawer(Gravity.START);
-            }
-        });
 
         // Configure the title
         if (getSupportActionBar() != null) {
@@ -93,6 +85,24 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         // Configure the overflow icon
         mToolbar.setOverflowIcon(getResources().getDrawable(R.drawable.ic_baseline_add_white));
 
+        // Configure hte sidebar
+        layout_main = findViewById(R.id.layout_main);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                layout_main.openDrawer(Gravity.START);
+            }
+        });
+        navigation_sidebar = findViewById(R.id.navigation_sidebar);
+        navigation_sidebar.setNavigationItemSelectedListener(this);
+
+        //change the header of navigation_sidebar in activity_main
+        View headerView = navigation_sidebar.getHeaderView(0);
+        text_username = (TextView) headerView.findViewById(R.id.text_username);
+
+        // Configure the progress bar
+        mProgressBar = findViewById(R.id.progress_circular);
+
         // Configure the RecyclerView
         mRecyclerView = findViewById(R.id.recycler_note_list);
         mDatabase = getDatabase();
@@ -101,17 +111,18 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        mProgressBar = findViewById(R.id.progress_circular);
-
-        //change the header of navigationView in activity_main
-        View headerView = navigationView.getHeaderView(0);
-        TextView navUsername = (TextView) headerView.findViewById(R.id.UserName);
-        navUsername.setText("fuck~");
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
+
+        if (isLogin()) {
+            SharedPreferences sharedPreferences = getSharedPreferences(CONFIG, MODE_PRIVATE);
+            String userId = sharedPreferences.getString(USER_ID, "");
+            text_username.setText(userId);
+        }
+
         mNotes.clear();
         mNotes.addAll(mDatabase.loadDB());
         mAdapter.notifyDataSetChanged();
@@ -123,6 +134,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -145,13 +157,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 break;
             case R.id.menu_sync:
                 SharedPreferences sharedPreferences = getSharedPreferences(CONFIG, MODE_PRIVATE);
-                String uid = sharedPreferences.getString("userid", "");
-                String password = sharedPreferences.getString("password", "");
-                JsonCreator js = new JsonCreator();
-                List<Notebook> lbk = mDatabase.getAllNotebooks();
-                for (Notebook nb : lbk) {
-                    List<Note> alln = mDatabase.getAllNotesByNotebook(nb.getName());
-                    for (Note n : alln) {
+                String userId = sharedPreferences.getString(USER_ID, "");
+                String password = sharedPreferences.getString(PASSWORD, "");
+
+                List<Notebook> notebooks = mDatabase.getAllNotebooks();
+                for (Notebook notebook : notebooks) {
+                    List<Note> notes = mDatabase.getAllNotesByNotebook(notebook.getName());
+                    for (Note note : notes) {
                         NoteSyncTask syncTask = new NoteSyncTask(new NoteSyncTask.SyncListener() {
                             @Override
                             public void onStart() {
@@ -180,9 +192,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                                 mProgressBar.setVisibility(View.GONE);
                             }
                         }, mDatabase);
-                        syncTask.execute(js.addNote(n.getId(), n.getName(), nb.getName(), n.getContent(), uid).toString());
+
+                        JsonCreator js = new JsonCreator();
+                        syncTask.execute(js.addNote(note.getId(), note.getName(), notebook.getName(), note.getContent(), userId).toString());
                     }
                 }
+//                syncTask.execute(js.loginJson(userId,password).toString());
                 break;
             default:
                 break;
@@ -191,23 +206,24 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         return true;
     }
 
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.loginId:
+            case R.id.menu_login:
                 Intent loginIntent = new Intent(this, LoginActivity.class);
                 startActivity(loginIntent);
                 break;
-            case R.id.registerId:
+            case R.id.menu_register:
                 Intent registerIntent = new Intent(this, RegisterActivity.class);
                 startActivity(registerIntent);
                 break;
-            case R.id.tutorialId:
+            case R.id.menu_tutorial:
                 Intent settingIntent = new Intent(this, TutorialActivity.class);
                 startActivity(settingIntent);
                 break;
-            case R.id.aboutId:
-                Intent aboutIntent = new Intent(this, TutorialActivity.class);
+            case R.id.menu_about:
+                Intent aboutIntent = new Intent(this, AboutActivity.class);
                 startActivity(aboutIntent);
                 break;
             default:

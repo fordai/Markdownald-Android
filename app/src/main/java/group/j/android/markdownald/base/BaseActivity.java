@@ -13,14 +13,20 @@ import group.j.android.markdownald.db.DatabaseHelper;
  * Implements base activity.
  */
 public class BaseActivity extends AppCompatActivity {
-    private DatabaseHelper mDatabase;
     public static final String CONFIG = "config";
+    public static final String USER_ID = "userId";
+    public static final String PASSWORD = "password";
+
+    private DatabaseHelper mDatabase;
+
+    private static boolean isLogin;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDatabase = DatabaseHelper.getInstance(getApplicationContext());
         StatusBarUtil.setColorNoTranslucent(this, getResources().getColor(R.color.colorAccentBlue));
+        isLogin = false;
     }
 
     @Override
@@ -40,5 +46,13 @@ public class BaseActivity extends AppCompatActivity {
 
     public DatabaseHelper getDatabase() {
         return mDatabase;
+    }
+
+    public boolean isLogin() {
+        return isLogin;
+    }
+
+    public void setLogin(boolean login) {
+        isLogin = login;
     }
 }

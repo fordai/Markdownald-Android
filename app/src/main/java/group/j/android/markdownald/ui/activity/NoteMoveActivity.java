@@ -24,9 +24,10 @@ public class NoteMoveActivity extends BaseActivity {
     private static final String TAG = "NoteMoveActivity";
     private static final String NOTE_NAME = "note_name";
 
+    public DatabaseHelper mDatabase;
+
     public Toolbar mToolbar;
     private TextView toolbar_title;
-    public DatabaseHelper mDatabase;
     private List<MultiItemEntity> mNotes;
     private NotebookAdapter mAdapter;
     private RecyclerView mRecyclerView;
@@ -62,6 +63,8 @@ public class NoteMoveActivity extends BaseActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
+                break;
+            default:
                 break;
         }
 
