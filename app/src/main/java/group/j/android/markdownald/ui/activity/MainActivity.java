@@ -176,7 +176,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
                             @Override
                             public void onRegistered() {
-
+                                mRecyclerView.setVisibility(View.VISIBLE);
+                                mProgressBar.setVisibility(View.GONE);
                             }
                         }, mDatabase);
                         syncTask.execute(js.addNote(n.getId(), n.getName(), nb.getName(), n.getContent(), uid).toString());
