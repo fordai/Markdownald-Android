@@ -1,6 +1,7 @@
 package group.j.android.markdownald.ui.activity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -213,6 +214,18 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             case R.id.menu_login:
                 Intent loginIntent = new Intent(this, LoginActivity.class);
                 startActivity(loginIntent);
+                break;
+            case R.id.menu_logout:
+                setLogin(false);
+                text_username.setText(R.string.all_please_login);
+                layout_main.closeDrawer(Gravity.START);
+                SharedPreferences sharedPreferences = getSharedPreferences(CONFIG, Activity.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.commit();
+
+                Intent logoutIntent = new Intent(this, MainActivity.class);
+                startActivity(logoutIntent);
                 break;
             case R.id.menu_register:
                 Intent registerIntent = new Intent(this, RegisterActivity.class);
