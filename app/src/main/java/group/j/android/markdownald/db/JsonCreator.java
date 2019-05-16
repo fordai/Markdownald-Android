@@ -1,5 +1,7 @@
 package group.j.android.markdownald.db;
 
+import android.util.Log;
+
 import com.google.gson.JsonObject;
 
 public class JsonCreator {
@@ -46,6 +48,8 @@ public class JsonCreator {
 
     public JsonObject deleteNote(long nid, String pid){
         int newid = (int)nid;
+        Log.d("------------", "deleteNote: "+pid);
+        Log.d("------------", "deleteNote: "+nid);
         JsonObject json = new JsonObject();
         json.addProperty("operate","deleteNote");
         json.addProperty("nid",newid);

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package group.j.android.markdownald.scan.camera;
+package group.j.android.markdownald.util.scan.camera;
 
 import java.io.IOException;
 
@@ -26,7 +26,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.SurfaceHolder;
 
-import group.j.android.markdownald.scan.camera.open.OpenCameraInterface;
+import group.j.android.markdownald.util.scan.camera.open.OpenCameraInterface;
 
 
 public class CameraManager {

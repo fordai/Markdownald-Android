@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package group.j.android.markdownald.scan.camera;
+package group.j.android.markdownald.util.scan.camera;
 
 import java.util.ArrayList;
 import java.util.Collections;

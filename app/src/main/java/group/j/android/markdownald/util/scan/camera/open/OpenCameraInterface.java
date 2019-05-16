@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package group.j.android.markdownald.scan.camera.open;
+package group.j.android.markdownald.util.scan.camera.open;
 
 import android.hardware.Camera;
 import android.util.Log;

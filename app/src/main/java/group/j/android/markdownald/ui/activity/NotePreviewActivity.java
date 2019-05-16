@@ -12,7 +12,6 @@ import android.widget.TextView;
 import group.j.android.markdownald.R;
 import group.j.android.markdownald.base.BaseActivity;
 import group.j.android.markdownald.util.MarkdownRenderer;
-import group.j.android.markdownald.util.PDFCreater;
 
 /**
  * Implements the interface for displaying Markdown rendering effect.
@@ -60,11 +59,6 @@ public class NotePreviewActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_pdf:
-                PDFCreater pdfCreater = new PDFCreater(this);
-                pdfCreater.createPDF(text_preview);
-                this.finish();
-                break;
             case R.id.menu_QR:
                 String contentQR = text_preview.getText().toString();
                 Intent intentQR = new Intent(this, NoteQRActivity.class);

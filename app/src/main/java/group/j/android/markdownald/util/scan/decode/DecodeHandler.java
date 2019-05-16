@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package group.j.android.markdownald.scan.decode;
+package group.j.android.markdownald.util.scan.decode;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Map;

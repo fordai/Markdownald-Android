@@ -15,7 +15,7 @@ import group.j.android.markdownald.R;
 import group.j.android.markdownald.base.BaseActivity;
 import group.j.android.markdownald.db.DatabaseHelper;
 import group.j.android.markdownald.model.Note;
-import group.j.android.markdownald.scan.decode.DecodeThread;
+import group.j.android.markdownald.util.scan.decode.DecodeThread;
 
 public class ResultActivity extends BaseActivity {
 

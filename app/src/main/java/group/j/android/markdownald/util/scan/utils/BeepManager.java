@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package group.j.android.markdownald.scan.utils;
+package group.j.android.markdownald.util.scan.utils;
 
 import java.io.Closeable;
 import java.io.IOException;

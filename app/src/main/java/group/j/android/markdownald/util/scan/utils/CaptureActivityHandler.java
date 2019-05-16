@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package group.j.android.markdownald.scan.utils;
+package group.j.android.markdownald.util.scan.utils;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -25,8 +25,8 @@ import com.google.zxing.Result;
 
 import group.j.android.markdownald.R;
 import group.j.android.markdownald.ui.activity.CaptureActivity;
-import group.j.android.markdownald.scan.camera.CameraManager;
-import group.j.android.markdownald.scan.decode.DecodeThread;
+import group.j.android.markdownald.util.scan.camera.CameraManager;
+import group.j.android.markdownald.util.scan.decode.DecodeThread;
 
 
 public class CaptureActivityHandler extends Handler {

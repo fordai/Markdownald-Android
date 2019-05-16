@@ -96,7 +96,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         });
         navigation_sidebar = findViewById(R.id.navigation_sidebar);
         navigation_sidebar.setNavigationItemSelectedListener(this);
-
         //change the header of navigation_sidebar in activity_main
         View headerView = navigation_sidebar.getHeaderView(0);
         text_username = (TextView) headerView.findViewById(R.id.text_username);

@@ -37,11 +37,11 @@ import android.widget.RelativeLayout;
 import com.google.zxing.Result;
 
 import group.j.android.markdownald.R;
-import group.j.android.markdownald.scan.camera.CameraManager;
-import group.j.android.markdownald.scan.decode.DecodeThread;
-import group.j.android.markdownald.scan.utils.BeepManager;
-import group.j.android.markdownald.scan.utils.CaptureActivityHandler;
-import group.j.android.markdownald.scan.utils.InactivityTimer;
+import group.j.android.markdownald.util.scan.camera.CameraManager;
+import group.j.android.markdownald.util.scan.decode.DecodeThread;
+import group.j.android.markdownald.util.scan.utils.BeepManager;
+import group.j.android.markdownald.util.scan.utils.CaptureActivityHandler;
+import group.j.android.markdownald.util.scan.utils.InactivityTimer;
 
 
 public final class CaptureActivity extends Activity implements SurfaceHolder.Callback {
