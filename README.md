@@ -1,5 +1,7 @@
 # Markdownald-Android
 This is the Android version for Markdownald.
+[This is the Windows version for Markdownald.](https://github.com/BlankShrimp/MarkDownald)
+
 # License
 	
 	Copyright 2019 Zhenjin Dai
