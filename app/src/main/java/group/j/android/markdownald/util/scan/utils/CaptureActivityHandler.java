@@ -24,9 +24,9 @@ import android.os.Message;
 import com.google.zxing.Result;
 
 import group.j.android.markdownald.R;
-import group.j.android.markdownald.ui.activity.CaptureActivity;
 import group.j.android.markdownald.util.scan.camera.CameraManager;
 import group.j.android.markdownald.util.scan.decode.DecodeThread;
+import group.j.android.markdownald.ui.activity.CaptureActivity;
 
 
 public class CaptureActivityHandler extends Handler {

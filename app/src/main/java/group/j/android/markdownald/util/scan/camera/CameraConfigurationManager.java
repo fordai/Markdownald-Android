@@ -111,7 +111,6 @@ public final class CameraConfigurationManager {
 			cameraResolution.y = afterSize.height;
 		}
 
-		/** 设置相机预览为竖屏 */
 		camera.setDisplayOrientation(90);
 	}
 
@@ -123,13 +122,7 @@ public final class CameraConfigurationManager {
 		return screenResolution;
 	}
 
-	/**
-	 * 从相机支持的分辨率中计算出最适合的预览界面尺寸
-	 * 
-	 * @param parameters
-	 * @param screenResolution
-	 * @return
-	 */
+
 	private Point findBestPreviewSizeValue(Camera.Parameters parameters, Point screenResolution) {
 		List<Camera.Size> rawSupportedSizes = parameters.getSupportedPreviewSizes();
 		if (rawSupportedSizes == null) {
